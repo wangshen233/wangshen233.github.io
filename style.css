@@ -179,12 +179,35 @@ body {
   padding: 4px 8px;
 }
 
-.signal-lamp {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--grad-1), var(--grad-3));
-  box-shadow: 0 0 12px var(--grad-1);
+@property --sheen-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.hud-compass-svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  animation: slowSpinCW 26s linear infinite;
+}
+
+.compass-needle {
+  transform-origin: 14px 14px;
+  transform: rotate(var(--compass-deg, 25deg));
+  transition: transform 0.15s ease-out;
+}
+
+@keyframes slowSpinCW {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slowSpinCCW {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes sheenRotate {
+  to { --sheen-angle: 360deg; }
 }
 
 .brand-tag {
@@ -288,12 +311,22 @@ body {
   will-change: transform;
 }
 
-.sunset-orb {
+.celestial-sun-assembly {
   position: absolute;
-  left: 64vw;
-  bottom: 48vh;
-  width: clamp(200px, 21vw, 300px);
-  height: clamp(200px, 21vw, 300px);
+  left: 60vw;
+  bottom: 43vh;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 900px;
+}
+
+.sunset-orb {
+  position: relative;
+  width: clamp(190px, 19vw, 250px);
+  height: clamp(190px, 19vw, 250px);
   border-radius: 50%;
   background: radial-gradient(
     circle at 50% 50%,
@@ -302,9 +335,126 @@ body {
     #ff8da8 82%,
     #d65c7a 100%
   );
-  filter: blur(6px);
-  opacity: 0.62;
+  filter: blur(5px);
+  opacity: 0.68;
   box-shadow: 0 0 120px 55px var(--sky-glow);
+}
+
+.astrolabe-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.astrolabe-svg.ring-outer {
+  animation: slowSpinCW 52s linear infinite;
+}
+
+.astrolabe-svg.ring-middle {
+  animation: slowSpinCCW 34s linear infinite;
+}
+
+.gyro-orbit-ring {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 196, 148, 0.36);
+  box-shadow: 0 0 22px rgba(255, 138, 168, 0.22);
+  transform-style: preserve-3d;
+  animation: gyroOrbit 16s linear infinite;
+}
+
+.gyro-orbit-ring::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff2d6;
+  box-shadow: 0 0 14px 4px #ff9c76;
+}
+
+@keyframes gyroOrbit {
+  0%   { transform: rotateX(68deg) rotateY(-18deg) rotateZ(0deg); }
+  100% { transform: rotateX(68deg) rotateY(-18deg) rotateZ(360deg); }
+}
+
+/* Rotating Seaside Windmills & Sweeping Lighthouse on Distant Viaduct */
+.windmill-cluster {
+  position: absolute;
+  bottom: 26px;
+  width: 80px;
+  height: 128px;
+}
+
+.windmill-cluster.small {
+  transform: scale(0.76);
+  transform-origin: bottom center;
+}
+
+.windmill-mast {
+  position: absolute;
+  left: 38px;
+  bottom: 0;
+  width: 4px;
+  height: 78px;
+  background: linear-gradient(180deg, rgba(255, 178, 168, 0.48), rgba(92, 36, 52, 0.55));
+  border-radius: 2px;
+}
+
+.windmill-blades {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 80px;
+  height: 80px;
+  animation: slowSpinCW 9.5s linear infinite;
+}
+
+.windmill-blades.reverse-spin {
+  animation: slowSpinCCW 7.8s linear infinite;
+}
+
+.lighthouse-tower {
+  position: absolute;
+  bottom: 24px;
+  width: 14px;
+  height: 88px;
+  background: linear-gradient(180deg, #ff9c76, rgba(112, 42, 60, 0.7));
+  clip-path: polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%);
+}
+
+.lighthouse-lamp {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 10px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff3d1;
+  box-shadow: 0 0 18px 6px #ffc978;
+}
+
+.lighthouse-beam {
+  position: absolute;
+  top: -16px;
+  left: -190px;
+  width: 394px;
+  height: 40px;
+  background: linear-gradient(90deg, transparent, rgba(255, 212, 148, 0.24) 45%, rgba(255, 238, 190, 0.45) 50%, rgba(255, 212, 148, 0.24) 55%, transparent);
+  transform-origin: 197px 20px;
+  animation: beaconSweep 7s ease-in-out infinite alternate;
+}
+
+@keyframes beaconSweep {
+  0%   { transform: rotate(-14deg) scaleX(0.92); opacity: 0.55; }
+  50%  { transform: rotate(4deg) scaleX(1.08); opacity: 0.95; }
+  100% { transform: rotate(16deg) scaleX(0.92); opacity: 0.55; }
 }
 
 .cloud-band {
@@ -478,13 +628,13 @@ body {
   border: 1px solid var(--border-strong);
 }
 
-/* Undercarriage & Rotating Spoked Bogie Wheels */
+/* Undercarriage, Spoked Drive Wheels, Coupling Rod & Meshed Gears */
 .undercarriage {
   position: absolute;
   left: 34px;
   right: 34px;
-  bottom: -30px;
-  height: 30px;
+  bottom: -32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -494,7 +644,7 @@ body {
 .bogie {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
   position: relative;
 }
 
@@ -507,17 +657,121 @@ body {
   border-radius: 3px;
 }
 
+/* Eccentric Piston Coupling Rod orbiting with wheels */
+.coupling-rod {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 4px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--grad-2), var(--grad-3));
+  box-shadow: 0 0 8px rgba(255, 172, 130, 0.5);
+  z-index: 4;
+  transform: translate(calc(cos(var(--wheel-deg, 0deg)) * 5px), calc(sin(var(--wheel-deg, 0deg)) * 5px));
+}
+
 .wheel {
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background:
-    radial-gradient(circle, var(--grad-3) 0 3px, var(--wheel-metal) 3.5px 9px, transparent 9.5px),
-    conic-gradient(from 0deg, var(--wheel-rim) 0deg 22deg, transparent 22deg 90deg, var(--wheel-rim) 90deg 112deg, transparent 112deg 180deg, var(--wheel-rim) 180deg 202deg, transparent 202deg 270deg, var(--wheel-rim) 270deg 292deg, transparent 292deg 360deg);
+    radial-gradient(circle, var(--grad-3) 0 3.5px, var(--wheel-metal) 4px 8px, transparent 8.5px),
+    conic-gradient(
+      from 0deg,
+      var(--wheel-rim) 0deg 18deg, transparent 18deg 60deg,
+      var(--wheel-rim) 60deg 78deg, transparent 78deg 120deg,
+      var(--wheel-rim) 120deg 138deg, transparent 138deg 180deg,
+      var(--wheel-rim) 180deg 198deg, transparent 198deg 240deg,
+      var(--wheel-rim) 240deg 258deg, transparent 258deg 300deg,
+      var(--wheel-rim) 300deg 318deg, transparent 318deg 360deg
+    );
   border: 2.5px solid var(--wheel-rim);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
   transform: rotate(var(--wheel-deg, 0deg));
   z-index: 2;
+}
+
+.under-gears {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gear-svg {
+  width: 26px;
+  height: 26px;
+  color: var(--grad-2);
+  opacity: 0.85;
+}
+
+.gear-svg.small {
+  width: 19px;
+  height: 19px;
+  color: var(--grad-3);
+}
+
+.gear-cw {
+  animation: slowSpinCW 7s linear infinite;
+}
+
+.gear-ccw {
+  animation: slowSpinCCW 5.2s linear infinite;
+}
+
+/* Automaton Workshop Corner Meshed Escapement Gears & Kinetic Emblems */
+.automaton-gears {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  pointer-events: none;
+}
+
+.rune-seal-svg {
+  width: 38px;
+  height: 38px;
+  opacity: 0.88;
+}
+
+.pinwheel-svg {
+  width: 34px;
+  height: 34px;
+  opacity: 0.88;
+}
+
+.covenant-rings {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  perspective: 220px;
+}
+
+.covenant-rings span {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 2px solid var(--grad-3);
+}
+
+.covenant-rings .ring-a {
+  animation: covSpinA 4.8s linear infinite;
+}
+
+.covenant-rings .ring-b {
+  border-color: var(--grad-1);
+  animation: covSpinB 4.8s linear infinite;
+}
+
+@keyframes covSpinA {
+  0%   { transform: rotateX(56deg) rotateY(20deg) rotateZ(0deg); }
+  100% { transform: rotateX(56deg) rotateY(20deg) rotateZ(360deg); }
+}
+
+@keyframes covSpinB {
+  0%   { transform: rotateX(-56deg) rotateY(20deg) rotateZ(360deg); }
+  100% { transform: rotateX(-56deg) rotateY(20deg) rotateZ(0deg); }
 }
 
 .under-tank {
@@ -855,14 +1109,50 @@ body {
 
 .turntable {
   position: relative;
-  width: 122px;
-  height: 122px;
+  width: 138px;
+  height: 138px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  perspective: 500px;
+}
+
+.turntable-bezel {
+  position: absolute;
+  inset: 0;
+  width: 138px;
+  height: 138px;
+  pointer-events: none;
+  opacity: 0.72;
+  animation: slowSpinCCW 18s linear infinite;
+}
+
+.turntable-gyro-halo {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255, 156, 118, 0.45);
+  pointer-events: none;
+  opacity: 0.45;
+  animation: turntableGyro 6.5s linear infinite;
+}
+
+.turntable:hover .turntable-gyro-halo,
+.cab-radio-deck.live-glow .turntable-gyro-halo {
+  opacity: 0.95;
+  border-color: var(--grad-1);
+  box-shadow: 0 0 20px rgba(255, 122, 162, 0.35);
+}
+
+@keyframes turntableGyro {
+  0%   { transform: rotateX(58deg) rotateY(18deg) rotateZ(0deg); }
+  100% { transform: rotateX(58deg) rotateY(18deg) rotateZ(360deg); }
 }
 
 .vinyl-disc {
-  width: 116px;
-  height: 116px;
+  width: 114px;
+  height: 114px;
   border-radius: 50%;
   background: repeating-radial-gradient(circle at center, var(--vinyl-body) 0 4px, var(--vinyl-groove) 4px 5px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
@@ -1086,6 +1376,7 @@ body {
 }
 
 .obs-plaque {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1093,6 +1384,37 @@ body {
   border-radius: 16px;
   background: var(--car-interior);
   border: 1px solid var(--border-subtle);
+}
+
+/* Rotating Conic Sunset Sheen Border on Hovered Windows, Luggage Tags & Manuscripts */
+.obs-window::after,
+.luggage-tag::after,
+.note-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.8px;
+  background: conic-gradient(
+    from var(--sheen-angle),
+    transparent 0deg 55deg,
+    var(--grad-1) 95deg,
+    var(--grad-3) 150deg,
+    transparent 200deg 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+  animation: sheenRotate 3.4s linear infinite;
+}
+
+.obs-window:hover::after,
+.luggage-tag:hover::after,
+.note-card:hover::after {
+  opacity: 1;
 }
 
 .plaque-kicker {

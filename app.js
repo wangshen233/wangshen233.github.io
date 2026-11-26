@@ -240,9 +240,11 @@ function initTrainJourney() {
       sleepers.style.transform = `translate3d(${-(trainController.currentX % 34)}px, 0, 0)`;
     }
 
-    // Rotate bogie wheels proportionally to travel distance
-    const wheelDeg = (trainController.currentX * 0.42) % 360;
+    // Rotate bogie wheels & HUD compass needle proportionally to travel distance
+    const wheelDeg = (trainController.currentX * 0.56) % 360;
     trackWorld.style.setProperty("--wheel-deg", `${wheelDeg}deg`);
+    document.documentElement.style.setProperty("--compass-deg", `${(25 + trainController.currentX * 0.18) % 360}deg`);
+    window.__trainVelocity = trainController.currentX - prevX;
 
     // Inner Window Scenic Parallax on Flagship Observation Windows
     const vpCenter = window.innerWidth / 2;
@@ -293,14 +295,14 @@ function initTrainJourney() {
 }
 
 /* ==========================================================================
-   3. Ambient Sunset Fireflies & Click Ripples Canvas
+   3. Kinetic Sakura Petals, Speed Wind-Streaks & Rotating Compass Vortex Canvas
    ========================================================================== */
 function initCanvas() {
   const canvas = document.getElementById("ambient-canvas");
   const ctx = canvas.getContext("2d");
   let w = 0, h = 0;
-  const motes = [];
-  const ripples = [];
+  const petals = [];
+  const bursts = [];
 
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -309,76 +311,159 @@ function initCanvas() {
   resize();
   window.addEventListener("resize", resize);
 
-  for (let i = 0; i < 32; i++) {
-    motes.push({
+  // Drifting & tumbling 3D sakura petals + glowing sunset fireflies
+  for (let i = 0; i < 36; i++) {
+    petals.push({
       x: Math.random() * w,
       y: Math.random() * h,
-      r: 1.1 + Math.random() * 2.0,
-      vx: -0.25 - Math.random() * 0.35,
-      vy: -0.18 + Math.random() * 0.36,
-      phase: Math.random() * Math.PI * 2,
-      hue: Math.random() > 0.45 ? "255, 138, 168" : "255, 192, 134",
+      size: 2.8 + Math.random() * 4.2,
+      vx: -0.45 - Math.random() * 0.65,
+      vy: 0.18 + Math.random() * 0.42,
+      rot: Math.random() * Math.PI * 2,
+      vRot: (Math.random() - 0.5) * 0.07,
+      flip: Math.random() * Math.PI * 2,
+      vFlip: 0.03 + Math.random() * 0.04,
+      isPetal: i % 2 === 0,
+      hue: Math.random() > 0.42 ? "255, 138, 168" : "255, 196, 136",
     });
   }
 
   window.addEventListener("pointermove", (e) => {
-    if (Math.random() < 0.22 && motes.length < 58) {
-      motes.push({
-        x: e.clientX + (-6 + Math.random() * 12),
-        y: e.clientY + (-6 + Math.random() * 12),
-        r: 1.3 + Math.random() * 1.7,
-        vx: -0.4 - Math.random() * 0.4,
-        vy: -0.3 + Math.random() * 0.6,
-        phase: 0,
-        ttl: 80,
-        hue: "255, 152, 176",
+    if (Math.random() < 0.25 && petals.length < 68) {
+      petals.push({
+        x: e.clientX + (-8 + Math.random() * 16),
+        y: e.clientY + (-8 + Math.random() * 16),
+        size: 2.6 + Math.random() * 3.2,
+        vx: -0.6 - Math.random() * 0.6,
+        vy: -0.35 + Math.random() * 0.7,
+        rot: Math.random() * Math.PI * 2,
+        vRot: (Math.random() - 0.5) * 0.12,
+        flip: 0,
+        vFlip: 0.06,
+        isPetal: true,
+        ttl: 85,
+        hue: "255, 152, 178",
       });
     }
   });
 
+  // Click -> Rotating Astronomical Compass Star + Spiraling Sparks!
   window.addEventListener("click", (e) => {
-    ripples.push({ x: e.clientX, y: e.clientY, r: 4, alpha: 0.52 });
+    const sparks = [];
+    for (let k = 0; k < 10; k++) {
+      const baseAngle = (Math.PI * 2 * k) / 10;
+      sparks.push({ angle: baseAngle, dist: 6, speed: 1.6 + Math.random() * 1.4 });
+    }
+    bursts.push({
+      x: e.clientX,
+      y: e.clientY,
+      r: 8,
+      rot: 0,
+      alpha: 0.82,
+      sparks,
+    });
   });
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
-    for (let i = motes.length - 1; i >= 0; i--) {
-      const m = motes[i];
-      m.x += m.vx;
-      m.y += m.vy;
-      m.phase += 0.035;
-      if (m.ttl !== undefined) {
-        m.ttl--;
-        if (m.ttl <= 0) {
-          motes.splice(i, 1);
+    const vel = window.__trainVelocity || 0;
+
+    for (let i = petals.length - 1; i >= 0; i--) {
+      const p = petals[i];
+      p.x += p.vx - vel * 0.14;
+      p.y += p.vy;
+      p.rot += p.vRot + vel * 0.002;
+      p.flip += p.vFlip;
+
+      if (p.ttl !== undefined) {
+        p.ttl--;
+        if (p.ttl <= 0) {
+          petals.splice(i, 1);
           continue;
         }
       } else {
-        if (m.x < -10) m.x = w + 10;
-        if (m.y < -10) m.y = h + 10;
-        if (m.y > h + 10) m.y = -10;
+        if (p.x < -20) p.x = w + 20;
+        if (p.x > w + 20) p.x = -20;
+        if (p.y > h + 20) p.y = -15;
+        if (p.y < -20) p.y = h + 15;
       }
-      const alpha = (0.22 + 0.42 * Math.sin(m.phase)) * (m.ttl ? m.ttl / 80 : 1);
-      ctx.beginPath();
-      ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${m.hue}, ${Math.max(0.05, alpha)})`;
-      ctx.fill();
+
+      const lifeAlpha = p.ttl ? p.ttl / 85 : 1;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+
+      if (p.isPetal) {
+        // 3D tumbling sakura petal
+        const scaleY = 0.35 + 0.65 * Math.abs(Math.cos(p.flip));
+        ctx.scale(1, scaleY);
+        ctx.beginPath();
+        ctx.moveTo(0, -p.size);
+        ctx.bezierCurveTo(p.size * 0.9, -p.size * 0.5, p.size * 0.8, p.size * 0.8, 0, p.size);
+        ctx.bezierCurveTo(-p.size * 0.8, p.size * 0.8, -p.size * 0.9, -p.size * 0.5, 0, -p.size);
+        ctx.fillStyle = `rgba(${p.hue}, ${0.52 * lifeAlpha})`;
+        ctx.fill();
+      } else {
+        const pulse = 0.25 + 0.45 * Math.sin(p.flip);
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size * 0.52, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.hue}, ${Math.max(0.08, pulse * lifeAlpha)})`;
+        ctx.fill();
+      }
+      ctx.restore();
     }
 
-    for (let i = ripples.length - 1; i >= 0; i--) {
-      const rp = ripples[i];
-      rp.r += 1.8;
-      rp.alpha *= 0.94;
-      if (rp.alpha < 0.02) {
-        ripples.splice(i, 1);
+    // Draw Rotating Compass Vortex Bursts on Click
+    for (let i = bursts.length - 1; i >= 0; i--) {
+      const b = bursts[i];
+      b.r += 1.65;
+      b.rot += 0.055;
+      b.alpha *= 0.945;
+      if (b.alpha < 0.025) {
+        bursts.splice(i, 1);
         continue;
       }
+
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.rotate(b.rot);
+
+      // Outer dashed astrolabe ring
       ctx.beginPath();
-      ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 146, 172, ${rp.alpha})`;
-      ctx.lineWidth = 1.2;
+      ctx.setLineDash([5, 5]);
+      ctx.arc(0, 0, b.r, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255, 152, 174, ${b.alpha})`;
+      ctx.lineWidth = 1.3;
       ctx.stroke();
+
+      // Counter-rotating 4-point compass cross
+      ctx.rotate(-b.rot * 2.1);
+      ctx.setLineDash([]);
+      for (let c = 0; c < 4; c++) {
+        ctx.rotate(Math.PI / 2);
+        ctx.beginPath();
+        ctx.moveTo(b.r * 0.55, 0);
+        ctx.lineTo(b.r * 1.18, 0);
+        ctx.strokeStyle = `rgba(255, 204, 132, ${b.alpha * 0.9})`;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+      }
+
+      // Spiraling golden-sakura sparks
+      b.sparks.forEach((sp) => {
+        sp.dist += sp.speed;
+        sp.angle += 0.04;
+        const sx = Math.cos(sp.angle) * sp.dist;
+        const sy = Math.sin(sp.angle) * sp.dist;
+        ctx.beginPath();
+        ctx.arc(sx, sy, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 186, 148, ${b.alpha})`;
+        ctx.fill();
+      });
+
+      ctx.restore();
     }
+
     requestAnimationFrame(draw);
   }
   draw();
@@ -417,6 +502,8 @@ function initRadio() {
     disc.classList.toggle("playing", radio.playing);
     arm.classList.toggle("playing", radio.playing);
     dot.classList.toggle("live", radio.playing);
+    const deck = document.querySelector(".cab-radio-deck");
+    if (deck) deck.classList.toggle("live-glow", radio.playing);
     playBtn.textContent = radio.playing ? "⏸ 暂停车厢电台" : "▶ 落下唱针";
     freqEl.textContent = `${radio.playing ? "ON AIR" : "STANDBY"} · ${st.freq}`;
     titleEl.textContent = st.name;
@@ -667,6 +754,7 @@ document.addEventListener("DOMContentLoaded", () => {
   syncIssueNotes();
   syncPaperBoats();
   initTrainJourney();
+  initWindowTilt3D();
 
   const modal = document.getElementById("note-modal");
   document.getElementById("modal-close").addEventListener("click", () => modal.classList.remove("open"));
@@ -674,3 +762,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) modal.classList.remove("open");
   });
 });
+
+/* 8. 3D Gyroscopic Tilt on Train Observation Windows */
+function initWindowTilt3D() {
+  document.querySelectorAll(".obs-window, .windshield-frame").forEach((win) => {
+    win.style.transition = "transform 0.22s ease-out";
+    win.addEventListener("pointermove", (e) => {
+      const r = win.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      win.style.transform = `perspective(900px) rotateY(${nx * 6.5}deg) rotateX(${-ny * 6.5}deg)`;
+    });
+    win.addEventListener("pointerleave", () => {
+      win.style.transform = "none";
+    });
+  });
+}

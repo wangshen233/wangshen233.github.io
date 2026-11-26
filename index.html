@@ -16,7 +16,20 @@
   <header class="top-hud">
     <div class="hud-inner">
       <button class="brand-btn" type="button" data-stop="0">
-        <span class="signal-lamp"></span>
+        <svg class="hud-compass-svg" viewBox="0 0 28 28" aria-hidden="true">
+          <circle cx="14" cy="14" r="12" fill="none" stroke="url(#compassGrad)" stroke-width="1.4" stroke-dasharray="3 2.5"/>
+          <g class="compass-needle">
+            <polygon points="14,3 16.4,14 14,12.2 11.6,14" fill="#ff7aa2"/>
+            <polygon points="14,25 16.4,14 14,15.8 11.6,14" fill="#ffc978"/>
+            <circle cx="14" cy="14" r="2.1" fill="#fff5f8"/>
+          </g>
+          <defs>
+            <linearGradient id="compassGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ff7aa2"/>
+              <stop offset="100%" stop-color="#ffc978"/>
+            </linearGradient>
+          </defs>
+        </svg>
         <span class="serif-jp">233系 · 茜色の海列車</span>
         <span class="brand-tag mono">日天</span>
       </button>
@@ -40,16 +53,76 @@
   <!-- Full-Viewport Horizontal Parallax Sea-Train World -->
   <div id="world-viewport" class="world-viewport">
 
-    <!-- Layer 0: Far Horizon Sunset Orb & Painted Clouds (0.08x Parallax) -->
+    <!-- Layer 0: Far Horizon Sunset Orb, Rotating Celestial Astrolabe & Clouds (0.08x Parallax) -->
     <div id="sky-layer" class="sky-layer" aria-hidden="true">
-      <div class="sunset-orb"></div>
+      <div class="celestial-sun-assembly">
+        <div class="sunset-orb"></div>
+        <!-- Triple Counter-Rotating Astronomical Astrolabe Rings -->
+        <svg class="astrolabe-svg ring-outer" viewBox="0 0 420 420">
+          <circle cx="210" cy="210" r="196" fill="none" stroke="rgba(255,196,152,0.28)" stroke-width="1.2" stroke-dasharray="2 8"/>
+          <circle cx="210" cy="210" r="184" fill="none" stroke="rgba(255,140,172,0.22)" stroke-width="1"/>
+          <g stroke="rgba(255,205,150,0.42)" stroke-width="1.5">
+            <line x1="210" y1="6" x2="210" y2="22"/><line x1="210" y1="398" x2="210" y2="414"/>
+            <line x1="6" y1="210" x2="22" y2="210"/><line x1="398" y1="210" x2="414" y2="210"/>
+            <line x1="66" y1="66" x2="78" y2="78"/><line x1="354" y1="354" x2="342" y2="342"/>
+            <line x1="354" y1="66" x2="342" y2="78"/><line x1="66" y1="354" x2="78" y2="342"/>
+          </g>
+          <circle cx="210" cy="26" r="5" fill="#ffc978"/>
+          <circle cx="394" cy="210" r="3.8" fill="#ff7aa2"/>
+          <circle cx="26" cy="210" r="3.8" fill="#ff9c76"/>
+        </svg>
+
+        <svg class="astrolabe-svg ring-middle" viewBox="0 0 420 420">
+          <circle cx="210" cy="210" r="148" fill="none" stroke="rgba(255,176,158,0.34)" stroke-width="1.4" stroke-dasharray="18 10 3 10"/>
+          <polygon points="210,54 216,68 204,68" fill="#ffc978" opacity="0.75"/>
+          <polygon points="210,366 216,352 204,352" fill="#ff7aa2" opacity="0.75"/>
+          <circle cx="105" cy="105" r="4.5" fill="none" stroke="#ffc978" stroke-width="1.6"/>
+          <circle cx="315" cy="315" r="4.5" fill="none" stroke="#ff7aa2" stroke-width="1.6"/>
+        </svg>
+
+        <div class="gyro-orbit-ring"></div>
+      </div>
+
       <div class="cloud-band cloud-1"></div>
       <div class="cloud-band cloud-2"></div>
       <div class="cloud-band cloud-3"></div>
     </div>
 
-    <!-- Layer 1: Distant Coastal Silhouette & Sea Viaduct Arches (0.28x Parallax) -->
-    <div id="viaduct-layer" class="viaduct-layer" aria-hidden="true"></div>
+    <!-- Layer 1: Distant Coastal Silhouette, Viaduct & Rotating Seaside Windmills (0.28x Parallax) -->
+    <div id="viaduct-layer" class="viaduct-layer" aria-hidden="true">
+      <div class="windmill-cluster" style="left: 340px;">
+        <div class="windmill-mast"></div>
+        <svg class="windmill-blades" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="4" fill="#ffc978"/>
+          <path d="M40 40 L36 6 H44 Z M40 40 L74 36 V44 Z M40 40 L44 74 H36 Z M40 40 L6 44 V36 Z" fill="rgba(255,182,168,0.52)"/>
+        </svg>
+      </div>
+      <div class="windmill-cluster small" style="left: 420px;">
+        <div class="windmill-mast"></div>
+        <svg class="windmill-blades reverse-spin" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="4" fill="#ff8da9"/>
+          <path d="M40 40 L37 9 H43 Z M40 40 L71 37 V43 Z M40 40 L43 71 H37 Z M40 40 L9 43 V37 Z" fill="rgba(255,162,178,0.45)"/>
+        </svg>
+      </div>
+      <div class="windmill-cluster" style="left: 1480px;">
+        <div class="windmill-mast"></div>
+        <svg class="windmill-blades" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="4" fill="#ffc978"/>
+          <path d="M40 40 L36 6 H44 Z M40 40 L74 36 V44 Z M40 40 L44 74 H36 Z M40 40 L6 44 V36 Z" fill="rgba(255,182,168,0.52)"/>
+        </svg>
+      </div>
+      <div class="lighthouse-tower" style="left: 2460px;">
+        <div class="lighthouse-beam"></div>
+        <div class="lighthouse-lamp"></div>
+      </div>
+      <div class="windmill-cluster" style="left: 3320px;">
+        <div class="windmill-mast"></div>
+        <svg class="windmill-blades" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="4" fill="#ffc978"/>
+          <path d="M40 40 L36 6 H44 Z M40 40 L74 36 V44 Z M40 40 L44 74 H36 Z M40 40 L6 44 V36 Z" fill="rgba(255,182,168,0.52)"/>
+        </svg>
+      </div>
+    </div>
 
     <!-- Layer 2: Coupled Sea-Train Consist (1.0x Main Horizontal World) -->
     <main id="train-track-world" class="train-track-world">
@@ -163,6 +236,20 @@
 
               <div class="radio-stage">
                 <div id="turntable" class="turntable" title="点击落下或抬起唱针">
+                  <!-- Counter-rotating holographic strobe bezel + 3D gyro aura -->
+                  <svg class="turntable-bezel" viewBox="0 0 144 144" aria-hidden="true">
+                    <circle cx="72" cy="72" r="68" fill="none" stroke="url(#bezelGrad)" stroke-width="1.4" stroke-dasharray="4 5"/>
+                    <circle cx="72" cy="4" r="3" fill="#ffc978"/>
+                    <circle cx="72" cy="140" r="3" fill="#ff7aa2"/>
+                    <defs>
+                      <linearGradient id="bezelGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#ff7aa2"/>
+                        <stop offset="50%" stop-color="#ff9c76"/>
+                        <stop offset="100%" stop-color="#ffc978"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div class="turntable-gyro-halo" aria-hidden="true"></div>
                   <div id="vinyl-disc" class="vinyl-disc">
                     <div class="vinyl-label"><div class="vinyl-hole"></div></div>
                   </div>
@@ -194,9 +281,13 @@
 
           <div class="waist-stripe"></div>
           <div class="undercarriage" aria-hidden="true">
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
-            <div class="under-tank">233-001 · MOTOR UNIT</div>
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
+            <div class="under-gears">
+              <svg class="gear-svg gear-cw" viewBox="0 0 36 36"><circle cx="18" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="18" cy="18" r="13.5" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="3.5 4.2"/><circle cx="18" cy="18" r="3.5" fill="currentColor"/></svg>
+              <span class="under-tank">233-001 · MOTOR UNIT</span>
+              <svg class="gear-svg gear-ccw" viewBox="0 0 36 36"><circle cx="18" cy="18" r="9" fill="none" stroke="currentColor" stroke-width="2.8"/><circle cx="18" cy="18" r="12.5" fill="none" stroke="currentColor" stroke-width="3.8" stroke-dasharray="3.2 4"/><circle cx="18" cy="18" r="3" fill="currentColor"/></svg>
+            </div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
           </div>
         </section>
 
@@ -228,6 +319,10 @@
             </a>
 
             <div class="obs-plaque">
+              <div class="automaton-gears" aria-hidden="true">
+                <svg class="gear-svg gear-cw" viewBox="0 0 36 36"><circle cx="18" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="18" cy="18" r="13.5" fill="none" stroke="currentColor" stroke-width="3.6" stroke-dasharray="3.4 4.2"/><circle cx="18" cy="18" r="3" fill="currentColor"/></svg>
+                <svg class="gear-svg gear-ccw small" viewBox="0 0 36 36"><circle cx="18" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="2.8"/><circle cx="18" cy="18" r="13.5" fill="none" stroke="currentColor" stroke-width="3.8" stroke-dasharray="3.4 4.2"/><circle cx="18" cy="18" r="3" fill="currentColor"/></svg>
+              </div>
               <div>
                 <div class="plaque-kicker mono">AUTOMATION WORKSHOP</div>
                 <h3 class="serif-jp">Turb Register</h3>
@@ -288,6 +383,13 @@
             </a>
 
             <div class="obs-plaque">
+              <div class="automaton-gears" aria-hidden="true">
+                <svg class="rune-seal-svg" viewBox="0 0 42 42">
+                  <circle class="gear-cw" style="transform-origin:21px 21px" cx="21" cy="21" r="18" fill="none" stroke="#ffc978" stroke-width="1.2" stroke-dasharray="4 3"/>
+                  <polygon class="gear-ccw" style="transform-origin:21px 21px" points="21,6 25,17 36,21 25,25 21,36 17,25 6,21 17,17" fill="none" stroke="#ff7aa2" stroke-width="1.3"/>
+                  <circle cx="21" cy="21" r="2.5" fill="#ffc978"/>
+                </svg>
+              </div>
               <div>
                 <div class="plaque-kicker mono">NATIVE BYTECODE VM</div>
                 <h3 class="serif-jp">Sentinel-rs</h3>
@@ -348,6 +450,12 @@
             </a>
 
             <div class="obs-plaque">
+              <div class="automaton-gears" aria-hidden="true">
+                <div class="covenant-rings">
+                  <span class="ring-a"></span>
+                  <span class="ring-b"></span>
+                </div>
+              </div>
               <div>
                 <div class="plaque-kicker mono">PURE PROTOCOL EXTRACTOR</div>
                 <h3 class="serif-jp">UPI Zero Link</h3>
@@ -407,6 +515,12 @@
             </a>
 
             <div class="obs-plaque">
+              <div class="automaton-gears" aria-hidden="true">
+                <svg class="pinwheel-svg gear-cw" viewBox="0 0 38 38">
+                  <path d="M19 19 L19 4 Q28 8 19 19 Z M19 19 L34 19 Q30 28 19 19 Z M19 19 L19 34 Q10 30 19 19 Z M19 19 L4 19 Q8 10 19 19 Z" fill="rgba(255,156,118,0.65)" stroke="#ffc978" stroke-width="1"/>
+                  <circle cx="19" cy="19" r="2.8" fill="#fff3df"/>
+                </svg>
+              </div>
               <div>
                 <div class="plaque-kicker mono">FAMILY WORKFLOW ENGINE</div>
                 <h3 class="serif-jp">AppleServices Family</h3>
