@@ -4,13 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <title>日天 · Station 233 — 茜色の海列車</title>
-  <meta name="description" content="日天 (@wangshen233) 的海列漫游站 · 横向行驶的落日海上列车、3D 星环旋转场、FM 233.0 黑胶电台与车窗手帖。" />
+  <title>日天 · Station 233 — 茜色の銀河列車</title>
+  <meta name="description" content="日天 (@wangshen233) 的银河海列站 · 环绕引力透镜黑洞公转的 360° 银河星环车厢、FM 233.0 黑胶电台与车窗手帖。" />
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
-  <link rel="stylesheet" href="./style.css?v=20261126-v6" />
+  <link rel="stylesheet" href="./style.css?v=20261126-v7" />
 </head>
-<body>
-  <!-- Interactive Cursor Counter-Rotating Astrolabe, Tumbling Petals & Click Starbursts -->
+<body class="galaxy-mode">
+  <!-- Layer 0: Real-Time WebGL Relativistic Gargantua Black Hole & 4-Arm Spiral Galaxy -->
+  <canvas id="cosmos-canvas" aria-hidden="true"></canvas>
+
+  <!-- Layer 1: Interactive Orbital Ring Track, Cursor Astrolabe & Infalling Stardust -->
   <canvas id="ambient-canvas" aria-hidden="true"></canvas>
 
   <!-- Top Railway Control HUD -->
@@ -44,11 +47,14 @@
       </nav>
 
       <div class="hud-actions">
-        <button id="ring-mode-toggle" class="ring-mode-btn" type="button" title="切换 360° 立体环形旋转星轨视图 (快捷键 R)">
-          <span class="spin-icon">🎡</span>
-          <span id="ring-mode-label">3D 旋转星环</span>
+        <button id="overview-toggle" class="ring-mode-btn" type="button" title="拉远镜头俯瞰完整黑洞吸积盘与 8 站银河星环 (快捷键 V)">
+          <span class="spin-icon">🕳️</span>
+          <span id="overview-label">全景黑洞星系</span>
         </button>
-        <span id="speed-readout" class="speed-pill mono">00 km/h · 0.0 km</span>
+        <button id="ring-mode-toggle" class="hud-btn" type="button" title="在 360° 银河黑洞星环与横向海列长卷之间切换 (快捷键 R)">
+          <span id="ring-mode-label">🚃 平面海列</span>
+        </button>
+        <span id="speed-readout" class="speed-pill mono">ORBIT · 000°</span>
         <button id="theme-toggle" class="hud-btn" type="button">☀️ 樱雪浅色</button>
         <a class="hud-btn" href="https://github.com/wangshen233" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
@@ -171,7 +177,7 @@
             </div>
             <div class="cab-meta mono">
               <span id="cab-clock">22:33:00</span>
-              <span class="scroll-hint">⇄ 滚轮 / 拖拽行驶 · 点右上「🎡 3D 旋转星环」变阵</span>
+              <span class="scroll-hint">⇄ 滚轮 / 拖拽绕黑洞公转 · 点击任意远景车厢跃迁停靠</span>
             </div>
           </div>
 
@@ -749,7 +755,8 @@
     </div>
   </div>
 
-  <script src="./audio.js?v=20261126-v6"></script>
-  <script src="./app.js?v=20261126-v6"></script>
+  <script src="./audio.js?v=20261126-v7"></script>
+  <script src="./galaxy-bh.js?v=20261126-v7"></script>
+  <script src="./app.js?v=20261126-v7"></script>
 </body>
 </html>

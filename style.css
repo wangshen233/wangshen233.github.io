@@ -141,13 +141,77 @@ body {
   color: transparent;
 }
 
+#cosmos-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  display: none;
+}
+
+body.galaxy-mode #cosmos-canvas {
+  display: block;
+}
+
+body.galaxy-mode .world-viewport {
+  background: transparent;
+}
+
+body.galaxy-mode .sky-layer,
+body.galaxy-mode .viaduct-layer,
+body.galaxy-mode .sea-foreground,
+body.galaxy-mode .catenary-wire,
+body.galaxy-mode .coupler,
+body.galaxy-mode .ring-floor-halo {
+  display: none;
+}
+
+body.galaxy-mode .train-track-world {
+  position: fixed;
+  inset: 0;
+  padding: 0;
+  transform: none !important;
+  pointer-events: none;
+  z-index: 20;
+}
+
+body.galaxy-mode .train-consist {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+body.galaxy-mode .carriage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: auto;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+body.galaxy-mode .carriage.tail-deck {
+  backdrop-filter: none;
+}
+
+body.galaxy-mode .carriage.orbit-satellite {
+  cursor: pointer;
+}
+
+body.galaxy-mode .carriage.orbit-satellite:hover {
+  border-color: #ffd166;
+  box-shadow: 0 0 36px rgba(255, 190, 108, 0.55);
+}
+
 #ambient-canvas {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 40;
+  z-index: 35;
 }
 
 @keyframes spinCW {

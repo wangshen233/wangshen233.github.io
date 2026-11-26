@@ -1,5 +1,9 @@
 /* ==========================================================================
-   Station 233 · V5: Uncropped Panoramic Sea-Train + 360° 3D Star-Ring Carousel
+   Station 233 · V7: 360° Spiral Galaxy Station Ring & Gargantua Black Hole
+   - Default Mode: All 8 stations orbit in a 3D tilted Galactic Ring around
+     a real-time relativistic gravitational-lensing Black Hole!
+   - Toggleable Overview Mode (full cosmic view of Black Hole + 8-station ring)
+   - Toggleable Linear Sea-Train Mode
    ========================================================================== */
 
 const LOGIN = "wangshen233";
@@ -8,17 +12,16 @@ const FALLBACK_NOTES = [
   {
     tag: "小站手记",
     date: "2026.11.26",
-    title: "Station 233 · 把个人小站做成一列真正的海上火车",
-    summary: "告别千篇一律的从上往下翻卡片——转动滚轮、拖住车厢，或者切入 3D 旋转星环模式，在晚霞海面上环游各站。",
+    title: "Station 233 · 驶入黑洞视界边缘的银河海列星环",
+    summary: "把八节海上列车车厢升维成环绕引力透镜黑洞公转的 360° 银河星环——滚轮旋转星轨，点击任意卫星车厢即可跃迁停靠。",
     body: `
-      <p>如果你是从我的 GitHub 主页点过来的，欢迎登上 <strong>233 系 · 茜色の海列車</strong>。</p>
-      <p>不想再做那种一眼到底的常规网格模板，干脆把整座站点做成了一列首尾挂接的海上火车（点击顶部 <strong>🎡 3D 旋转星环</strong> 还能把整列八节车厢展开成 360° 立体星轨转盘）：</p>
+      <p>欢迎登上 <strong>233 系 · 茜色の銀河列車</strong>。</p>
+      <p>整座小站现已进入 <strong>360° 银河黑洞星环轨道</strong>：</p>
       <ul>
-        <li><strong>00号車 · 先頭運転室</strong>：完整全景海列前窗 + 内置三套实时 Web Audio 合成声景的黑胶电台（<code>FM 233.0</code>）。</li>
-        <li><strong>01–04号車 · パノラマ展望車</strong>：全宽 2:1 无裁切观景大车窗，完整呈现四座代表开源项目插画。</li>
-        <li><strong>05–07号車 · 荷物車・読書室・最後尾デッキ</strong>：行李架木牌同步全部公开仓库，车尾甲板与 GitHub 主页共用纸船留言海面。</li>
+        <li><strong>中心天体 · 茜色视界黑洞</strong>：基于广义相对论零测地线光线弯折实时渲染事件视界阴影、光子环、上下引力透镜光拱与多普勒吸积盘。</li>
+        <li><strong>八站成环公转</strong>：00–07 号车沿倾斜银河椭圆星轨首尾成环环绕黑洞旋转，点击远景任意车厢或底部星图即可引力弹弓跃迁至前景停靠位。</li>
+        <li>点击右上角 <strong>🕳️ 全景黑洞星系</strong> 可拉远镜头俯瞰完整吸积盘与八站星环；点 <strong>🚃 平面海列</strong> 亦可随时切回海面铁道模式。</li>
       </ul>
-      <p>车票长期有效，常来吹吹海风。</p>
     `,
   },
   {
@@ -33,7 +36,6 @@ const FALLBACK_NOTES = [
         <li>在 <code>sentinel-rs</code> 里，用 Rust 直接实现了一个 36 条指令的小型字节码解释虚拟机，不装 Node、不跑 <code>sdk.js</code>，产出的令牌与原版逐字节对齐。</li>
         <li>在传输层配合 BoringSSL 对齐真实浏览器的 TLS（JA3 / JA4）与 HTTP/2 帧特征，单机资源消耗几乎可以忽略不计。</li>
       </ul>
-      <p>把复杂留在拆解协议的过程里，把干净利落留给最终运行的那一行命令——这就是写这类小工具最让人上瘾的地方。</p>
     `,
   },
   {
@@ -45,7 +47,6 @@ const FALLBACK_NOTES = [
       <p>为了省去每次写随笔都要本地编译部署的麻烦，这节「06号車 · 読書サロン」内置了 GitHub Issues 动态拉取支持：</p>
       <ul>
         <li>只要由 <code>@wangshen233</code> 本人在 <code>wangshen233/wangshen233.github.io</code> 仓库发布带有 <code>blog</code> 标签（或标题以 <code>[随笔]</code> 开头）的公开 Issue，页面加载时就会自动抓取并置顶摆上木桌。</li>
-        <li>支持常用 Markdown 段落、代码行与列表排版，在手机上也能随时记录灵感。</li>
       </ul>
     `,
   },
@@ -61,10 +62,12 @@ const FALLBACK_REPOS = [
 ];
 
 const FALLBACK_BOATS = [
-  { user: "wangshen233", avatar: "./assets/avatar.jpg", msg: "座位 233 常年留空，点左侧折一艘纸船放进晚霞吧～" },
-  { user: "station-233", avatar: "./assets/avatar.jpg", msg: "暮色海列全天候供应热美式，祝路过的你今天也没有 bug" },
-  { user: "sunset-fm", avatar: "./assets/avatar.jpg", msg: "茜色の海を渡る風のように、好奇心のその先へ。" },
+  { user: "wangshen233", avatar: "./assets/avatar.jpg", msg: "座位 233 常年留空，点左侧折一艘纸船放进星海吧～" },
+  { user: "station-233", avatar: "./assets/avatar.jpg", msg: "银河海列全天候供应热美式，祝路过的你今天也没有 bug" },
+  { user: "sunset-fm", avatar: "./assets/avatar.jpg", msg: "茜色の銀河を渡る風のように、好奇心のその先へ。" },
 ];
+
+let bhEngine = null;
 
 /* ==========================================================================
    1. Theme Toggle & Cab Live Clock
@@ -90,30 +93,37 @@ function initThemeAndClock() {
 function applyTheme(mode) {
   document.documentElement.setAttribute("data-theme", mode);
   const btn = document.getElementById("theme-toggle");
-  if (btn) btn.textContent = mode === "dark" ? "☀️ 樱雪浅色" : "🌙 茜色暮夜";
+  if (btn) btn.textContent = mode === "dark" ? "☀️ 樱雪浅色" : "🌙 茜色星夜";
 }
 
 /* ==========================================================================
-   2. Sea-Train Linear Drive + 360° 3D Rotating Star-Ring Carousel Mode
+   2. 360° Galactic Black Hole Ring Orbit + Linear Sea-Train Controller
    ========================================================================== */
 const trainController = {
+  galaxyMode: true,
+  overviewMode: false,
+  orbitAngle: 22,       // Dramatic initial 22° glide into Station 00!
+  targetOrbitAngle: 0,
+  overviewBlend: 0,
   targetX: 0,
-  currentX: 260, // Gentle arrival glide on initial open!
+  currentX: 0,
   maxX: 0,
   isMobile: false,
-  ringMode: false,
-  ringAngle: 0,
-  ringTargetAngle: 0,
-  autoSpinRing: true,
   scrollBoostDeg: 0,
   jumpToCar: null,
-  toggleRingMode: null,
+  toggleGalaxyMode: null,
+  toggleOverview: null,
 };
 
+// Expose orbital ellipse geometry so #ambient-canvas draws the glowing ring track!
+window.__orbitTrack = { cx: 0, cy: 0, rx: 0, ry: 0, tilt: -0.105, active: true };
+
 function initTrainJourney() {
+  const cosmosCanvas = document.getElementById("cosmos-canvas");
+  bhEngine = new window.BlackHoleGalaxyEngine(cosmosCanvas);
+
   const viewport = document.getElementById("world-viewport");
   const trackWorld = document.getElementById("train-track-world");
-  const consist = document.getElementById("train-consist");
   const skyLayer = document.getElementById("sky-layer");
   const viaductLayer = document.getElementById("viaduct-layer");
   const sleepers = document.getElementById("rail-sleepers");
@@ -122,6 +132,8 @@ function initTrainJourney() {
   const speedEl = document.getElementById("speed-readout");
   const ringBtn = document.getElementById("ring-mode-toggle");
   const ringLabel = document.getElementById("ring-mode-label");
+  const overviewBtn = document.getElementById("overview-toggle");
+  const overviewLabel = document.getElementById("overview-label");
   const carriages = Array.from(document.querySelectorAll(".carriage"));
   const stopNodes = Array.from(document.querySelectorAll(".station-node"));
   const topNavBtns = Array.from(document.querySelectorAll(".hud-quick-nav button"));
@@ -129,9 +141,24 @@ function initTrainJourney() {
   function recalcBounds() {
     trainController.isMobile = window.innerWidth <= 960;
     if (trainController.isMobile) {
+      document.body.classList.remove("galaxy-mode");
       trackWorld.style.transform = "none";
+      carriages.forEach((c) => {
+        c.style.transform = "none";
+        c.style.opacity = "1";
+        c.style.zIndex = "";
+      });
       trainController.maxX = Math.max(1, viewport.scrollWidth - viewport.clientWidth);
-    } else if (!trainController.ringMode) {
+    } else if (trainController.galaxyMode) {
+      document.body.classList.add("galaxy-mode");
+    } else {
+      document.body.classList.remove("galaxy-mode");
+      carriages.forEach((c) => {
+        c.style.transform = "none";
+        c.style.opacity = "1";
+        c.style.zIndex = "";
+        c.classList.remove("orbit-satellite");
+      });
       const totalWidth = trackWorld.scrollWidth;
       trainController.maxX = Math.max(0, totalWidth - window.innerWidth);
       trainController.targetX = Math.min(trainController.targetX, trainController.maxX);
@@ -141,41 +168,42 @@ function initTrainJourney() {
   recalcBounds();
   window.addEventListener("resize", recalcBounds);
 
-  // Toggle between Coupled Sea-Train & 360° 3D Star-Ring Carousel!
-  function toggleRingMode(forceState) {
+  function toggleGalaxyMode(forceState) {
     if (trainController.isMobile) return;
-    trainController.ringMode = typeof forceState === "boolean" ? forceState : !trainController.ringMode;
-    document.body.classList.toggle("ring-mode", trainController.ringMode);
-    ringLabel.textContent = trainController.ringMode ? "返回连挂列车" : "3D 旋转星环";
-
-    if (trainController.ringMode) {
-      trainController.autoSpinRing = true;
-      const radius = 1360;
-      carriages.forEach((car, idx) => {
-        const theta = idx * 45;
-        const w = car.offsetWidth;
-        const h = car.offsetHeight;
-        car.style.transform = `translate(${-w / 2}px, ${-h / 2}px) rotateY(${theta}deg) translateZ(${radius}px) scale(0.68)`;
-      });
-    } else {
-      consist.style.transform = "none";
-      carriages.forEach((car) => {
-        car.style.transform = "none";
-      });
-      recalcBounds();
-    }
+    trainController.galaxyMode = typeof forceState === "boolean" ? forceState : !trainController.galaxyMode;
+    ringLabel.textContent = trainController.galaxyMode ? "🚃 平面海列" : "🌌 银河黑洞环";
+    overviewBtn.style.display = trainController.galaxyMode ? "inline-flex" : "none";
+    if (bhEngine) bhEngine.triggerWarp(1.0);
+    recalcBounds();
   }
-  trainController.toggleRingMode = toggleRingMode;
-  ringBtn.addEventListener("click", () => toggleRingMode());
+  trainController.toggleGalaxyMode = toggleGalaxyMode;
 
+  function toggleOverview(forceState) {
+    if (!trainController.galaxyMode) toggleGalaxyMode(true);
+    trainController.overviewMode = typeof forceState === "boolean" ? forceState : !trainController.overviewMode;
+    overviewLabel.textContent = trainController.overviewMode ? "🛸 近景停靠" : "全景黑洞星系";
+    if (bhEngine) bhEngine.triggerWarp(0.9);
+  }
+  trainController.toggleOverview = toggleOverview;
+
+  ringBtn.addEventListener("click", () => toggleGalaxyMode());
+  overviewBtn.addEventListener("click", () => toggleOverview());
+
+  // Shortest-path angular jump to station index (0..7) around the 360° ring
   function jumpToCar(index) {
     const car = carriages[index];
     if (!car) return;
-    if (trainController.ringMode) {
-      trainController.autoSpinRing = false;
-      trainController.ringTargetAngle = -index * 45;
+
+    if (trainController.galaxyMode && !trainController.isMobile) {
+      const desiredMod = (-index * 45) % 360;
+      const curMod = trainController.targetOrbitAngle % 360;
+      let diff = ((desiredMod - curMod + 540) % 360) - 180;
+      if (diff === -180) diff = 180;
+      trainController.targetOrbitAngle += diff;
+      if (bhEngine) bhEngine.triggerWarp(1.1);
       return;
     }
+
     if (trainController.isMobile) {
       car.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
       return;
@@ -187,10 +215,26 @@ function initTrainJourney() {
   trainController.jumpToCar = jumpToCar;
 
   document.querySelectorAll("[data-stop]").forEach((btn) => {
-    btn.addEventListener("click", () => jumpToCar(Number(btn.getAttribute("data-stop"))));
+    btn.addEventListener("click", () => {
+      if (trainController.overviewMode) toggleOverview(false);
+      jumpToCar(Number(btn.getAttribute("data-stop")));
+    });
   });
 
-  // Wheel -> Drive Train OR Spin 360° 3D Ring + Boost Sky Astrolabe!
+  // Clicking an orbiting background satellite carriage brings it right to front dock!
+  carriages.forEach((car, idx) => {
+    car.addEventListener("click", (e) => {
+      if (!trainController.galaxyMode || trainController.isMobile) return;
+      if (car.classList.contains("orbit-satellite")) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (trainController.overviewMode) toggleOverview(false);
+        jumpToCar(idx);
+      }
+    }, true);
+  });
+
+  // Wheel -> Orbit the 360° Galaxy Ring around the Black Hole!
   window.addEventListener("wheel", (e) => {
     if (trainController.isMobile) return;
     if (document.getElementById("note-modal").classList.contains("open")) return;
@@ -206,34 +250,33 @@ function initTrainJourney() {
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     trainController.scrollBoostDeg += delta * 0.06;
 
-    if (trainController.ringMode) {
-      trainController.autoSpinRing = false;
-      trainController.ringTargetAngle -= delta * 0.085;
+    if (trainController.galaxyMode) {
+      trainController.targetOrbitAngle -= delta * 0.085;
+      if (bhEngine && Math.abs(delta) > 25) bhEngine.triggerWarp(Math.min(0.65, Math.abs(delta) * 0.004));
     } else {
       trainController.targetX = Math.max(0, Math.min(trainController.maxX, trainController.targetX + delta * 1.18));
     }
   }, { passive: false });
 
-  // Pointer Drag
+  // Pointer Drag to Spin Galaxy Ring
   let dragging = false;
   let dragStartX = 0;
   let dragOrigin = 0;
 
-  viewport.addEventListener("pointerdown", (e) => {
+  window.addEventListener("pointerdown", (e) => {
     if (trainController.isMobile) return;
-    if (e.target.closest("a, button, input, .note-card, .turntable")) return;
+    if (e.target.closest("a, button, input, .note-card, .turntable, .modal-sheet")) return;
     dragging = true;
     dragStartX = e.clientX;
-    dragOrigin = trainController.ringMode ? trainController.ringTargetAngle : trainController.targetX;
-    if (trainController.ringMode) trainController.autoSpinRing = false;
+    dragOrigin = trainController.galaxyMode ? trainController.targetOrbitAngle : trainController.targetX;
     viewport.classList.add("dragging");
   });
 
   window.addEventListener("pointermove", (e) => {
     if (!dragging) return;
     const dx = e.clientX - dragStartX;
-    if (trainController.ringMode) {
-      trainController.ringTargetAngle = dragOrigin + dx * 0.16;
+    if (trainController.galaxyMode) {
+      trainController.targetOrbitAngle = dragOrigin + dx * 0.18;
     } else {
       trainController.targetX = Math.max(0, Math.min(trainController.maxX, dragOrigin - dx * 1.35));
     }
@@ -249,16 +292,20 @@ function initTrainJourney() {
       if (e.key === "Escape") document.getElementById("note-modal").classList.remove("open");
       return;
     }
+    if (e.key === "v" || e.key === "V") {
+      toggleOverview();
+      return;
+    }
     if (e.key === "r" || e.key === "R") {
-      toggleRingMode();
+      toggleGalaxyMode();
       return;
     }
     if (trainController.isMobile) return;
     if (e.key === "ArrowRight") {
-      if (trainController.ringMode) { trainController.autoSpinRing = false; trainController.ringTargetAngle -= 45; }
+      if (trainController.galaxyMode) { trainController.targetOrbitAngle -= 45; bhEngine?.triggerWarp(0.8); }
       else trainController.targetX = Math.min(trainController.maxX, trainController.targetX + 460);
     } else if (e.key === "ArrowLeft") {
-      if (trainController.ringMode) { trainController.autoSpinRing = false; trainController.ringTargetAngle += 45; }
+      if (trainController.galaxyMode) { trainController.targetOrbitAngle += 45; bhEngine?.triggerWarp(0.8); }
       else trainController.targetX = Math.max(0, trainController.targetX - 460);
     }
   });
@@ -266,24 +313,100 @@ function initTrainJourney() {
   // Main 60fps Loop
   let prevX = 0;
   function animate() {
-    if (trainController.ringMode) {
-      if (trainController.autoSpinRing) {
-        trainController.ringTargetAngle -= 0.18;
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+
+    if (trainController.galaxyMode && !trainController.isMobile) {
+      // Auto-revolve slowly when in Full Galaxy Overview Mode!
+      if (trainController.overviewMode && !dragging) {
+        trainController.targetOrbitAngle -= 0.16;
       }
-      trainController.ringAngle += (trainController.ringTargetAngle - trainController.ringAngle) * 0.085;
-      consist.style.transform = `translateZ(-1360px) rotateX(-7deg) rotateY(${trainController.ringAngle.toFixed(2)}deg)`;
 
-      const normDeg = (((-trainController.ringAngle) % 360) + 360) % 360;
-      const ratio = normDeg / 360;
-      const activeIdx = Math.round(normDeg / 45) % 8;
+      const prevAngle = trainController.orbitAngle;
+      trainController.orbitAngle += (trainController.targetOrbitAngle - trainController.orbitAngle) * 0.088;
+      trainController.overviewBlend += ((trainController.overviewMode ? 1 : 0) - trainController.overviewBlend) * 0.085;
 
-      trackWorld.style.setProperty("--wheel-deg", `${(normDeg * 4) % 360}deg`);
+      const ov = trainController.overviewBlend;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      // Render Relativistic Gargantua Black Hole + 4-Arm Spiral Galaxy
+      if (bhEngine) {
+        bhEngine.setOrbitState({
+          angleDeg: -trainController.orbitAngle,
+          warp: Math.min(1.0, Math.abs(trainController.orbitAngle - prevAngle) * 0.09),
+          overview: trainController.overviewMode,
+          isLight,
+        });
+        bhEngine.renderFrame();
+      }
+
+      // 3D Tilted Elliptical Galactic Ring Coordinates around Gargantua!
+      const ringCx = vw * 0.5;
+      const ringCy = vh * (0.265 + 0.215 * ov);
+      const rx = vw * (0.43 + 0.01 * ov);
+      const ry = vh * (0.19 + 0.11 * ov);
+      const tilt = -0.12; // Matches Gargantua's -7 deg roll!
+      const cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+
+      window.__orbitTrack = { cx: ringCx, cy: ringCy, rx, ry, tilt, active: true, rotDeg: trainController.orbitAngle };
+
+      let activeIdx = 0;
+      let maxFront = -Infinity;
+
+      carriages.forEach((car, idx) => {
+        const deg = idx * 45 + trainController.orbitAngle;
+        const rad = (deg * Math.PI) / 180;
+        const sinA = Math.sin(rad);
+        const cosA = Math.cos(rad);
+
+        if (cosA > maxFront) {
+          maxFront = cosA;
+          activeIdx = idx;
+        }
+
+        const ex = rx * sinA;
+        const ey = ry * cosA;
+        let gx = ringCx + (ex * cosT - ey * sinT);
+        let gy = ringCy + (ex * sinT + ey * cosT);
+
+        // Front docked carriage settles cleanly at lower-center (y ~ 66.5vh) at 0.76x–0.80x scale,
+        // leaving 100% of Gargantua's Pitch-Black Event Horizon & Upper Lensing Halo clear above!
+        const frontFocus = Math.pow(Math.max(0, cosA), 5.5) * (1 - ov);
+        const dockY = vh * 0.665;
+        gx = gx * (1 - frontFocus) + (vw * 0.5) * frontFocus;
+        gy = gy * (1 - frontFocus) + dockY * frontFocus;
+
+        const baseRingScale = 0.20 + 0.13 * ((cosA + 1) * 0.5);
+        const dockScale = car.classList.contains("locomotive") ? 0.76 : 0.80;
+        const scale = baseRingScale * ov + (baseRingScale * (1 - frontFocus) + dockScale * frontFocus) * (1 - ov);
+
+        const bankY = -sinA * 18 * (1 - frontFocus * 0.9);
+        const bankZ = (sinA * 3.5 - 6.8 * (1 - frontFocus)) * (ov * 0.6 + 0.4);
+
+        const opacity = ov > 0.5
+          ? 0.55 + 0.45 * ((cosA + 1) * 0.5)
+          : 0.36 + 0.38 * ((cosA + 1) * 0.5) + 0.26 * frontFocus;
+
+        const isSatellite = ov > 0.5 || frontFocus < 0.55;
+        car.classList.toggle("orbit-satellite", isSatellite);
+        car.style.zIndex = String(Math.round(10 + (cosA + 1) * 15 + frontFocus * 20));
+        car.style.opacity = Math.min(1, opacity).toFixed(3);
+        car.style.transform = `translate3d(${(gx - car.offsetWidth / 2).toFixed(1)}px, ${(gy - car.offsetHeight / 2).toFixed(1)}px, 0) perspective(1200px) rotateY(${bankY.toFixed(1)}deg) rotateZ(${bankZ.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+        car.style.left = "0px";
+        car.style.top = "0px";
+      });
+
+      let normDeg = (((-trainController.orbitAngle) % 360) + 360) % 360;
+      if (normDeg > 359.4) normDeg = 0;
+      const ratio = activeIdx / 7;
+      const wheelDeg = (normDeg * 5) % 360;
+      trackWorld.style.setProperty("--wheel-deg", `${wheelDeg}deg`);
       document.documentElement.style.setProperty("--compass-deg", `${normDeg}deg`);
-      document.documentElement.style.setProperty("--scroll-boost-deg", `${(normDeg * 0.5).toFixed(1)}deg`);
+      window.__trainVelocity = (trainController.orbitAngle - prevAngle) * -8;
 
       progressFill.style.width = `calc((100% - 48px) * ${ratio.toFixed(4)})`;
       miniMarker.style.left = `calc(24px + (100% - 48px) * ${ratio.toFixed(4)})`;
-      speedEl.textContent = `3D RING · ${Math.round(normDeg)}°`;
+      speedEl.textContent = `GALAXY · ${String(Math.round(normDeg)).padStart(3, "0")}°`;
 
       stopNodes.forEach((n, idx) => n.classList.toggle("active", idx === activeIdx));
       topNavBtns.forEach((b) => {
@@ -294,6 +417,10 @@ function initTrainJourney() {
       requestAnimationFrame(animate);
       return;
     }
+
+    // Linear Coupled Sea-Train Mode
+    window.__orbitTrack.active = false;
+    carriages.forEach((c) => { c.style.left = ""; c.style.top = ""; });
 
     if (trainController.isMobile) {
       trainController.currentX = viewport.scrollLeft;
@@ -348,7 +475,7 @@ function initTrainJourney() {
 }
 
 /* ==========================================================================
-   3. Cursor Counter-Rotating Astrolabe Reticle, 3D Petals & Click Vortex
+   3. Glowing Galactic Ring Track, Infalling Stardust & Cursor Astrolabe
    ========================================================================== */
 function initCanvas() {
   const canvas = document.getElementById("ambient-canvas");
@@ -356,8 +483,14 @@ function initCanvas() {
   let w = 0, h = 0;
   const petals = [];
   const bursts = [];
-
   const pointer = { x: -200, y: -200, tx: -200, ty: -200, angle: 0, active: false };
+
+  const HUES = [
+    "255, 126, 168",
+    "255, 208, 108",
+    "78, 232, 186",
+    "206, 138, 255",
+  ];
 
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -366,25 +499,12 @@ function initCanvas() {
   resize();
   window.addEventListener("resize", resize);
 
-  const HUES = [
-    "255, 126, 168", // Sakura Rose
-    "255, 208, 108", // Lantern Gold
-    "78, 232, 186",  // Ghibli Spirit Mint-Jade
-    "206, 138, 255", // Twilight Wisteria
-  ];
-
-  for (let i = 0; i < 42; i++) {
+  for (let i = 0; i < 40; i++) {
     petals.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      size: 3 + Math.random() * 4,
-      vx: -0.5 - Math.random() * 0.7,
-      vy: 0.2 + Math.random() * 0.45,
-      rot: Math.random() * Math.PI * 2,
-      vRot: (Math.random() - 0.5) * 0.08,
-      flip: Math.random() * Math.PI * 2,
-      vFlip: 0.035 + Math.random() * 0.045,
-      isPetal: i % 2 === 0,
+      angle: Math.random() * Math.PI * 2,
+      radFrac: 0.25 + Math.random() * 0.95,
+      speed: 0.003 + Math.random() * 0.005,
+      size: 2.0 + Math.random() * 3.0,
       hue: HUES[i % HUES.length],
     });
   }
@@ -397,126 +517,101 @@ function initCanvas() {
       pointer.y = e.clientY;
       pointer.active = true;
     }
-    if (Math.random() < 0.3 && petals.length < 72) {
-      petals.push({
-        x: e.clientX + (-8 + Math.random() * 16),
-        y: e.clientY + (-8 + Math.random() * 16),
-        size: 2.6 + Math.random() * 3.2,
-        vx: -0.6 - Math.random() * 0.6,
-        vy: -0.35 + Math.random() * 0.7,
-        rot: Math.random() * Math.PI * 2,
-        vRot: (Math.random() - 0.5) * 0.14,
-        flip: 0,
-        vFlip: 0.07,
-        isPetal: true,
-        ttl: 80,
-        hue: "255, 152, 178",
-      });
-    }
   });
 
   window.addEventListener("click", (e) => {
     const sparks = [];
     for (let k = 0; k < 12; k++) {
-      sparks.push({ angle: (Math.PI * 2 * k) / 12, dist: 6, speed: 1.8 + Math.random() * 1.5 });
+      sparks.push({ angle: (Math.PI * 2 * k) / 12, dist: 6, speed: 2.0 + Math.random() * 1.5 });
     }
     bursts.push({ x: e.clientX, y: e.clientY, r: 8, rot: 0, alpha: 0.9, sparks });
   });
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
-    const vel = window.__trainVelocity || 0;
+    const track = window.__orbitTrack;
 
-    // 1) Draw 3D Tumbling Sakura Petals & Sunset Fireflies
-    for (let i = petals.length - 1; i >= 0; i--) {
-      const p = petals[i];
-      p.x += p.vx - vel * 0.14;
-      p.y += p.vy;
-      p.rot += p.vRot + vel * 0.002;
-      p.flip += p.vFlip;
-
-      if (p.ttl !== undefined) {
-        p.ttl--;
-        if (p.ttl <= 0) { petals.splice(i, 1); continue; }
-      } else {
-        if (p.x < -20) p.x = w + 20;
-        if (p.x > w + 20) p.x = -20;
-        if (p.y > h + 20) p.y = -15;
-        if (p.y < -20) p.y = h + 15;
-      }
-
-      const lifeAlpha = p.ttl ? p.ttl / 80 : 1;
+    // 1) Draw Visible Tilted Galactic Orbital Track Ring connecting all 8 stations!
+    if (track && track.active && w > 960) {
       ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot);
-      if (p.isPetal) {
-        ctx.scale(1, 0.32 + 0.68 * Math.abs(Math.cos(p.flip)));
+      ctx.translate(track.cx, track.cy);
+      ctx.rotate(track.tilt);
+
+      // Outer golden-rose elliptical railway ring
+      ctx.beginPath();
+      ctx.setLineDash([10, 8]);
+      ctx.lineDashOffset = -(performance.now() * 0.025);
+      ctx.ellipse(0, 0, track.rx, track.ry, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255, 198, 132, 0.34)";
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+
+      // Inner orchid-jade harmonic ring
+      ctx.beginPath();
+      ctx.setLineDash([4, 10]);
+      ctx.lineDashOffset = performance.now() * 0.03;
+      ctx.ellipse(0, 0, track.rx * 0.95, track.ry * 0.92, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(206, 138, 255, 0.24)";
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Spiraling Galactic Stardust Motes orbiting & gently infalling toward Gargantua!
+      petals.forEach((p) => {
+        p.angle -= p.speed;
+        p.radFrac -= 0.0005;
+        if (p.radFrac < 0.16) p.radFrac = 1.15;
+        const px = Math.sin(p.angle) * track.rx * p.radFrac;
+        const py = Math.cos(p.angle) * track.ry * p.radFrac;
         ctx.beginPath();
-        ctx.moveTo(0, -p.size);
-        ctx.bezierCurveTo(p.size * 0.9, -p.size * 0.5, p.size * 0.8, p.size * 0.8, 0, p.size);
-        ctx.bezierCurveTo(-p.size * 0.8, p.size * 0.8, -p.size * 0.9, -p.size * 0.5, 0, -p.size);
-        ctx.fillStyle = `rgba(${p.hue}, ${0.55 * lifeAlpha})`;
+        ctx.arc(px, py, p.size * Math.min(1.1, p.radFrac), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.hue}, ${0.25 + 0.45 * p.radFrac})`;
         ctx.fill();
-      } else {
-        const pulse = 0.28 + 0.45 * Math.sin(p.flip);
-        ctx.beginPath();
-        ctx.arc(0, 0, p.size * 0.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.hue}, ${Math.max(0.1, pulse * lifeAlpha)})`;
-        ctx.fill();
-      }
+      });
+
       ctx.restore();
     }
 
-    // 2) Draw Real-Time Mouse-Following Dual Counter-Rotating Compass Reticle
+    // 2) Mouse-Following Dual Counter-Rotating Astrolabe Reticle
     if (pointer.active && w > 960) {
       const dx = pointer.tx - pointer.x;
       const dy = pointer.ty - pointer.y;
       pointer.x += dx * 0.22;
       pointer.y += dy * 0.22;
-      const moveSpeed = Math.hypot(dx, dy);
-      pointer.angle += 0.032 + Math.min(0.14, moveSpeed * 0.004);
+      pointer.angle += 0.035 + Math.min(0.14, Math.hypot(dx, dy) * 0.004);
 
       ctx.save();
       ctx.translate(pointer.x, pointer.y);
-
-      // Outer CW dashed ring
       ctx.save();
       ctx.rotate(pointer.angle);
       ctx.beginPath();
       ctx.setLineDash([6, 6]);
       ctx.arc(0, 0, 20, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(255, 196, 134, 0.62)";
+      ctx.strokeStyle = "rgba(255, 202, 132, 0.65)";
       ctx.lineWidth = 1.3;
       ctx.stroke();
       ctx.restore();
 
-      // Inner CCW 4-tick star ring
       ctx.save();
-      ctx.rotate(-pointer.angle * 1.5);
-      ctx.beginPath();
-      ctx.arc(0, 0, 11, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(255, 128, 166, 0.55)";
-      ctx.lineWidth = 1.1;
-      ctx.stroke();
+      ctx.rotate(-pointer.angle * 1.6);
       for (let k = 0; k < 4; k++) {
         ctx.rotate(Math.PI / 2);
         ctx.beginPath();
-        ctx.moveTo(9, 0);
-        ctx.lineTo(15, 0);
-        ctx.strokeStyle = "rgba(255, 206, 142, 0.78)";
+        ctx.moveTo(8, 0);
+        ctx.lineTo(14, 0);
+        ctx.strokeStyle = "rgba(255, 126, 168, 0.75)";
         ctx.lineWidth = 1.4;
         ctx.stroke();
       }
       ctx.restore();
-
       ctx.restore();
     }
 
-    // 3) Draw Click Starburst Vortex
+    // 3) Click Gravitational Lensing Burst
     for (let i = bursts.length - 1; i >= 0; i--) {
       const b = bursts[i];
-      b.r += 1.8;
-      b.rot += 0.065;
+      b.r += 1.9;
+      b.rot += 0.07;
       b.alpha *= 0.94;
       if (b.alpha < 0.025) { bursts.splice(i, 1); continue; }
 
@@ -526,28 +621,17 @@ function initCanvas() {
       ctx.beginPath();
       ctx.setLineDash([6, 5]);
       ctx.arc(0, 0, b.r, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 146, 174, ${b.alpha})`;
+      ctx.strokeStyle = `rgba(255, 198, 128, ${b.alpha})`;
       ctx.lineWidth = 1.5;
       ctx.stroke();
-
-      ctx.rotate(-b.rot * 2.2);
       ctx.setLineDash([]);
-      for (let c = 0; c < 4; c++) {
-        ctx.rotate(Math.PI / 2);
-        ctx.beginPath();
-        ctx.moveTo(b.r * 0.5, 0);
-        ctx.lineTo(b.r * 1.22, 0);
-        ctx.strokeStyle = `rgba(255, 206, 134, ${b.alpha * 0.95})`;
-        ctx.lineWidth = 1.6;
-        ctx.stroke();
-      }
 
       b.sparks.forEach((sp) => {
         sp.dist += sp.speed;
-        sp.angle += 0.05;
+        sp.angle += 0.055;
         ctx.beginPath();
         ctx.arc(Math.cos(sp.angle) * sp.dist, Math.sin(sp.angle) * sp.dist, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 192, 148, ${b.alpha})`;
+        ctx.fillStyle = `rgba(255, 138, 178, ${b.alpha})`;
         ctx.fill();
       });
       ctx.restore();
