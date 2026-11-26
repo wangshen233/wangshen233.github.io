@@ -4,251 +4,636 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>日天 · Station 233 — 茜色の海列車</title>
-  <meta name="description" content="日天 (@wangshen233) 的个人海边小站 · 协议逆向、自动化工具、FM 233.0 黑胶电台与车窗随笔。" />
+  <meta name="description" content="日天 (@wangshen233) 的海列漫游站 · 横向行驶的落日海上列车、FM 233.0 黑胶电台、开源作品展望车与车窗手帖。" />
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
+  <!-- Ambient Sunset Fireflies & Water Click Ripples -->
   <canvas id="ambient-canvas" aria-hidden="true"></canvas>
 
-  <!-- Floating Sunset Glass Navigation -->
-  <header class="site-nav">
-    <div class="nav-inner">
-      <a href="#" class="brand">
-        <span class="brand-dot"></span>
-        <span class="serif-jp">日天 · Station 233</span>
-      </a>
-      <nav class="nav-links">
-        <a href="#works">车窗作品</a>
-        <a href="#repos">全部仓库</a>
-        <a href="#notes">车窗随笔</a>
-        <a href="#sea">晚霞纸船</a>
+  <!-- Top Railway Control HUD -->
+  <header class="top-hud">
+    <div class="hud-inner">
+      <button class="brand-btn" type="button" data-stop="0">
+        <span class="signal-lamp"></span>
+        <span class="serif-jp">233系 · 茜色の海列車</span>
+        <span class="brand-tag mono">日天</span>
+      </button>
+
+      <nav class="hud-quick-nav" aria-label="车厢快速跳转">
+        <button type="button" data-stop="0" class="active">00 運転室</button>
+        <button type="button" data-stop="1">01–04 展望車窓</button>
+        <button type="button" data-stop="5">05 全公開車庫</button>
+        <button type="button" data-stop="6">06 読書手帖</button>
+        <button type="button" data-stop="7">07 茜色の海</button>
       </nav>
-      <div class="nav-actions">
-        <button id="theme-toggle" class="icon-btn" type="button">☀️ 樱雪浅色</button>
-        <a class="icon-btn" href="https://github.com/wangshen233" target="_blank" rel="noopener">GitHub ↗</a>
+
+      <div class="hud-actions">
+        <span id="speed-readout" class="speed-pill mono">00 km/h · 0.0 km</span>
+        <button id="theme-toggle" class="hud-btn" type="button">☀️ 樱雪浅色</button>
+        <a class="hud-btn" href="https://github.com/wangshen233" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Hero Panoramic Window -->
-    <section id="hero-stage" class="hero-stage">
-      <img src="./assets/cover.jpg" alt="千寻落日海上列车" />
-      <div class="hero-overlay">
-        <div class="hero-caption">
-          <h1 class="serif-jp">好奇心の、その先へ。</h1>
-          <p>把琐碎繁杂的流程打磨成干净顺手的小工具 · 下一站，开个新坑。</p>
-        </div>
-        <div class="hero-tategaki serif-jp">茜色の海を渡る列車にて</div>
-      </div>
-    </section>
+  <!-- Full-Viewport Horizontal Parallax Sea-Train World -->
+  <div id="world-viewport" class="world-viewport">
 
-    <!-- Bio + Playable FM 233.0 Vinyl Deck -->
-    <section class="intro-grid">
-      <div class="bio-card">
-        <div>
-          <div class="bio-header">
-            <img class="bio-avatar" src="./assets/avatar.jpg" alt="日天" />
-            <div>
-              <h2>👋 嗨，我是 日天</h2>
-              <span class="mono">@wangshen233 · boarding since 2022.09</span>
+    <!-- Layer 0: Far Horizon Sunset Orb & Painted Clouds (0.08x Parallax) -->
+    <div id="sky-layer" class="sky-layer" aria-hidden="true">
+      <div class="sunset-orb"></div>
+      <div class="cloud-band cloud-1"></div>
+      <div class="cloud-band cloud-2"></div>
+      <div class="cloud-band cloud-3"></div>
+    </div>
+
+    <!-- Layer 1: Distant Coastal Silhouette & Sea Viaduct Arches (0.28x Parallax) -->
+    <div id="viaduct-layer" class="viaduct-layer" aria-hidden="true"></div>
+
+    <!-- Layer 2: Coupled Sea-Train Consist (1.0x Main Horizontal World) -->
+    <main id="train-track-world" class="train-track-world">
+      <!-- Overhead Catenary Wire -->
+      <div class="catenary-wire" aria-hidden="true"></div>
+
+      <div id="train-consist" class="train-consist">
+
+        <!-- =================================================================
+             CAR 00 · 先頭機関車 & 運転室 (Locomotive Cab + Bio + FM 233.0 Radio)
+             ================================================================= -->
+        <section class="carriage locomotive" data-car="0" aria-label="00号车 驾驶室与黑胶电台">
+          <!-- Roof Pantograph & Warm Headlight Beam -->
+          <svg class="pantograph" viewBox="0 0 96 38" aria-hidden="true">
+            <line x1="12" y1="4" x2="84" y2="4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M26 36 L48 19 L28 4 M70 36 L48 19 L68 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <rect x="20" y="34" width="56" height="4" rx="2" fill="currentColor"/>
+          </svg>
+          <div class="headlight-lamp" aria-hidden="true"></div>
+          <div class="headlight-cone" aria-hidden="true"></div>
+
+          <div class="car-roof-trim"></div>
+          <div class="car-header-bar">
+            <div class="rollsign mono">
+              <span class="car-num">00号車</span>
+              <span class="roll-dest">先頭運転室 · STATION 233 発</span>
+            </div>
+            <div class="cab-meta mono">
+              <span id="cab-clock">22:33:00</span>
+              <span class="scroll-hint">⇄ 滚轮 / 拖拽向右行驶</span>
             </div>
           </div>
-          <ul class="bio-list">
-            <li>🔭 热衷于折腾 <strong>协议逆向</strong>、<strong>自动化流水线</strong> 与顺手的本地控制台</li>
-            <li>🦀 日常主力 <strong>Python · Rust · Go</strong>，信奉「能走纯协议就绝不开浏览器」</li>
-            <li>🌙 常年活跃在深夜车厢，写完最后一个 bug 就去吹海风</li>
-            <li>📻 右侧黑胶唱机内置三套实时合成声景，点一下唱针就能边听边逛</li>
-          </ul>
-        </div>
-        <div class="tech-pills mono">
-          <span class="tech-pill"><i></i>Python</span>
-          <span class="tech-pill"><i></i>Rust</span>
-          <span class="tech-pill"><i></i>Go</span>
-          <span class="tech-pill"><i></i>TypeScript</span>
-          <span class="tech-pill"><i></i>Node.js</span>
-          <span class="tech-pill"><i></i>Docker</span>
-          <span class="tech-pill"><i></i>SQLite</span>
-          <span class="tech-pill"><i></i>Linux</span>
-        </div>
-      </div>
 
-      <!-- Real Playable Web Audio FM 233.0 Vinyl Deck -->
-      <div class="radio-card">
-        <div class="radio-top">
-          <div id="turntable" class="turntable" title="点击落下或抬起唱针">
-            <div id="vinyl-disc" class="vinyl-disc">
-              <div class="vinyl-label">
-                <div class="vinyl-hole"></div>
+          <div class="loco-interior">
+            <!-- Left: Front Cab Panoramic Window -->
+            <div class="cab-windshield">
+              <div class="windshield-frame">
+                <img src="./assets/cover.jpg" alt="千寻落日海上列车" data-window-parallax="0.12" />
+                <div class="windshield-glare"></div>
+                <div class="windshield-caption">
+                  <span class="badge-mini mono">SEA-TRAIN EXPRESS</span>
+                  <h1 class="serif-jp">好奇心の、その先へ。</h1>
+                  <p>把繁琐流程拆解成干净顺手的纯协议小工具 · 下一站，开个新坑。</p>
+                </div>
+                <div class="windshield-tategaki serif-jp">茜色の海を渡る列車にて</div>
               </div>
             </div>
-            <svg id="tonearm" class="tonearm" viewBox="0 0 40 84">
-              <circle cx="28" cy="10" r="7" fill="rgba(255,156,118,0.28)"/>
-              <circle cx="28" cy="10" r="3.5" fill="#ff8ba7"/>
-              <path d="M28 10L21 56L7 73" fill="none" stroke="#cfb8c2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <rect x="2" y="69" width="9" height="6" rx="1.5" transform="rotate(-40 7 73)" fill="#ff7aa2"/>
-            </svg>
-          </div>
 
-          <div class="radio-info">
-            <div class="radio-status-row">
-              <span class="on-air-badge mono">
-                <span id="on-air-dot" class="on-air-dot"></span>
-                <span id="radio-freq" class="sunset-text">STANDBY · FM 233.0</span>
-              </span>
-              <input id="radio-vol" class="vol-slider" type="range" min="0" max="1" step="0.02" value="0.55" title="音量" />
+            <!-- Middle: Driver's Dispatch Desk (Replaces plain bullet list!) -->
+            <div class="driver-desk">
+              <div class="driver-id-card">
+                <img class="driver-avatar" src="./assets/avatar.jpg" alt="日天" />
+                <div class="driver-title">
+                  <div class="driver-role mono">CHIEF ENGINEER · 運転士</div>
+                  <h2>日天 <span class="mono">@wangshen233</span></h2>
+                </div>
+                <span class="boarding-stamp mono">SINCE<br/>2022.09</span>
+              </div>
+
+              <div class="dispatch-cards">
+                <div class="dispatch-item">
+                  <span class="dispatch-key mono">01 / PROTOCOL</span>
+                  <p>沉迷 <strong>协议逆向</strong> 与状态机拆解——只要能走纯协议，绝不启动笨重的无头浏览器。</p>
+                </div>
+                <div class="dispatch-item">
+                  <span class="dispatch-key mono">02 / TOOLING</span>
+                  <p>日常主力 <strong>Python · Rust · Go</strong>，给高频自动化配上顺手的本地控制台与代理池。</p>
+                </div>
+              </div>
+
+              <div class="circuit-switches mono">
+                <span>Python</span>
+                <span>Rust</span>
+                <span>Go</span>
+                <span>TypeScript</span>
+                <span>Node.js</span>
+                <span>Docker</span>
+                <span>SQLite</span>
+                <span>Linux</span>
+              </div>
+
+              <div class="cab-gauges mono">
+                <div class="gauge-box">
+                  <small>STARS</small>
+                  <strong id="stat-stars" class="sunset-text">282</strong>
+                </div>
+                <div class="gauge-box">
+                  <small>FORKS</small>
+                  <strong id="stat-forks">304</strong>
+                </div>
+                <div class="gauge-box">
+                  <small>PEERS</small>
+                  <strong id="stat-followers">55</strong>
+                </div>
+                <div class="gauge-box">
+                  <small>REPOS</small>
+                  <strong id="stat-repos">11</strong>
+                </div>
+              </div>
             </div>
-            <div id="radio-track-title" class="track-title serif-jp">♪ 海列車オルゴール · 第六站</div>
-            <div id="eq-bars" class="eq-row"></div>
-            <div class="radio-controls">
-              <button id="radio-play-btn" class="play-btn" type="button">▶ 落下唱针</button>
-              <button class="station-btn active" type="button">八音盒</button>
-              <button class="station-btn" type="button">海浪夜车</button>
-              <button class="station-btn" type="button">晚霞风铃</button>
+
+            <!-- Right: Playable FM 233.0 Cab Vinyl Radio -->
+            <div class="cab-radio-deck">
+              <div class="radio-header mono">
+                <span class="on-air-wrap">
+                  <span id="on-air-dot" class="on-air-dot"></span>
+                  <span id="radio-freq" class="sunset-text">STANDBY · FM 233.0</span>
+                </span>
+                <input id="radio-vol" class="vol-slider" type="range" min="0" max="1" step="0.02" value="0.55" title="车厢广播音量" />
+              </div>
+
+              <div class="radio-stage">
+                <div id="turntable" class="turntable" title="点击落下或抬起唱针">
+                  <div id="vinyl-disc" class="vinyl-disc">
+                    <div class="vinyl-label"><div class="vinyl-hole"></div></div>
+                  </div>
+                  <svg id="tonearm" class="tonearm" viewBox="0 0 40 84">
+                    <circle cx="28" cy="10" r="7" fill="rgba(255,156,118,0.3)"/>
+                    <circle cx="28" cy="10" r="3.5" fill="#ff8ba7"/>
+                    <path d="M28 10L21 56L7 73" fill="none" stroke="#e2cbd4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="2" y="69" width="9" height="6" rx="1.5" transform="rotate(-40 7 73)" fill="#ff7aa2"/>
+                  </svg>
+                </div>
+
+                <div class="radio-readout">
+                  <div class="radio-sub mono">CABIN BROADCAST · 車内放送</div>
+                  <div id="radio-track-title" class="track-title serif-jp">♪ 海列車オルゴール · 第六站</div>
+                  <div id="eq-bars" class="eq-row"></div>
+                </div>
+              </div>
+
+              <div class="radio-buttons">
+                <button id="radio-play-btn" class="play-btn" type="button">▶ 落下唱针</button>
+                <div class="channel-group">
+                  <button class="station-btn active" type="button">八音盒</button>
+                  <button class="station-btn" type="button">海浪夜车</button>
+                  <button class="station-btn" type="button">晚霞风铃</button>
+                </div>
+              </div>
             </div>
           </div>
+
+          <div class="waist-stripe"></div>
+          <div class="undercarriage" aria-hidden="true">
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="under-tank">233-001 · MOTOR UNIT</div>
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+          </div>
+        </section>
+
+        <!-- Coupled Gangway Bellows -->
+        <div class="coupler" aria-hidden="true">
+          <div class="bellows"><span></span><span></span><span></span></div>
+          <div class="coupler-bar"></div>
         </div>
 
-        <div class="telemetry-grid mono">
-          <div class="telemetry-cell">
-            <small>STARS</small>
-            <strong id="stat-stars" class="sunset-text">282</strong>
+        <!-- =================================================================
+             CAR 01 · 一等展望車「海辺の自動工房」 (Turb Register)
+             ================================================================= -->
+        <section class="carriage obs-car" data-car="1" aria-label="01号车 Turb Register">
+          <div class="car-roof-trim"></div>
+          <div class="car-header-bar">
+            <div class="rollsign mono">
+              <span class="car-num">01号車</span>
+              <span class="roll-dest">特急 展望車 · 海辺の自動工房</span>
+            </div>
+            <span class="repo-metric-pill mono sunset-text" data-repo-metric="turb-gpt-free-register-oss-20260928">★ 95 · 82 forks</span>
           </div>
-          <div class="telemetry-cell">
-            <small>FORKS</small>
-            <strong id="stat-forks">304</strong>
+
+          <div class="obs-interior">
+            <a class="obs-window" href="https://github.com/wangshen233/turb-gpt-free-register-oss-20260928" target="_blank" rel="noopener">
+              <div class="sconce-glow"></div>
+              <img src="./assets/turb.jpg" alt="Turb Register 海边自动工坊" data-window-parallax="0.16" />
+              <div class="window-mullion"></div>
+              <span class="window-badge mono">STATION 01 · PYTHON</span>
+            </a>
+
+            <div class="obs-plaque">
+              <div>
+                <div class="plaque-kicker mono">AUTOMATION WORKSHOP</div>
+                <h3 class="serif-jp">Turb Register</h3>
+                <p>把繁琐重复的账号注册与生命周期管理收进一座海边自动工坊——集成通用 IMAP/API 邮箱取码、六路独立用途代理池、2FA 自动密钥与本地可视化控制台。</p>
+                <div class="spec-tags mono">
+                  <span>IMAP / API OTP</span>
+                  <span>6-Route Proxy</span>
+                  <span>2FA Vault</span>
+                  <span>Web UI</span>
+                </div>
+              </div>
+
+              <div class="ticket-actions">
+                <a class="ticket-primary" href="https://github.com/wangshen233/turb-gpt-free-register-oss-20260928" target="_blank" rel="noopener">
+                  <span>主站仓库 · OSS Release</span>
+                  <span class="mono">登车 ↗</span>
+                </a>
+                <a class="ticket-sub" href="https://github.com/wangshen233/turb-register-public" target="_blank" rel="noopener">
+                  <span>↳ 新版公开分支：turb-register-public（含 AI 画布工作台）</span>
+                  <span class="mono">↗</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="telemetry-cell">
-            <small>PEERS</small>
-            <strong id="stat-followers">53</strong>
+
+          <div class="waist-stripe"></div>
+          <div class="undercarriage" aria-hidden="true">
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 01 · OBSERVATION</div>
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
           </div>
-          <div class="telemetry-cell">
-            <small>REPOS</small>
-            <strong id="stat-repos">11</strong>
+        </section>
+
+        <div class="coupler" aria-hidden="true">
+          <div class="bellows"><span></span><span></span><span></span></div>
+          <div class="coupler-bar"></div>
+        </div>
+
+        <!-- =================================================================
+             CAR 02 · 二等展望車「星影の関所」 (Sentinel-rs)
+             ================================================================= -->
+        <section class="carriage obs-car" data-car="2" aria-label="02号车 Sentinel-rs">
+          <div class="car-roof-trim"></div>
+          <div class="car-header-bar">
+            <div class="rollsign mono">
+              <span class="car-num">02号車</span>
+              <span class="roll-dest">特急 展望車 · 星影の関所</span>
+            </div>
+            <span class="repo-metric-pill mono sunset-text" data-repo-metric="sentinel-rs">★ 13 · 16 forks</span>
           </div>
+
+          <div class="obs-interior">
+            <a class="obs-window" href="https://github.com/wangshen233/sentinel-rs" target="_blank" rel="noopener">
+              <div class="sconce-glow"></div>
+              <img src="./assets/sentinel.jpg" alt="Sentinel-rs 星夜门扉与黄铜钥匙" data-window-parallax="0.16" />
+              <div class="window-mullion"></div>
+              <span class="window-badge mono">STATION 02 · RUST</span>
+            </a>
+
+            <div class="obs-plaque">
+              <div>
+                <div class="plaque-kicker mono">NATIVE BYTECODE VM</div>
+                <h3 class="serif-jp">Sentinel-rs</h3>
+                <p>彻底脱离 Node 与 <code>sdk.js</code> 的 Sentinel 令牌纯 Rust 原生重实现——内置 36 指令字节码虚拟机，配合 BoringSSL 复刻浏览器 TLS 指纹，支持 C ABI 跨语言调用。</p>
+                <div class="spec-tags mono">
+                  <span>36-Op VM</span>
+                  <span>BoringSSL TLS</span>
+                  <span>Zero Node.js</span>
+                  <span>C ABI</span>
+                </div>
+              </div>
+
+              <div class="ticket-actions">
+                <a class="ticket-primary" href="https://github.com/wangshen233/sentinel-rs" target="_blank" rel="noopener">
+                  <span>检票进入 · sentinel-rs</span>
+                  <span class="mono">登车 ↗</span>
+                </a>
+                <a class="ticket-sub" href="https://github.com/wangshen233/codex-oauth-helper" target="_blank" rel="noopener">
+                  <span>↳ 配套凭证刷新器：codex-oauth-helper</span>
+                  <span class="mono">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="waist-stripe"></div>
+          <div class="undercarriage" aria-hidden="true">
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 02 · OBSERVATION</div>
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+          </div>
+        </section>
+
+        <div class="coupler" aria-hidden="true">
+          <div class="bellows"><span></span><span></span><span></span></div>
+          <div class="coupler-bar"></div>
+        </div>
+
+        <!-- =================================================================
+             CAR 03 · 三等展望車「黄金の契り」 (UPI Zero Link)
+             ================================================================= -->
+        <section class="carriage obs-car" data-car="3" aria-label="03号车 UPI Zero Link">
+          <div class="car-roof-trim"></div>
+          <div class="car-header-bar">
+            <div class="rollsign mono">
+              <span class="car-num">03号車</span>
+              <span class="roll-dest">特急 展望車 · 黄金の契り</span>
+            </div>
+            <span class="repo-metric-pill mono sunset-text" data-repo-metric="upi-zero-link">★ 68 · 61 forks</span>
+          </div>
+
+          <div class="obs-interior">
+            <a class="obs-window" href="https://github.com/wangshen233/upi-zero-link" target="_blank" rel="noopener">
+              <div class="sconce-glow"></div>
+              <img src="./assets/upi.jpg" alt="UPI Zero Link 海列窗外金环" data-window-parallax="0.16" />
+              <div class="window-mullion"></div>
+              <span class="window-badge mono">STATION 03 · PYTHON</span>
+            </a>
+
+            <div class="obs-plaque">
+              <div>
+                <div class="plaque-kicker mono">PURE PROTOCOL EXTRACTOR</div>
+                <h3 class="serif-jp">UPI Zero Link</h3>
+                <p>像从海列窗边伸手接住一串发光的契约之环——印度 ₹0 UPI Autopay 委托链纯协议提取工具，零浏览器依赖，支持多账号并发流转与交付前自动核验。</p>
+                <div class="spec-tags mono">
+                  <span>Zero Browser</span>
+                  <span>Protocol State</span>
+                  <span>Multi-Account</span>
+                  <span>Auto Verify</span>
+                </div>
+              </div>
+
+              <div class="ticket-actions">
+                <a class="ticket-primary" href="https://github.com/wangshen233/upi-zero-link" target="_blank" rel="noopener">
+                  <span>检票进入 · upi-zero-link</span>
+                  <span class="mono">登车 ↗</span>
+                </a>
+                <div class="ticket-sub static mono">
+                  <span>✦ 轻量 CLI · 单机高并发流转</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="waist-stripe"></div>
+          <div class="undercarriage" aria-hidden="true">
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 03 · OBSERVATION</div>
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+          </div>
+        </section>
+
+        <div class="coupler" aria-hidden="true">
+          <div class="bellows"><span></span><span></span><span></span></div>
+          <div class="coupler-bar"></div>
+        </div>
+
+        <!-- =================================================================
+             CAR 04 · 四等展望車「潮風の街角」 (AppleServices Family)
+             ================================================================= -->
+        <section class="carriage obs-car" data-car="4" aria-label="04号车 AppleServices Family">
+          <div class="car-roof-trim"></div>
+          <div class="car-header-bar">
+            <div class="rollsign mono">
+              <span class="car-num">04号車</span>
+              <span class="roll-dest">特急 展望車 · 潮風の街角</span>
+            </div>
+            <span class="repo-metric-pill mono sunset-text" data-repo-metric="appleservices-family-private">★ 89 · 130 forks</span>
+          </div>
+
+          <div class="obs-interior">
+            <a class="obs-window" href="https://github.com/wangshen233/appleservices-family-private" target="_blank" rel="noopener">
+              <div class="sconce-glow"></div>
+              <img src="./assets/apple.jpg" alt="AppleServices 海风站台小城" data-window-parallax="0.16" />
+              <div class="window-mullion"></div>
+              <span class="window-badge mono">STATION 04 · GO / PROTOCOL</span>
+            </a>
+
+            <div class="obs-plaque">
+              <div>
+                <div class="plaque-kicker mono">FAMILY WORKFLOW ENGINE</div>
+                <h3 class="serif-jp">AppleServices Family</h3>
+                <p>在海风站台翻开一座立体互联的家庭共享小城——将 iCloud 激活、跨区购买、账单路由与家庭组共享流程封装为可编排的纯协议模块。</p>
+                <div class="spec-tags mono">
+                  <span>iCloud Activate</span>
+                  <span>Region Switch</span>
+                  <span>Family Share</span>
+                  <span>Pure Protocol</span>
+                </div>
+              </div>
+
+              <div class="ticket-actions">
+                <a class="ticket-primary" href="https://github.com/wangshen233/appleservices-family-private" target="_blank" rel="noopener">
+                  <span>检票进入 · appleservices-family</span>
+                  <span class="mono">登车 ↗</span>
+                </a>
+                <div class="ticket-sub static mono">
+                  <span>✦ 130+ Forks · 社区高热度协议工作流归档</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="waist-stripe"></div>
+          <div class="undercarriage" aria-hidden="true">
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 04 · OBSERVATION</div>
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+          </div>
+        </section>
+
+        <div class="coupler" aria-hidden="true">
+          <div class="bellows"><span></span><span></span><span></span></div>
+          <div class="coupler-bar"></div>
+        </div>
+
+        <!-- =================================================================
+             CAR 05 · 荷物・実験車両「全公開車庫」 (Luggage Rack Repo Tags)
+             ================================================================= -->
+        <section class="carriage cargo-car" data-car="5" aria-label="05号车 全部公开仓库行李架">
+          <div class="car-roof-trim"></div>
+          <div class="car-header-bar">
+            <div class="rollsign mono">
+              <span class="car-num">05号車</span>
+              <span class="roll-dest">荷物・実験車両 · 全公開車庫</span>
+            </div>
+            <div class="filter-bar mono">
+              <button class="filter-chip active" data-lang="All" type="button">ALL</button>
+              <button class="filter-chip" data-lang="Python" type="button">PYTHON</button>
+              <button class="filter-chip" data-lang="Rust" type="button">RUST</button>
+              <button class="filter-chip" data-lang="Protocol" type="button">PROTOCOL</button>
+            </div>
+          </div>
+
+          <div class="cargo-interior">
+            <div class="luggage-rail" aria-hidden="true"></div>
+            <div id="repo-grid" class="luggage-rack"></div>
+          </div>
+
+          <div class="waist-stripe"></div>
+          <div class="undercarriage" aria-hidden="true">
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 05 · BAGGAGE &amp; LABS</div>
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+          </div>
+        </section>
+
+        <div class="coupler" aria-hidden="true">
+          <div class="bellows"><span></span><span></span><span></span></div>
+          <div class="coupler-bar"></div>
+        </div>
+
+        <!-- =================================================================
+             CAR 06 · 読書・サロン車「車窓手帖」 (Reading Table Manuscripts)
+             ================================================================= -->
+        <section class="carriage lounge-car" data-car="6" aria-label="06号车 车窗随笔阅览室">
+          <div class="car-roof-trim"></div>
+          <div class="car-header-bar">
+            <div class="rollsign mono">
+              <span class="car-num">06号車</span>
+              <span class="roll-dest">読書サロン車 · 車窓手帖</span>
+            </div>
+            <span class="lounge-hint mono">点击手帖展开阅读 · 仓库 <code>blog</code> Issue 自动同步</span>
+          </div>
+
+          <div class="lounge-interior">
+            <div class="lounge-sidebar">
+              <div class="lamp-badge">
+                <svg viewBox="0 0 48 52" class="desk-lamp-svg" aria-hidden="true">
+                  <path d="M10 24 L18 8 H30 L38 24 Z" fill="url(#lampShade)"/>
+                  <defs>
+                    <linearGradient id="lampShade" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#ff7aa2"/>
+                      <stop offset="100%" stop-color="#ffc978"/>
+                    </linearGradient>
+                  </defs>
+                  <ellipse cx="24" cy="25" rx="13" ry="3.5" fill="rgba(255,210,160,0.45)"/>
+                  <rect x="22.5" y="24" width="3" height="19" fill="#d9a88f"/>
+                  <rect x="14" y="43" width="20" height="4" rx="2" fill="#d9a88f"/>
+                </svg>
+                <div>
+                  <div class="mono sunset-text" style="font-size:11px;font-weight:700;">SALON TABLE</div>
+                  <h3 class="serif-jp">夜行列車の読書室</h3>
+                </div>
+              </div>
+              <p>旅途中随手记下的协议拆解笔记、工程踩坑复盘与小站日志。不用本地编译，提一条带 <code>blog</code> 标签的 Issue 就能往这张木桌上添一本新册子。</p>
+              <a class="salon-issue-link mono" href="https://github.com/wangshen233/wangshen233.github.io/issues" target="_blank" rel="noopener">查看手帖仓库 Issues ↗</a>
+            </div>
+
+            <div id="notes-grid" class="manuscript-desk"></div>
+          </div>
+
+          <div class="waist-stripe"></div>
+          <div class="undercarriage" aria-hidden="true">
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 06 · READING LOUNGE</div>
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+          </div>
+        </section>
+
+        <div class="coupler" aria-hidden="true">
+          <div class="bellows"><span></span><span></span><span></span></div>
+          <div class="coupler-bar"></div>
+        </div>
+
+        <!-- =================================================================
+             CAR 07 · 最後尾オープンデッキ「茜色の海」 (Open-Air Balcony + Sea)
+             ================================================================= -->
+        <section class="carriage tail-deck" data-car="7" aria-label="07号车 车尾露天甲板与晚霞纸船海面">
+          <div class="tail-cabin">
+            <div class="car-roof-trim"></div>
+            <div class="car-header-bar">
+              <div class="rollsign mono">
+                <span class="car-num">07号車</span>
+                <span class="roll-dest">最後尾デッキ · 茜色の海</span>
+              </div>
+              <span class="tail-lamp-dot" title="尾灯"></span>
+            </div>
+
+            <div class="tail-porthole">
+              <img src="./assets/cover.jpg" alt="车尾丸窗晚霞" />
+              <span class="porthole-tag mono">CAR 07 · REAR CABIN</span>
+            </div>
+
+            <div class="tail-cabin-body">
+              <div class="mono sunset-text" style="font-size:11px;letter-spacing:0.12em;">OPEN-AIR OBSERVATION DECK</div>
+              <h3 class="serif-jp">站在车尾甲板，<br/>往晚霞海面放一艘纸船</h3>
+              <p>这里的海面与我的 GitHub 个人主页实时互通——路过的朋友折一艘纸船写句话，两边都会一起轻轻漂浮。</p>
+              <a class="fold-boat-btn" href="https://github.com/wangshen233/wangshen233/issues/new?title=%F0%9F%95%8A%EF%B8%8F+%E6%94%BE%E9%A3%9E%E7%BA%B8%E9%B9%A4&amp;body=%E5%86%99%E4%B8%8B%E4%B8%80%E5%8F%A5%E6%83%B3%E7%95%99%E5%9C%A8%E6%B5%B7%E9%9D%A2%E4%B8%8A%E7%9A%84%E8%AF%9D%EF%BC%8826%E5%AD%97%E4%BB%A5%E5%86%85%EF%BC%89%EF%BC%9A%0A%0A%E4%B9%98%E7%9D%80%E6%99%9A%E9%9C%9E%E8%B7%AF%E8%BF%87%E6%AD%A4%E5%9C%B0%EF%BC%8C%E7%A5%9D%E4%BB%8A%E5%A4%A9%E4%B9%9F%E6%B2%A1%E6%9C%89+bug%EF%BC%81" target="_blank" rel="noopener">
+                🕊️ 折一艘纸船放进晚霞 ↗
+              </a>
+              <div class="tail-signoff mono">旅は、つづく。 · @wangshen233</div>
+            </div>
+
+            <div class="waist-stripe"></div>
+          </div>
+
+          <!-- Open Balcony Wrought-Iron Railing & Trailing Wake Paper Boats -->
+          <div class="open-wake-zone">
+            <div id="boats-row" class="wake-boats-stage"></div>
+            <div class="balcony-railing" aria-hidden="true">
+              <div class="railing-top"></div>
+              <div class="railing-balusters"></div>
+            </div>
+          </div>
+
+          <div class="undercarriage tail-under" aria-hidden="true">
+            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="under-tank">233-007 · TAIL DECK</div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Layer 3: Shimmering Sunset Sea & Submerged Railway Track -->
+    <div id="sea-foreground" class="sea-foreground" aria-hidden="true">
+      <div class="rail-track-bed">
+        <div class="steel-rail"></div>
+        <div id="rail-sleepers" class="rail-sleepers"></div>
+      </div>
+      <div class="sea-water">
+        <div class="sun-pillar"></div>
+        <div class="water-shimmer"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Interactive Railway Route Scrubber -->
+  <footer class="route-hud" aria-label="海上列车路线进度条">
+    <div class="route-inner">
+      <div class="route-line-wrap">
+        <div class="route-track-bg"></div>
+        <div id="route-progress-fill" class="route-progress-fill"></div>
+        <div id="mini-train-marker" class="mini-train-marker" aria-hidden="true">
+          <svg viewBox="0 0 36 16">
+            <rect x="2" y="2" width="30" height="10" rx="3.5" fill="url(#miniGrad)"/>
+            <path d="M27 2 H31 Q35 2 35 7 V12 H27 Z" fill="#ffc978"/>
+            <rect x="6" y="4.5" width="5" height="4" rx="1" fill="#24151c"/>
+            <rect x="13" y="4.5" width="5" height="4" rx="1" fill="#24151c"/>
+            <rect x="20" y="4.5" width="5" height="4" rx="1" fill="#24151c"/>
+            <circle cx="9" cy="13.5" r="2" fill="#ff8da9"/>
+            <circle cx="26" cy="13.5" r="2" fill="#ff8da9"/>
+            <defs>
+              <linearGradient id="miniGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#ff7aa2"/>
+                <stop offset="100%" stop-color="#ff9c76"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="station-stops">
+          <button type="button" class="station-node active" data-stop="0"><span class="dot"></span><span class="label mono">00 運転室</span></button>
+          <button type="button" class="station-node" data-stop="1"><span class="dot"></span><span class="label mono">01 TURB</span></button>
+          <button type="button" class="station-node" data-stop="2"><span class="dot"></span><span class="label mono">02 SENTINEL</span></button>
+          <button type="button" class="station-node" data-stop="3"><span class="dot"></span><span class="label mono">03 UPI</span></button>
+          <button type="button" class="station-node" data-stop="4"><span class="dot"></span><span class="label mono">04 APPLE</span></button>
+          <button type="button" class="station-node" data-stop="5"><span class="dot"></span><span class="label mono">05 全車両</span></button>
+          <button type="button" class="station-node" data-stop="6"><span class="dot"></span><span class="label mono">06 読書室</span></button>
+          <button type="button" class="station-node" data-stop="7"><span class="dot"></span><span class="label mono">07 茜色の海</span></button>
         </div>
       </div>
-    </section>
-
-    <!-- Seamless Mask-Feathered Storyboard Works -->
-    <div id="works" class="section-head">
-      <h2 class="serif-jp"><span class="sunset-text">01.</span> 车窗外的四座代表站</h2>
-      <p>无边界溶图画廊 · 点击任意车窗直达开源仓库</p>
     </div>
-
-    <section class="cinema-list">
-      <a class="cinema-strip" href="https://github.com/wangshen233/turb-gpt-free-register-oss-20260928" target="_blank" rel="noopener">
-        <div class="cinema-art">
-          <img src="./assets/turb.jpg" alt="Turb Register" loading="lazy" />
-        </div>
-        <div class="cinema-body">
-          <div class="cinema-meta mono">
-            <span class="sunset-text">STATION 01</span>
-            <span>· Python ·</span>
-            <span class="sunset-text" data-repo-metric="turb-gpt-free-register-oss-20260928">★ 95 · 82 forks</span>
-          </div>
-          <h3 class="serif-jp"><span>Turb Register</span><span class="sunset-text">↗</span></h3>
-          <p>把繁琐重复的账号注册与管理收进一座海边自动工坊——集成通用 IMAP/API 邮箱取码、六路独立用途代理池、2FA 与本地可视化控制台。</p>
-          <div class="cinema-note">↳ 另有集成 AI 对话与画布工作台的新版公开分支：turb-register-public</div>
-        </div>
-      </a>
-
-      <a class="cinema-strip reverse" href="https://github.com/wangshen233/sentinel-rs" target="_blank" rel="noopener">
-        <div class="cinema-art">
-          <img src="./assets/sentinel.jpg" alt="Sentinel-rs" loading="lazy" />
-        </div>
-        <div class="cinema-body">
-          <div class="cinema-meta mono">
-            <span class="sunset-text">STATION 02</span>
-            <span>· Rust ·</span>
-            <span class="sunset-text" data-repo-metric="sentinel-rs">★ 13 · 16 forks</span>
-          </div>
-          <h3 class="serif-jp"><span>Sentinel-rs</span><span class="sunset-text">↗</span></h3>
-          <p>脱离 Node 与 sdk.js 的 Sentinel 令牌纯 Rust 原生重实现——内置 36 指令字节码虚拟机，配合 BoringSSL 模拟浏览器 TLS 指纹，支持 C ABI 调用。</p>
-          <div class="cinema-note">↳ 配套独立 OAuth 登录与凭证刷新工具：codex-oauth-helper</div>
-        </div>
-      </a>
-
-      <a class="cinema-strip" href="https://github.com/wangshen233/upi-zero-link" target="_blank" rel="noopener">
-        <div class="cinema-art">
-          <img src="./assets/upi.jpg" alt="UPI Zero Link" loading="lazy" />
-        </div>
-        <div class="cinema-body">
-          <div class="cinema-meta mono">
-            <span class="sunset-text">STATION 03</span>
-            <span>· Python ·</span>
-            <span class="sunset-text" data-repo-metric="upi-zero-link">★ 68 · 61 forks</span>
-          </div>
-          <h3 class="serif-jp"><span>UPI Zero Link</span><span class="sunset-text">↗</span></h3>
-          <p>像从海列窗边伸手接住一串发光的契约之环——印度 ₹0 UPI 委托链纯协议提取工具，零浏览器依赖，支持多账号并发流转与交付前自动核验。</p>
-          <div class="cinema-note">↳ 纯协议轻量 CLI · 干净利落</div>
-        </div>
-      </a>
-
-      <a class="cinema-strip reverse" href="https://github.com/wangshen233/appleservices-family-private" target="_blank" rel="noopener">
-        <div class="cinema-art">
-          <img src="./assets/apple.jpg" alt="AppleServices Family" loading="lazy" />
-        </div>
-        <div class="cinema-body">
-          <div class="cinema-meta mono">
-            <span class="sunset-text">STATION 04</span>
-            <span>· Go ·</span>
-            <span class="sunset-text" data-repo-metric="appleservices-family-private">★ 89 · 130 forks</span>
-          </div>
-          <h3 class="serif-jp"><span>AppleServices Family</span><span class="sunset-text">↗</span></h3>
-          <p>在海风站台翻开一座立体互联的家庭共享小城——将 iCloud 激活、跨区购买与家庭组共享流程封装为可编排的纯协议模块。</p>
-          <div class="cinema-note">↳ 社区高热度协议工作流归档</div>
-        </div>
-      </a>
-    </section>
-
-    <!-- Live Filterable All Repositories -->
-    <div id="repos" class="section-head">
-      <h2 class="serif-jp"><span class="sunset-text">02.</span> 全部公开车厢</h2>
-      <div class="filter-bar mono">
-        <button class="filter-chip active" data-lang="All" type="button">All</button>
-        <button class="filter-chip" data-lang="Python" type="button">Python</button>
-        <button class="filter-chip" data-lang="Rust" type="button">Rust</button>
-        <button class="filter-chip" data-lang="Protocol" type="button">Protocol</button>
-      </div>
-    </div>
-    <section id="repo-grid" class="repo-grid"></section>
-
-    <!-- Bunkobon Notes / Essays -->
-    <div id="notes" class="section-head">
-      <h2 class="serif-jp"><span class="sunset-text">03.</span> 车窗随笔 · Notes</h2>
-      <p>点击卡片展开阅读 · 支持通过仓库 GitHub Issues (<code>blog</code> 标签) 直接发文</p>
-    </div>
-    <section id="notes-grid" class="notes-grid"></section>
-
-    <!-- Shared Interactive Paper-Boat Sea -->
-    <div id="sea" class="section-head">
-      <h2 class="serif-jp"><span class="sunset-text">04.</span> 茜色の海 · 漂流纸船留言墙</h2>
-      <p>与 GitHub 个人主页实时互通的活海面</p>
-    </div>
-
-    <section class="sea-stage">
-      <div id="boats-row" class="boats-row"></div>
-      <svg class="sea-waves" viewBox="0 0 900 48" preserveAspectRatio="none">
-        <path d="M0 24Q75 10 150 24T300 24T450 24T600 24T750 24T900 24V48H0Z" fill="rgba(255,130,164,0.22)"/>
-      </svg>
-      <div class="sea-cta">
-        <span style="font-size:13px;color:var(--sub);">🕊️ 写下一句话放飞纸船，它会同时漂浮在这座小站和我的 GitHub 主页海面上。</span>
-        <a class="cta-btn" href="https://github.com/wangshen233/wangshen233/issues/new?title=%F0%9F%95%8A%EF%B8%8F+%E6%94%BE%E9%A3%9E%E7%BA%B8%E9%B9%A4&amp;body=%E5%86%99%E4%B8%8B%E4%B8%80%E5%8F%A5%E6%83%B3%E7%95%99%E5%9C%A8%E6%B5%B7%E9%9D%A2%E4%B8%8A%E7%9A%84%E8%AF%9D%EF%BC%8826%E5%AD%97%E4%BB%A5%E5%86%85%EF%BC%89%EF%BC%9A%0A%0A%E4%B9%98%E7%9D%80%E6%99%9A%E9%9C%9E%E8%B7%AF%E8%BF%87%E6%AD%A4%E5%9C%B0%EF%BC%8C%E7%A5%9D%E4%BB%8A%E5%A4%A9%E4%B9%9F%E6%B2%A1%E6%9C%89+bug%EF%BC%81" target="_blank" rel="noopener">
-          🕊️ 折一艘纸船放进晚霞 ↗
-        </a>
-      </div>
-    </section>
-
-    <footer class="site-footer mono">
-      <span>旅は、つづく。 · Crafted for @wangshen233 · Station 233</span>
-      <span>
-        <a href="https://github.com/wangshen233" target="_blank" rel="noopener">GitHub</a> ·
-        <a href="https://github.com/wangshen233?tab=repositories" target="_blank" rel="noopener">Repositories</a>
-      </span>
-    </footer>
-  </main>
+  </footer>
 
   <!-- Bunkobon Essay Reader Modal -->
   <div id="note-modal" class="modal-backdrop" role="dialog" aria-modal="true">

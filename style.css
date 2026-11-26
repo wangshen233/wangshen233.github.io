@@ -1,55 +1,96 @@
 /* ==========================================================================
-   Station 233 · 茜色の海列車 (wangshen233.github.io)
-   Strictly ZERO Dark Blue — Velvet Espresso-Rose (Dark) & Sakura Snow (Light)
+   Station 233 · 茜色の海列車 (wangshen233.github.io — V2 Coupled Sea-Train)
+   STRICTLY 0% DARK BLUE! Warm Velvet Espresso-Plum × Sakura-Rose × Apricot-Gold
    ========================================================================== */
 
 :root,
 [data-theme="dark"] {
-  --bg-base: #141013;
-  --bg-elev: #1d151a;
-  --bg-card: rgba(33, 23, 29, 0.72);
-  --bg-card-solid: #21171d;
-  --bg-pill: rgba(44, 29, 37, 0.78);
-  --bg-modal: #1b1318;
-  --border-subtle: rgba(255, 166, 188, 0.14);
-  --border-strong: rgba(255, 168, 152, 0.28);
-  --ink: #fcf3f6;
-  --sub: #cfb8c2;
-  --muted: #937b86;
+  /* Sky: Deep warm plum-cocoa -> dusty cherry -> glowing coral-peach horizon */
+  --sky-top: #150e13;
+  --sky-mid: #2a1721;
+  --sky-low: #532333;
+  --sky-horizon: #9c4052;
+  --sky-glow: rgba(255, 146, 126, 0.36);
+
+  /* Sea: Shimmering sunset-wine & molten rose-gold reflections */
+  --sea-top: #4b2130;
+  --sea-mid: #27131b;
+  --sea-deep: #140b10;
+  --viaduct-fill: rgba(42, 20, 29, 0.78);
+
+  /* Train Exterior & Warm Lit Interior */
+  --car-shell-top: #281921;
+  --car-shell-bot: #1b1116;
+  --car-roof: #38232d;
+  --car-interior: rgba(39, 25, 32, 0.9);
+  --car-panel: rgba(54, 34, 43, 0.72);
+  --car-panel-solid: #2b1b23;
+  --hud-glass: rgba(29, 18, 24, 0.82);
+
+  /* Postcard / Manuscript Paper inside Lounge */
+  --paper-bg: #2f1e27;
+  --paper-alt: #36222c;
+  --paper-border: rgba(255, 174, 162, 0.28);
+
+  /* Borders & Ink */
+  --border-subtle: rgba(255, 166, 186, 0.16);
+  --border-strong: rgba(255, 176, 150, 0.36);
+  --ink: #fdf3f6;
+  --sub: #d7bec8;
+  --muted: #9e828e;
+
+  /* Sunset Gradient Accents */
   --grad-1: #ff7aa2;
   --grad-2: #ff9c76;
   --grad-3: #ffc978;
-  --aura-1: rgba(255, 107, 149, 0.14);
-  --aura-2: rgba(255, 162, 107, 0.12);
-  --shadow-soft: 0 20px 50px rgba(8, 4, 6, 0.55);
-  --vinyl-body: #110d0f;
-  --vinyl-groove: #2b2025;
-  --sea-1: rgba(38, 24, 32, 0.35);
-  --sea-2: rgba(54, 29, 38, 0.85);
+  --shadow-car: 0 24px 55px rgba(10, 4, 7, 0.65);
+  --vinyl-body: #120d10;
+  --vinyl-groove: #2d2027;
+  --wheel-metal: #4a313c;
+  --wheel-rim: #df9ea9;
 }
 
 [data-theme="light"] {
-  --bg-base: #fff9fa;
-  --bg-elev: #fff3ef;
-  --bg-card: rgba(255, 255, 255, 0.82);
-  --bg-card-solid: #ffffff;
-  --bg-pill: rgba(255, 241, 245, 0.9);
-  --bg-modal: #fffafb;
-  --border-subtle: rgba(232, 93, 136, 0.15);
-  --border-strong: rgba(242, 125, 101, 0.32);
-  --ink: #2b1e24;
-  --sub: #664f59;
-  --muted: #9c838e;
+  /* Sky: Sakura-snow -> rose-blush cloud -> warm apricot horizon */
+  --sky-top: #fff8fa;
+  --sky-mid: #ffecf1;
+  --sky-low: #ffd9e2;
+  --sky-horizon: #ffc6b3;
+  --sky-glow: rgba(255, 164, 136, 0.48);
+
+  /* Sea: Rose-quartz & warm peach blossom water */
+  --sea-top: #ffb9c9;
+  --sea-mid: #ffd6de;
+  --sea-deep: #ffeef2;
+  --viaduct-fill: rgba(214, 134, 152, 0.34);
+
+  /* Train Exterior: Classic Warm Cream & Sakura-Crimson Livery */
+  --car-shell-top: #fffaf8;
+  --car-shell-bot: #fff0eb;
+  --car-roof: #f2d5dc;
+  --car-interior: rgba(255, 252, 251, 0.92);
+  --car-panel: rgba(255, 242, 245, 0.88);
+  --car-panel-solid: #fff6f8;
+  --hud-glass: rgba(255, 249, 251, 0.86);
+
+  --paper-bg: #fffdf9;
+  --paper-alt: #fff6f2;
+  --paper-border: rgba(232, 95, 136, 0.25);
+
+  --border-subtle: rgba(226, 96, 134, 0.18);
+  --border-strong: rgba(236, 114, 98, 0.38);
+  --ink: #2c1d24;
+  --sub: #664c57;
+  --muted: #9a7d89;
+
   --grad-1: #e85884;
-  --grad-2: #f27b63;
-  --grad-3: #e59a46;
-  --aura-1: rgba(255, 166, 190, 0.32);
-  --aura-2: rgba(255, 204, 170, 0.32);
-  --shadow-soft: 0 18px 44px rgba(130, 68, 86, 0.09);
-  --vinyl-body: #251b20;
-  --vinyl-groove: #3d2d35;
-  --sea-1: rgba(255, 232, 238, 0.55);
-  --sea-2: rgba(255, 219, 210, 0.88);
+  --grad-2: #f07b62;
+  --grad-3: #e39642;
+  --shadow-car: 0 20px 46px rgba(156, 76, 98, 0.16);
+  --vinyl-body: #261b21;
+  --vinyl-groove: #412f38;
+  --wheel-metal: #8c6472;
+  --wheel-rim: #d96b86;
 }
 
 *,
@@ -58,39 +99,18 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
+html,
 body {
   margin: 0;
-  min-height: 100vh;
-  background-color: var(--bg-base);
-  background-image:
-    radial-gradient(ellipse 68% 46% at 15% 8%, var(--aura-1), transparent 70%),
-    radial-gradient(ellipse 60% 44% at 86% 24%, var(--aura-2), transparent 72%),
-    radial-gradient(ellipse 70% 50% at 50% 96%, var(--aura-1), transparent 75%);
-  color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
-  line-height: 1.68;
-  overflow-x: hidden;
-  transition: background-color 0.35s ease, color 0.35s ease;
-}
-
-#ambient-canvas {
-  position: fixed;
-  inset: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.sunset-text {
-  background: linear-gradient(105deg, var(--grad-1), var(--grad-2) 55%, var(--grad-3));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  overflow: hidden;
+  background: var(--sky-top);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 .serif-jp {
@@ -101,41 +121,65 @@ body {
   font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
-/* Top Floating Glass Nav */
-.site-nav {
-  position: sticky;
-  top: 14px;
-  z-index: 40;
-  max-width: 980px;
-  margin: 14px auto 0;
-  padding: 0 18px;
+.sunset-text {
+  background: linear-gradient(105deg, var(--grad-1), var(--grad-2) 52%, var(--grad-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 18px;
+#ambient-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 25;
+}
+
+/* ==========================================================================
+   Top Railway Control HUD
+   ========================================================================== */
+.top-hud {
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.hud-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 8px 14px;
   border-radius: 999px;
-  background: var(--bg-card);
+  background: var(--hud-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-soft);
-}
-
-.brand {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
-  text-decoration: none;
-  color: var(--ink);
-  font-weight: 600;
-  font-size: 14.5px;
+  pointer-events: auto;
 }
 
-.brand-dot {
+.brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.signal-lamp {
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -143,241 +187,685 @@ body {
   box-shadow: 0 0 12px var(--grad-1);
 }
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+.brand-tag {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: linear-gradient(110deg, var(--grad-1), var(--grad-2));
+  color: #fff;
 }
 
-.nav-links a {
+.hud-quick-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-quick-nav button {
+  border: none;
+  background: transparent;
   color: var(--sub);
-  text-decoration: none;
-  font-size: 13px;
+  font-size: 12.5px;
   padding: 5px 11px;
   border-radius: 999px;
+  cursor: pointer;
   transition: color 0.2s, background 0.2s;
 }
 
-.nav-links a:hover {
+.hud-quick-nav button:hover,
+.hud-quick-nav button.active {
   color: var(--ink);
-  background: var(--bg-pill);
+  background: var(--car-panel);
 }
 
-.nav-actions {
+.hud-actions {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 13px;
+.speed-pill {
+  font-size: 11.5px;
+  color: var(--sub);
+  padding: 4px 10px;
   border-radius: 999px;
   border: 1px solid var(--border-subtle);
-  background: var(--bg-pill);
+  background: var(--car-panel);
+}
+
+.hud-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--car-panel);
   color: var(--ink);
-  font-size: 12.5px;
+  font-size: 12px;
+  text-decoration: none;
   cursor: pointer;
-  transition: transform 0.18s ease, border-color 0.2s ease;
+  transition: border-color 0.2s, transform 0.16s;
 }
 
-.icon-btn:hover {
-  transform: translateY(-1px);
+.hud-btn:hover {
   border-color: var(--border-strong);
+  transform: translateY(-1px);
 }
 
-/* Main Container */
-.container {
+/* ==========================================================================
+   World Viewport & Parallax Background Layers
+   ========================================================================== */
+.world-viewport {
   position: relative;
-  z-index: 2;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 20px 20px 72px;
-}
-
-/* Hero Cover Frame */
-.hero-stage {
-  position: relative;
-  border-radius: 26px;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  border: 1px solid var(--border-strong);
-  box-shadow: var(--shadow-soft);
-  transform-style: preserve-3d;
+  background: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-mid) 36%,
+    var(--sky-low) 64%,
+    var(--sky-horizon) 81%,
+    var(--sea-top) 81.5%,
+    var(--sea-deep) 100%
+  );
+  cursor: grab;
+  user-select: none;
+}
+
+.world-viewport.dragging {
+  cursor: grabbing;
+}
+
+/* Layer 0: Setting Sun & Sunset Clouds */
+.sky-layer {
+  position: absolute;
+  inset: 0;
+  width: 160vw;
+  pointer-events: none;
+  z-index: 1;
   will-change: transform;
 }
 
-.hero-stage img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1600 / 640;
-  object-fit: cover;
-  transform: scale(1.02);
-  transition: transform 0.35s ease-out;
-}
-
-.hero-overlay {
+.sunset-orb {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(20, 12, 16, 0.72) 0%,
-    rgba(20, 12, 16, 0.18) 42%,
-    transparent 100%
+  left: 64vw;
+  bottom: 48vh;
+  width: clamp(200px, 21vw, 300px);
+  height: clamp(200px, 21vw, 300px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #fff6e5 0%,
+    #ffcf91 46%,
+    #ff8da8 82%,
+    #d65c7a 100%
   );
+  filter: blur(6px);
+  opacity: 0.62;
+  box-shadow: 0 0 120px 55px var(--sky-glow);
+}
+
+.cloud-band {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(14px);
+  opacity: 0.45;
+  background: linear-gradient(90deg, transparent, rgba(255, 162, 172, 0.5), rgba(255, 206, 156, 0.45), transparent);
+}
+
+.cloud-1 { width: 520px; height: 34px; left: 12vw; top: 18vh; }
+.cloud-2 { width: 680px; height: 42px; left: 48vw; top: 24vh; }
+.cloud-3 { width: 560px; height: 30px; left: 96vw; top: 16vh; }
+
+/* Layer 1: Distant Coastal Viaduct & Signal Masts */
+.viaduct-layer {
+  position: absolute;
+  left: 0;
+  bottom: 18.5vh;
+  width: 4800px;
+  height: 170px;
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform;
+  opacity: 0.85;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 640px 170px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 170'%3E%3Cpath d='M0 142 Q95 96 200 132 T420 124 T640 142 V170 H0 Z' fill='rgba(120,46,66,0.22)'/%3E%3Cpath d='M0 146 H640 V170 H0 V156 A22 16 0 0 1 44 156 V170 H64 V156 A22 16 0 0 1 108 156 V170 H128 V156 A22 16 0 0 1 172 156 V170 H192 V156 A22 16 0 0 1 236 156 V170 H256 V156 A22 16 0 0 1 300 156 V170 H320 V156 A22 16 0 0 1 364 156 V170 H384 V156 A22 16 0 0 1 428 156 V170 H448 V156 A22 16 0 0 1 492 156 V170 H512 V156 A22 16 0 0 1 556 156 V170 H576 V156 A22 16 0 0 1 620 156 V170 H640 Z' fill='rgba(92,36,52,0.34)'/%3E%3Cline x1='160' y1='42' x2='160' y2='146' stroke='rgba(255,168,176,0.26)' stroke-width='2'/%3E%3Cline x1='148' y1='56' x2='178' y2='56' stroke='rgba(255,168,176,0.26)' stroke-width='1.5'/%3E%3Cline x1='480' y1='42' x2='480' y2='146' stroke='rgba(255,168,176,0.26)' stroke-width='2'/%3E%3Cline x1='468' y1='56' x2='498' y2='56' stroke='rgba(255,168,176,0.26)' stroke-width='1.5'/%3E%3Cpath d='M0 56 Q160 66 320 56 Q480 66 640 56' fill='none' stroke='rgba(255,176,168,0.16)' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   Layer 2: Coupled Sea-Train Consist
+   ========================================================================== */
+.train-track-world {
+  position: absolute;
+  left: 0;
+  bottom: 17.8vh;
+  z-index: 10;
+  padding: 0 9vw 0 5.5vw;
+  will-change: transform;
+}
+
+.catenary-wire {
+  position: absolute;
+  top: -36px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 184, 172, 0.35) 3%, rgba(255, 184, 172, 0.35) 97%, transparent);
+  pointer-events: none;
+}
+
+.train-consist {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: 26px 30px;
-  gap: 16px;
-}
-
-.hero-caption h1 {
-  margin: 0;
-  font-size: clamp(22px, 3.3vw, 34px);
-  color: #fff6f8;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.48);
-}
-
-.hero-caption p {
-  margin: 6px 0 0;
-  color: rgba(255, 240, 244, 0.86);
-  font-size: 13.5px;
-  letter-spacing: 0.04em;
-}
-
-.hero-tategaki {
-  writing-mode: vertical-rl;
-  color: rgba(255, 243, 246, 0.82);
-  font-size: 12px;
-  letter-spacing: 0.28em;
-  max-height: 150px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Upper Intro + Playable FM 233 Vinyl Deck */
-.intro-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 26px;
-  margin-top: 32px;
   align-items: stretch;
 }
 
-.bio-card {
-  padding: 6px 4px;
+/* Base Carriage Shell */
+.carriage {
+  position: relative;
+  height: clamp(428px, 60vh, 526px);
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--car-shell-top) 0%, var(--car-shell-bot) 100%);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 20px 20px 10px 10px;
+  box-shadow: var(--shadow-car);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 14px 20px 18px;
 }
 
-.bio-header {
+/* Roof Metallic Ribbing */
+.car-roof-trim {
+  position: absolute;
+  top: -8px;
+  left: 22px;
+  right: 22px;
+  height: 7px;
+  border-radius: 8px 8px 0 0;
+  background: var(--car-roof);
+  border: 1px solid var(--border-subtle);
+  border-bottom: none;
+}
+
+/* Sunset Waist Livery Stripe along entire train */
+.waist-stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 5px;
+  background: linear-gradient(90deg, var(--grad-1), var(--grad-2), var(--grad-3));
+  opacity: 0.9;
+}
+
+/* Carriage Destination Rollsign Header */
+.car-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.rollsign {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+}
+
+.car-num {
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: linear-gradient(115deg, var(--grad-1), var(--grad-2));
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.roll-dest {
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+}
+
+/* Accordion Coupler Gangways between Carriages */
+.coupler {
+  width: 34px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 16px;
+  position: relative;
+}
+
+.bellows {
+  width: 34px;
+  height: 74%;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3px;
+  background: rgba(24, 14, 19, 0.55);
+  border-top: 2px solid var(--border-subtle);
+  border-bottom: 2px solid var(--border-subtle);
+}
+
+[data-theme="light"] .bellows {
+  background: rgba(212, 152, 166, 0.28);
+}
+
+.bellows span {
+  width: 6px;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--car-roof), var(--car-shell-bot));
+  border: 1px solid var(--border-subtle);
+}
+
+.coupler-bar {
+  width: 38px;
+  height: 7px;
+  border-radius: 3px;
+  background: var(--wheel-metal);
+  border: 1px solid var(--border-strong);
+}
+
+/* Undercarriage & Rotating Spoked Bogie Wheels */
+.undercarriage {
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: -30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.bogie {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 14px;
+  position: relative;
 }
 
-.bio-avatar {
-  width: 54px;
-  height: 54px;
+.axle-bar {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 5px;
+  background: var(--wheel-metal);
+  border-radius: 3px;
+}
+
+.wheel {
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--border-strong);
-  box-shadow: 0 0 20px var(--aura-1);
+  background:
+    radial-gradient(circle, var(--grad-3) 0 3px, var(--wheel-metal) 3.5px 9px, transparent 9.5px),
+    conic-gradient(from 0deg, var(--wheel-rim) 0deg 22deg, transparent 22deg 90deg, var(--wheel-rim) 90deg 112deg, transparent 112deg 180deg, var(--wheel-rim) 180deg 202deg, transparent 202deg 270deg, var(--wheel-rim) 270deg 292deg, transparent 292deg 360deg);
+  border: 2.5px solid var(--wheel-rim);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
+  transform: rotate(var(--wheel-deg, 0deg));
+  z-index: 2;
 }
 
-.bio-header h2 {
-  margin: 0;
-  font-size: 21px;
+.under-tank {
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  padding: 3px 12px;
+  border-radius: 5px;
+  background: var(--car-shell-bot);
+  border: 1px solid var(--border-subtle);
 }
 
-.bio-header span {
-  font-size: 12.5px;
+/* ==========================================================================
+   CAR 00 · Lead Locomotive & Driver's Cab
+   ========================================================================== */
+.locomotive {
+  width: clamp(980px, 84vw, 1140px);
+  border-top-left-radius: 46px;
+}
+
+.pantograph {
+  position: absolute;
+  top: -37px;
+  left: 110px;
+  width: 84px;
+  height: 32px;
+  color: var(--wheel-rim);
+  opacity: 0.82;
+}
+
+.headlight-lamp {
+  position: absolute;
+  left: -6px;
+  top: 44px;
+  width: 11px;
+  height: 22px;
+  border-radius: 6px 0 0 6px;
+  background: #ffe7b3;
+  box-shadow: 0 0 18px 5px rgba(255, 205, 132, 0.85);
+}
+
+.headlight-cone {
+  position: absolute;
+  left: -250px;
+  top: 8px;
+  width: 250px;
+  height: 120px;
+  background: linear-gradient(90deg, transparent, rgba(255, 214, 152, 0.22));
+  clip-path: polygon(100% 36%, 0% 0%, 0% 100%, 100% 56%);
+  pointer-events: none;
+}
+
+.cab-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11.5px;
   color: var(--muted);
 }
 
-.bio-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 18px;
+.scroll-hint {
+  color: var(--grad-2);
+  font-weight: 600;
+}
+
+.loco-interior {
+  flex: 1;
+  min-height: 0;
   display: grid;
-  gap: 8px;
-  font-size: 14.5px;
-  color: var(--sub);
+  grid-template-columns: 1.18fr 1.05fr 0.96fr;
+  gap: 16px;
+  padding-top: 12px;
 }
 
-.bio-list strong {
-  color: var(--ink);
+/* Cab Windshield */
+.cab-windshield {
+  min-height: 0;
 }
 
-.tech-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.tech-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: var(--bg-pill);
-  border: 1px solid var(--border-subtle);
-  font-size: 12px;
-  color: var(--ink);
-}
-
-.tech-pill i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--grad-1), var(--grad-3));
-}
-
-/* Playable FM 233 Vinyl Radio */
-.radio-card {
+.windshield-frame {
   position: relative;
-  border-radius: 22px;
-  padding: 20px 22px;
-  background: var(--bg-card);
-  backdrop-filter: blur(14px);
-  border: 1px solid var(--border-strong);
-  box-shadow: var(--shadow-soft);
+  width: 100%;
+  height: 100%;
+  border-radius: 26px 16px 16px 16px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-strong);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.45);
+}
+
+.windshield-frame img {
+  width: 112%;
+  height: 100%;
+  margin-left: -6%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+}
+
+.windshield-glare {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(125deg, rgba(255, 255, 255, 0.14) 0%, transparent 32%),
+    linear-gradient(to top, rgba(20, 11, 16, 0.84) 0%, rgba(20, 11, 16, 0.22) 52%, transparent 100%);
+  pointer-events: none;
+}
+
+.windshield-caption {
+  position: absolute;
+  left: 18px;
+  right: 44px;
+  bottom: 16px;
+}
+
+.badge-mini {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 130, 164, 0.28);
+  border: 1px solid rgba(255, 186, 170, 0.45);
+  color: #fff5f8;
+  margin-bottom: 6px;
+}
+
+.windshield-caption h1 {
+  margin: 0;
+  font-size: clamp(20px, 2.1vw, 26px);
+  color: #fff6f9;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+.windshield-caption p {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  color: rgba(255, 238, 243, 0.88);
+}
+
+.windshield-tategaki {
+  position: absolute;
+  top: 16px;
+  right: 14px;
+  writing-mode: vertical-rl;
+  font-size: 11.5px;
+  letter-spacing: 0.24em;
+  color: rgba(255, 244, 247, 0.85);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+/* Driver Dispatch Desk */
+.driver-desk {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 16px;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--car-interior);
+  border: 1px solid var(--border-subtle);
 }
 
-.radio-top {
-  display: grid;
-  grid-template-columns: 122px 1fr;
-  gap: 18px;
+.driver-id-card {
+  display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.driver-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1.5px solid var(--border-strong);
+}
+
+.driver-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.driver-role {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--grad-2);
+}
+
+.driver-title h2 {
+  margin: 1px 0 0;
+  font-size: 17.5px;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.driver-title h2 span {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.boarding-stamp {
+  font-size: 9.5px;
+  line-height: 1.25;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px dashed var(--border-strong);
+  color: var(--grad-1);
+}
+
+.dispatch-cards {
+  display: grid;
+  gap: 8px;
+}
+
+.dispatch-item {
+  padding: 8px 11px;
+  border-radius: 11px;
+  background: var(--car-panel);
+  border-left: 3px solid var(--grad-1);
+}
+
+.dispatch-key {
+  display: block;
+  font-size: 10px;
+  color: var(--grad-2);
+  letter-spacing: 0.08em;
+}
+
+.dispatch-item p {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--sub);
+}
+
+.dispatch-item strong {
+  color: var(--ink);
+}
+
+.circuit-switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.circuit-switches span {
+  font-size: 11px;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--car-panel);
+  border: 1px solid var(--border-subtle);
+  color: var(--ink);
+}
+
+.cab-gauges {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.gauge-box {
+  padding: 6px 4px;
+  border-radius: 10px;
+  background: var(--car-panel);
+  border: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.gauge-box small {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.gauge-box strong {
+  font-size: 15px;
+}
+
+/* Cab FM 233.0 Vinyl Radio Deck */
+.cab-radio-deck {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--car-interior);
+  border: 1px solid var(--border-strong);
+}
+
+.radio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.on-air-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.on-air-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.on-air-dot.live {
+  background: var(--grad-1);
+  box-shadow: 0 0 12px var(--grad-1);
+}
+
+.vol-slider {
+  width: 66px;
+  accent-color: var(--grad-1);
+  cursor: pointer;
+}
+
+.radio-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin: 6px 0;
 }
 
 .turntable {
   position: relative;
-  width: 118px;
-  height: 118px;
+  width: 122px;
+  height: 122px;
   cursor: pointer;
-  user-select: none;
 }
 
 .vinyl-disc {
-  width: 112px;
-  height: 112px;
+  width: 116px;
+  height: 116px;
   border-radius: 50%;
-  background:
-    repeating-radial-gradient(circle at center, var(--vinyl-body) 0 4px, var(--vinyl-groove) 4px 5px);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.38);
+  background: repeating-radial-gradient(circle at center, var(--vinyl-body) 0 4px, var(--vinyl-groove) 4px 5px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,8 +883,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 45%, rgba(255, 255, 255, 0.1) 55%, transparent);
-  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 44%, rgba(255, 255, 255, 0.1) 56%, transparent);
 }
 
 .vinyl-label {
@@ -407,21 +894,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.45);
 }
 
 .vinyl-hole {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--bg-card-solid);
+  background: var(--car-panel-solid);
 }
 
 .tonearm {
   position: absolute;
-  top: 4px;
-  right: 2px;
+  top: 2px;
+  right: 0;
   width: 34px;
   height: 76px;
   transform-origin: 26px 8px;
@@ -435,49 +920,23 @@ body {
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-.radio-info {
-  min-width: 0;
+.radio-readout {
+  width: 100%;
 }
 
-.radio-status-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.on-air-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.on-air-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--muted);
-  transition: background 0.25s, box-shadow 0.25s;
-}
-
-.on-air-dot.live {
-  background: var(--grad-1);
-  box-shadow: 0 0 10px var(--grad-1);
+.radio-sub {
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
 }
 
 .track-title {
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
-  margin: 2px 0 8px;
+  margin: 3px 0 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -486,47 +945,47 @@ body {
 .eq-row {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 3.5px;
-  height: 24px;
-  margin-bottom: 10px;
+  height: 22px;
 }
 
 .eq-bar {
-  flex: 1;
-  max-width: 6px;
-  height: 5px;
+  width: 5px;
+  height: 4px;
   border-radius: 3px;
   background: linear-gradient(to top, var(--grad-1), var(--grad-3));
   transition: height 0.08s ease;
 }
 
-.radio-controls {
+.radio-buttons {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 7px;
 }
 
 .play-btn {
-  padding: 5px 13px;
+  width: 100%;
+  padding: 7px 14px;
   border-radius: 999px;
   border: none;
   background: linear-gradient(110deg, var(--grad-1), var(--grad-2));
   color: #fff;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(255, 117, 159, 0.32);
-  transition: transform 0.16s ease, opacity 0.2s;
+  box-shadow: 0 6px 16px rgba(255, 118, 158, 0.3);
 }
 
-.play-btn:hover {
-  transform: scale(1.03);
+.channel-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
 }
 
 .station-btn {
-  padding: 4px 9px;
-  border-radius: 999px;
+  padding: 4px 6px;
+  border-radius: 8px;
   border: 1px solid var(--border-subtle);
   background: transparent;
   color: var(--sub);
@@ -535,184 +994,211 @@ body {
 }
 
 .station-btn.active {
+  background: var(--car-panel);
   border-color: var(--border-strong);
   color: var(--ink);
-  background: var(--bg-pill);
 }
 
-.vol-slider {
-  width: 64px;
-  accent-color: var(--grad-1);
-  cursor: pointer;
+/* ==========================================================================
+   CAR 01–04 · Panoramic Observation Carriages (Flagship Works)
+   ========================================================================== */
+.obs-car {
+  width: clamp(670px, 56vw, 760px);
 }
 
-.telemetry-grid {
+.repo-metric-pill {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.obs-interior {
+  flex: 1;
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  grid-template-columns: 1.18fr 1fr;
+  gap: 18px;
   padding-top: 12px;
-  border-top: 1px solid var(--border-subtle);
 }
 
-.telemetry-cell {
-  background: var(--bg-pill);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 8px 6px;
-  text-align: center;
-}
-
-.telemetry-cell small {
-  display: block;
-  font-size: 9.5px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-}
-
-.telemetry-cell strong {
-  display: block;
-  font-size: 16.5px;
-  margin-top: 2px;
-}
-
-/* Section Headers */
-.section-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 14px;
-  margin: 56px 0 22px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-subtle);
-  flex-wrap: wrap;
-}
-
-.section-head h2 {
-  margin: 0;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.section-head p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* Seamless Mask-Feathered Cinema Strips */
-.cinema-list {
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-}
-
-.cinema-strip {
+/* Arched Train Observation Window */
+.obs-window {
   position: relative;
-  display: grid;
-  grid-template-columns: 1.12fr 1fr;
-  align-items: center;
-  border-radius: 24px;
+  display: block;
+  border-radius: 26px 26px 14px 14px;
   overflow: hidden;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-soft);
+  border: 2px solid var(--border-strong);
+  box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.5);
   text-decoration: none;
-  color: inherit;
-  transition: transform 0.28s ease, border-color 0.28s ease;
 }
 
-.cinema-strip:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-strong);
-}
-
-.cinema-strip.reverse {
-  grid-template-columns: 1fr 1.12fr;
-}
-
-.cinema-art {
-  position: relative;
+.obs-window img {
+  width: 118%;
   height: 100%;
-  min-height: 238px;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, #000 62%, rgba(0, 0, 0, 0.45) 84%, transparent 100%);
-  mask-image: linear-gradient(to right, #000 62%, rgba(0, 0, 0, 0.45) 84%, transparent 100%);
-}
-
-.cinema-strip.reverse .cinema-art {
-  order: 2;
-  -webkit-mask-image: linear-gradient(to left, #000 62%, rgba(0, 0, 0, 0.45) 84%, transparent 100%);
-  mask-image: linear-gradient(to left, #000 62%, rgba(0, 0, 0, 0.45) 84%, transparent 100%);
-}
-
-.cinema-art img {
-  width: 100%;
-  height: 100%;
+  margin-left: -9%;
   object-fit: cover;
   display: block;
-  transition: transform 0.55s ease;
+  transition: filter 0.35s ease;
+  will-change: transform;
 }
 
-.cinema-strip:hover .cinema-art img {
-  transform: scale(1.05);
+.obs-window:hover img {
+  filter: brightness(1.06);
 }
 
-.cinema-body {
-  padding: 24px 30px 24px 10px;
-  position: relative;
+/* Warm Brass Sconce Glow at Top of Window */
+.sconce-glow {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 212, 152, 0.65), transparent 72%);
+  z-index: 2;
+  pointer-events: none;
 }
 
-.cinema-strip.reverse .cinema-body {
-  order: 1;
-  padding: 24px 10px 24px 30px;
+/* Classic Upper Transom Window Mullion Bar */
+.window-mullion {
+  position: absolute;
+  top: 22%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(36, 20, 27, 0.55);
+  border-bottom: 1px solid rgba(255, 200, 185, 0.35);
+  z-index: 2;
+  pointer-events: none;
 }
 
-.cinema-meta {
+.window-badge {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 3;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  background: rgba(24, 14, 19, 0.76);
+  border: 1px solid rgba(255, 178, 166, 0.42);
+  color: #fff4f7;
+}
+
+.obs-plaque {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-
-.cinema-body h3 {
-  margin: 0 0 10px;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--car-interior);
+  border: 1px solid var(--border-subtle);
 }
 
-.cinema-body p {
-  margin: 0 0 14px;
-  font-size: 14px;
+.plaque-kicker {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--grad-2);
+}
+
+.obs-plaque h3 {
+  margin: 4px 0 8px;
+  font-size: 23px;
+}
+
+.obs-plaque p {
+  margin: 0 0 12px;
+  font-size: 13.2px;
   color: var(--sub);
 }
 
-.cinema-note {
-  padding-top: 10px;
-  border-top: 1px solid var(--border-subtle);
+.obs-plaque code {
+  font-family: ui-monospace, monospace;
   font-size: 12px;
-  color: var(--muted);
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--car-panel);
 }
 
-/* All Repositories Explorer */
+.spec-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.spec-tags span {
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--car-panel);
+  border: 1px solid var(--border-subtle);
+  color: var(--ink);
+}
+
+.ticket-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.ticket-primary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px;
+  border-radius: 11px;
+  background: linear-gradient(110deg, var(--grad-1), var(--grad-2));
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(255, 118, 158, 0.25);
+  transition: transform 0.18s;
+}
+
+.ticket-primary:hover {
+  transform: translateY(-1px);
+}
+
+.ticket-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 11px;
+  border-radius: 9px;
+  background: var(--car-panel);
+  border: 1px dashed var(--border-subtle);
+  color: var(--sub);
+  font-size: 11.5px;
+  text-decoration: none;
+}
+
+.ticket-sub:not(.static):hover {
+  border-color: var(--border-strong);
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   CAR 05 · Baggage & Lab Car — Hanging Railway Luggage Tags
+   ========================================================================== */
+.cargo-car {
+  width: clamp(820px, 68vw, 940px);
+}
+
 .filter-bar {
   display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .filter-chip {
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 999px;
   border: 1px solid var(--border-subtle);
   background: transparent;
   color: var(--sub);
-  font-size: 12px;
+  font-size: 11px;
   cursor: pointer;
 }
 
@@ -722,41 +1208,90 @@ body {
   color: #fff;
 }
 
-.repo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
+.cargo-interior {
+  flex: 1;
+  min-height: 0;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
 }
 
-.repo-mini {
+.luggage-rail {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--wheel-metal), var(--wheel-rim), var(--wheel-metal));
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.luggage-rack {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 11px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.luggage-tag {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px 18px;
-  border-radius: 16px;
-  background: var(--bg-card);
+  padding: 12px 14px 12px 24px;
+  border-radius: 12px;
+  background: var(--car-interior);
   border: 1px solid var(--border-subtle);
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s, border-color 0.2s;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.repo-mini:hover {
-  transform: translateY(-2px);
+/* Brass Punch-Hole Eyelet on Left of Luggage Tag */
+.luggage-tag::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sky-top);
+  border: 2px solid var(--grad-2);
+}
+
+.luggage-tag:hover {
+  transform: translateY(-2px) rotate(-0.6deg);
   border-color: var(--border-strong);
 }
 
-.repo-mini h4 {
-  margin: 0 0 6px;
-  font-size: 15px;
+.luggage-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 6px;
 }
 
-.repo-mini p {
-  margin: 0 0 12px;
-  font-size: 12.5px;
+.luggage-serial {
+  font-size: 9.5px;
+  color: var(--grad-2);
+  letter-spacing: 0.08em;
+}
+
+.luggage-tag h4 {
+  margin: 3px 0 4px;
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.luggage-tag p {
+  margin: 0;
+  font-size: 11.5px;
   color: var(--sub);
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -764,116 +1299,306 @@ body {
   overflow: hidden;
 }
 
-.repo-mini-foot {
+.luggage-foot {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   CAR 06 · Reading Salon Car — Tilted Bunkobon & Postcards
+   ========================================================================== */
+.lounge-car {
+  width: clamp(840px, 70vw, 960px);
+}
+
+.lounge-hint {
   font-size: 11.5px;
   color: var(--muted);
 }
 
-/* Notes / Bunkobon Essays */
-.notes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
+.lounge-hint code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--car-panel);
+  color: var(--grad-1);
 }
 
-.note-card {
-  padding: 20px 22px;
-  border-radius: 18px;
-  background: var(--bg-card);
+.lounge-interior {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+  padding-top: 12px;
+}
+
+.lounge-sidebar {
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--car-interior);
   border: 1px solid var(--border-subtle);
-  cursor: pointer;
-  transition: transform 0.22s, border-color 0.22s;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.note-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-strong);
-}
-
-.note-tag-row {
+.lamp-badge {
   display: flex;
-  justify-content: space-between;
-  font-size: 11.5px;
-  color: var(--muted);
-  margin-bottom: 8px;
+  align-items: center;
+  gap: 10px;
 }
 
-.note-card h3 {
-  margin: 0 0 8px;
-  font-size: 17.5px;
+.desk-lamp-svg {
+  width: 42px;
+  height: 46px;
+  flex-shrink: 0;
 }
 
-.note-card p {
-  margin: 0 0 14px;
-  font-size: 13px;
+.lounge-sidebar h3 {
+  margin: 2px 0 0;
+  font-size: 17px;
+}
+
+.lounge-sidebar p {
+  margin: 10px 0;
+  font-size: 12.5px;
   color: var(--sub);
 }
 
-.note-read-more {
-  font-size: 12px;
-  font-weight: 600;
+.lounge-sidebar code {
+  font-family: ui-monospace, monospace;
+  font-size: 11.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--car-panel);
 }
 
-/* Interactive Sunset Sea & Visitor Paper Boats */
-.sea-stage {
+.salon-issue-link {
+  font-size: 11.5px;
+  color: var(--grad-2);
+  text-decoration: none;
+}
+
+.manuscript-desk {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  padding: 6px 4px;
+}
+
+.note-card {
   position: relative;
-  border-radius: 24px;
-  padding: 28px 24px 36px;
-  background: linear-gradient(180deg, transparent 0%, var(--sea-1) 42%, var(--sea-2) 100%);
-  border: 1px solid var(--border-strong);
+  padding: 18px 16px;
+  border-radius: 14px;
+  background: var(--paper-bg);
+  border: 1px solid var(--paper-border);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s;
+}
+
+.note-card:nth-child(1) { transform: rotate(-1.4deg); }
+.note-card:nth-child(2) { transform: rotate(1.1deg) translateY(4px); background: var(--paper-alt); }
+.note-card:nth-child(3) { transform: rotate(-0.8deg); }
+
+.note-card:hover {
+  transform: rotate(0deg) translateY(-6px);
+  border-color: var(--grad-1);
+  z-index: 3;
+}
+
+.postmark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--muted);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.note-card h4 {
+  margin: 0 0 8px;
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+
+.note-card p {
+  margin: 0;
+  font-size: 12.2px;
+  color: var(--sub);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.boats-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 18px;
+.note-open-cta {
+  margin-top: 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   CAR 07 · Open-Air Tail Observation Deck & Trailing Paper-Boat Sea
+   ========================================================================== */
+.tail-deck {
+  width: clamp(820px, 68vw, 940px);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.tail-cabin {
   position: relative;
-  z-index: 2;
+  width: 340px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--car-shell-top), var(--car-shell-bot));
+  border: 1.5px solid var(--border-strong);
+  border-radius: 20px 14px 4px 10px;
+  box-shadow: var(--shadow-car);
+  padding: 14px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tail-lamp-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5d7e;
+  box-shadow: 0 0 14px #ff5d7e;
+}
+
+.tail-porthole {
+  position: relative;
+  height: 138px;
+  margin: 10px 0 6px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-strong);
+}
+
+.tail-porthole img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  display: block;
+}
+
+.porthole-tag {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  background: rgba(24, 14, 19, 0.74);
+  border: 1px solid rgba(255, 180, 168, 0.4);
+  color: #fff4f7;
+}
+
+.tail-cabin-body h3 {
+  margin: 8px 0 10px;
+  font-size: 20px;
+  line-height: 1.42;
+}
+
+.tail-cabin-body p {
+  margin: 0 0 16px;
+  font-size: 12.8px;
+  color: var(--sub);
+}
+
+.fold-boat-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: linear-gradient(110deg, var(--grad-1), var(--grad-2), var(--grad-3));
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(255, 122, 162, 0.34);
+  transition: transform 0.18s;
+}
+
+.fold-boat-btn:hover {
+  transform: translateY(-2px);
+}
+
+.tail-signoff {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Open Balcony + Wake Boats */
+.open-wake-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  padding-left: 14px;
+}
+
+.wake-boats-stage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 18px;
 }
 
 .boat-item {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  animation: bob 5.4s ease-in-out infinite;
+  align-items: center;
+  animation: bob 4.4s ease-in-out infinite;
 }
 
-.boat-item:nth-child(2) {
-  animation-delay: -1.8s;
-}
-
-.boat-item:nth-child(3) {
-  animation-delay: -3.4s;
-}
+.boat-item:nth-child(2) { animation-delay: -1.5s; }
+.boat-item:nth-child(3) { animation-delay: -2.9s; }
 
 @keyframes bob {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-7px); }
 }
 
 .boat-bubble {
   width: 100%;
-  padding: 12px 15px;
+  padding: 11px 12px;
   border-radius: 14px;
-  background: var(--bg-card-solid);
+  background: var(--hud-glass);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border-strong);
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 10px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  margin-bottom: 8px;
 }
 
 .boat-user {
   display: flex;
   align-items: center;
-  gap: 7px;
-  font-size: 11.5px;
-  font-weight: 600;
+  gap: 6px;
+  font-size: 11px;
   margin-bottom: 4px;
 }
 
@@ -885,104 +1610,270 @@ body {
 
 .boat-bubble p {
   margin: 0;
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--ink);
+  line-height: 1.45;
 }
 
 .origami-boat-svg {
-  width: 54px;
-  height: 26px;
-  margin-left: 18px;
+  width: 58px;
+  height: 28px;
 }
 
-.sea-waves {
+.balcony-railing {
+  height: 54px;
+  border-bottom: 6px solid var(--car-shell-bot);
+  position: relative;
+}
+
+.railing-top {
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--grad-2), var(--wheel-rim));
+}
+
+.railing-balusters {
+  height: 44px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--wheel-rim) 0 3px,
+    transparent 3px 22px
+  );
+  opacity: 0.65;
+}
+
+.tail-under {
+  width: 300px;
+  right: auto;
+}
+
+/* ==========================================================================
+   Layer 3: Submerged Rails & Shimmering Sunset Sea
+   ========================================================================== */
+.sea-foreground {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 46px;
+  height: 18.2vh;
+  z-index: 12;
   pointer-events: none;
-  opacity: 0.45;
 }
 
-.sea-cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 22px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-subtle);
-  flex-wrap: wrap;
+.rail-track-bed {
   position: relative;
-  z-index: 2;
+  width: 100%;
+  height: 12px;
 }
 
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: linear-gradient(110deg, var(--grad-1), var(--grad-2));
-  color: #fff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 6px 18px rgba(255, 117, 159, 0.28);
-  transition: transform 0.18s ease;
+.steel-rail {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--wheel-metal), var(--grad-2), var(--wheel-metal));
+  box-shadow: 0 2px 10px rgba(255, 146, 162, 0.45);
 }
 
-.cta-btn:hover {
-  transform: translateY(-2px);
+.rail-sleepers {
+  width: 120vw;
+  height: 8px;
+  margin-left: -10vw;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(92, 42, 56, 0.72) 0 12px,
+    transparent 12px 34px
+  );
+  will-change: transform;
 }
 
-/* Reader Modal */
-.modal-backdrop {
-  position: fixed;
+.sea-water {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 12px);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 142, 162, 0.24) 0%,
+    var(--sea-mid) 45%,
+    var(--sea-deep) 100%
+  );
+  overflow: hidden;
+}
+
+.sun-pillar {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-30%);
+  width: 38vw;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 198, 138, 0.42), rgba(255, 122, 162, 0.14) 55%, transparent 78%);
+}
+
+.water-shimmer {
+  position: absolute;
   inset: 0;
-  z-index: 80;
-  background: rgba(12, 7, 10, 0.68);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.24s ease;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(255, 196, 168, 0.16) 0 2px,
+    transparent 2px 11px
+  );
+  mask-image: radial-gradient(ellipse 75% 90% at 55% 15%, #000, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 90% at 55% 15%, #000, transparent 85%);
 }
 
-.modal-backdrop.open {
-  opacity: 1;
+/* ==========================================================================
+   Bottom Interactive Railway Route Scrubber
+   ========================================================================== */
+.route-hud {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 12px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.route-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 12px 24px 10px;
+  border-radius: 999px;
+  background: var(--hud-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   pointer-events: auto;
 }
 
+.route-line-wrap {
+  position: relative;
+  padding-top: 8px;
+}
+
+.route-track-bg {
+  position: absolute;
+  top: 13px;
+  left: 24px;
+  right: 24px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--border-subtle);
+}
+
+.route-progress-fill {
+  position: absolute;
+  top: 13px;
+  left: 24px;
+  width: 0%;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--grad-1), var(--grad-2), var(--grad-3));
+}
+
+.mini-train-marker {
+  position: absolute;
+  top: -1px;
+  left: 24px;
+  width: 34px;
+  height: 16px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 2px 8px rgba(255, 122, 162, 0.55));
+}
+
+.station-stops {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.station-node {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+
+.station-node .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--car-panel-solid);
+  border: 2px solid var(--muted);
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.station-node .label {
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+.station-node:hover,
+.station-node.active {
+  color: var(--ink);
+}
+
+.station-node.active .dot {
+  border-color: var(--grad-3);
+  background: var(--grad-1);
+  transform: scale(1.25);
+}
+
+/* ==========================================================================
+   Bunkobon Essay Reader Modal
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(16, 9, 13, 0.72);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
 .modal-sheet {
-  width: 100%;
-  max-width: 680px;
-  max-height: 84vh;
+  position: relative;
+  width: min(680px, 100%);
+  max-height: 82vh;
   overflow-y: auto;
-  background: var(--bg-modal);
-  border: 1px solid var(--border-strong);
+  padding: 32px 34px;
   border-radius: 22px;
-  padding: 30px 34px;
-  box-shadow: var(--shadow-soft);
+  background: var(--car-panel-solid);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.6);
 }
 
 .modal-close {
+  position: sticky;
+  top: 0;
   float: right;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-pill);
-  color: var(--ink);
+  padding: 5px 12px;
   border-radius: 999px;
-  padding: 4px 12px;
-  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: var(--car-panel);
+  color: var(--ink);
   font-size: 12px;
+  cursor: pointer;
 }
 
 .modal-body h2 {
-  margin-top: 0;
+  margin: 4px 0 18px;
   font-size: 24px;
 }
 
@@ -990,54 +1881,84 @@ body {
 .modal-body li {
   color: var(--sub);
   font-size: 15px;
-  line-height: 1.85;
+  line-height: 1.82;
 }
 
-.modal-body code {
-  padding: 2px 6px;
-  border-radius: 5px;
-  background: var(--bg-pill);
-  font-size: 13px;
+.modal-body strong {
   color: var(--ink);
 }
 
-.site-footer {
-  margin-top: 64px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border-subtle);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12.5px;
-  color: var(--muted);
-  flex-wrap: wrap;
-  gap: 10px;
+.modal-body code {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: var(--car-panel);
+  color: var(--grad-1);
 }
 
-.site-footer a {
-  color: var(--sub);
-  text-decoration: none;
-}
+/* ==========================================================================
+   Responsive Mobile Horizontal Swipe Mode (<= 960px)
+   ========================================================================== */
+@media (max-width: 960px) {
+  .hud-quick-nav,
+  .speed-pill {
+    display: none;
+  }
 
-@media (max-width: 780px) {
-  .intro-grid,
-  .cinema-strip,
-  .cinema-strip.reverse {
+  .world-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .train-track-world {
+    position: relative;
+    bottom: auto;
+    padding: 82px 5vw 0;
+  }
+
+  .carriage {
+    height: calc(100vh - 178px);
+    scroll-snap-align: center;
+  }
+
+  .locomotive {
+    width: 92vw;
+  }
+
+  .loco-interior {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .windshield-frame {
+    min-height: 190px;
+  }
+
+  .obs-car,
+  .cargo-car,
+  .lounge-car,
+  .tail-deck {
+    width: 90vw;
+  }
+
+  .obs-interior,
+  .lounge-interior {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .luggage-rack {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .manuscript-desk {
     grid-template-columns: 1fr;
   }
-  .cinema-art,
-  .cinema-strip.reverse .cinema-art {
-    order: 0;
-    min-height: 200px;
-    -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
-  }
-  .cinema-body,
-  .cinema-strip.reverse .cinema-body {
-    order: 1;
-    padding: 8px 22px 22px;
-  }
-  .hero-tategaki {
+
+  .station-node .label {
     display: none;
   }
 }
