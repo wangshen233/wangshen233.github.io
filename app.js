@@ -366,7 +366,14 @@ function initCanvas() {
   resize();
   window.addEventListener("resize", resize);
 
-  for (let i = 0; i < 38; i++) {
+  const HUES = [
+    "255, 126, 168", // Sakura Rose
+    "255, 208, 108", // Lantern Gold
+    "78, 232, 186",  // Ghibli Spirit Mint-Jade
+    "206, 138, 255", // Twilight Wisteria
+  ];
+
+  for (let i = 0; i < 42; i++) {
     petals.push({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -378,7 +385,7 @@ function initCanvas() {
       flip: Math.random() * Math.PI * 2,
       vFlip: 0.035 + Math.random() * 0.045,
       isPetal: i % 2 === 0,
-      hue: Math.random() > 0.42 ? "255, 136, 168" : "255, 198, 134",
+      hue: HUES[i % HUES.length],
     });
   }
 
@@ -613,22 +620,25 @@ function renderRepos() {
   const grid = document.getElementById("repo-grid");
   const list = allRepos.filter((r) => currentFilter === "All" || (r.language || "Protocol") === currentFilter);
 
-  grid.innerHTML = list.slice(0, 9).map((r, i) => `
-    <a class="luggage-tag" href="${r.html_url}" target="_blank" rel="noopener">
+  grid.innerHTML = list.slice(0, 9).map((r, i) => {
+    const lang = escapeHtml(r.language || "Protocol");
+    return `
+    <a class="luggage-tag" data-lang="${lang}" href="${r.html_url}" target="_blank" rel="noopener">
       <div>
         <div class="luggage-top mono">
           <span class="luggage-serial">CARGO #${String(i + 1).padStart(2, "0")}</span>
-          <span class="sunset-text">↗</span>
+          <span style="color:var(--tag-accent)">↗</span>
         </div>
         <h4>${escapeHtml(r.name)}</h4>
         <p>${escapeHtml(r.description || "一个小巧安静的实验车厢仓库。")}</p>
       </div>
       <div class="luggage-foot mono">
-        <span>● ${escapeHtml(r.language || "Protocol")}</span>
+        <span style="color:var(--tag-accent)">● ${lang}</span>
         <span>★ ${r.stargazers_count || 0}</span>
         <span>⑂ ${r.forks_count || 0}</span>
       </div>
-    </a>`).join("");
+    </a>`;
+  }).join("");
 }
 
 async function syncGitHub() {
@@ -738,23 +748,30 @@ async function syncIssueNotes() {
 }
 
 function renderBoats(boats) {
-  document.getElementById("boats-row").innerHTML = boats.slice(0, 3).map((b) => `
+  const papers = [
+    { hull: "#ffe6ef", sail: "#ffffff", stroke: "#ff6b9d", glow: "rgba(255,107,157,0.32)" },
+    { hull: "#e4fbf3", sail: "#f7fffc", stroke: "#3ad6ab", glow: "rgba(70,224,182,0.32)" },
+    { hull: "#fff5dc", sail: "#fffdf5", stroke: "#f4a640", glow: "rgba(255,204,102,0.34)" },
+  ];
+  document.getElementById("boats-row").innerHTML = boats.slice(0, 3).map((b, i) => {
+    const p = papers[i % papers.length];
+    return `
     <div class="boat-item">
-      <div class="boat-bubble">
+      <div class="boat-bubble" style="border-color:${p.stroke}66">
         <div class="boat-user mono">
           <img src="${escapeHtml(b.avatar)}" alt="" />
-          <span class="sunset-text">@${escapeHtml(b.user)}</span>
+          <span style="color:${p.stroke};font-weight:700">@${escapeHtml(b.user)}</span>
         </div>
         <p>${escapeHtml(b.msg)}</p>
       </div>
       <svg class="origami-boat-svg" viewBox="0 0 60 28">
-        <ellipse cx="30" cy="23" rx="24" ry="3.2" fill="rgba(255,130,164,0.28)"/>
-        <path d="M9 15L51 15L43 23.5H17Z" fill="#ffeaf0" stroke="#f07e98" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M18 15L30 2L42 15Z" fill="#ffffff" stroke="#f07e98" stroke-width="1.1" stroke-linejoin="round"/>
-        <line x1="30" y1="2" x2="30" y2="15" stroke="#f07e98" stroke-width=".9"/>
+        <ellipse cx="30" cy="23" rx="24" ry="3.4" fill="${p.glow}"/>
+        <path d="M9 15L51 15L43 23.5H17Z" fill="${p.hull}" stroke="${p.stroke}" stroke-width="1.25" stroke-linejoin="round"/>
+        <path d="M18 15L30 2L42 15Z" fill="${p.sail}" stroke="${p.stroke}" stroke-width="1.15" stroke-linejoin="round"/>
+        <line x1="30" y1="2" x2="30" y2="15" stroke="${p.stroke}" stroke-width=".95"/>
       </svg>
-    </div>
-  `).join("");
+    </div>`;
+  }).join("");
 }
 
 async function syncPaperBoats() {

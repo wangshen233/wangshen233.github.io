@@ -11,81 +11,99 @@
 
 :root,
 [data-theme="dark"] {
-  --sky-top: #150e13;
-  --sky-mid: #2b1722;
-  --sky-low: #552334;
-  --sky-horizon: #9e4153;
-  --sky-glow: rgba(255, 148, 126, 0.42);
+  /* Rich 5-Stop Painted Anime Twilight (Mulberry-Orchid -> Berry -> Crimson -> Persimmon -> Honey Gold; 0% Dark Blue!) */
+  --sky-1: #21111f;
+  --sky-2: #461a36;
+  --sky-3: #842d4a;
+  --sky-4: #cc5946;
+  --sky-5: #f4a459;
+  --sky-glow: rgba(255, 166, 108, 0.48);
 
-  --sea-top: #4c2131;
-  --sea-mid: #27131b;
-  --sea-deep: #140b10;
+  /* Iridescent Sea: Warm Jade-Seafoam + Molten Gold + Berry Wine */
+  --sea-top: #5e2639;
+  --sea-mid: #2a1422;
+  --sea-deep: #150b12;
+  --jade-shimmer: rgba(68, 218, 182, 0.22);
 
-  --car-shell-top: #281921;
-  --car-shell-bot: #1b1116;
-  --car-roof: #39232e;
-  --car-interior: rgba(39, 25, 32, 0.92);
-  --car-panel: rgba(56, 35, 45, 0.76);
-  --car-panel-solid: #2b1b23;
-  --hud-glass: rgba(29, 18, 24, 0.85);
+  --car-shell-top: #291824;
+  --car-shell-bot: #1a1017;
+  --car-roof: #3d2332;
+  --car-interior: rgba(36, 22, 31, 0.9);
+  --car-panel: rgba(56, 34, 47, 0.76);
+  --car-panel-solid: #281822;
+  --hud-glass: rgba(28, 16, 24, 0.84);
 
   --paper-bg: #2f1e27;
   --paper-alt: #36222c;
   --paper-border: rgba(255, 174, 162, 0.3);
 
-  --border-subtle: rgba(255, 166, 186, 0.17);
-  --border-strong: rgba(255, 178, 152, 0.38);
-  --ink: #fdf3f6;
-  --sub: #d7bec8;
-  --muted: #9e828e;
+  --border-subtle: rgba(255, 176, 196, 0.18);
+  --border-strong: rgba(255, 188, 148, 0.4);
+  --ink: #fef5f8;
+  --sub: #dec5d0;
+  --muted: #a68997;
 
-  --grad-1: #ff7aa2;
-  --grad-2: #ff9c76;
-  --grad-3: #ffc978;
-  --shadow-car: 0 24px 55px rgba(10, 4, 7, 0.65);
-  --vinyl-body: #120d10;
-  --vinyl-groove: #2d2027;
-  --wheel-metal: #4b313d;
-  --wheel-rim: #e5a1ad;
+  /* Default Carriage Accent (overridden per carriage for rich variety!) */
+  --grad-1: #ff6b9d;
+  --grad-2: #ff9668;
+  --grad-3: #ffd166;
+  --accent-jade: #46e0b6;
+  --accent-orchid: #cb80ff;
+  --accent-amber: #ffbe55;
+  --accent-coral: #ff686b;
+
+  --shadow-car: 0 24px 55px rgba(10, 4, 8, 0.68);
+  --vinyl-body: #120d11;
+  --vinyl-groove: #2d1f28;
+  --wheel-metal: #523443;
+  --wheel-rim: #f0b28a;
 }
 
 [data-theme="light"] {
-  --sky-top: #fff8fa;
-  --sky-mid: #ffecf1;
-  --sky-low: #ffd9e2;
-  --sky-horizon: #ffc6b3;
-  --sky-glow: rgba(255, 164, 136, 0.5);
+  /* Watercolor Pastel Sky: Ivory -> Wisteria Blush -> Peach -> Honey Apricot */
+  --sky-1: #fff9fb;
+  --sky-2: #f9eaf6;
+  --sky-3: #ffdbe6;
+  --sky-4: #ffc5ad;
+  --sky-5: #ffe29e;
+  --sky-glow: rgba(255, 176, 118, 0.55);
 
-  --sea-top: #ffb9c9;
-  --sea-mid: #ffd6de;
-  --sea-deep: #ffeef2;
+  --sea-top: #ffbfd0;
+  --sea-mid: #ffe0dc;
+  --sea-deep: #eefaf6;
+  --jade-shimmer: rgba(58, 198, 166, 0.25);
 
-  --car-shell-top: #fffaf8;
-  --car-shell-bot: #fff0eb;
-  --car-roof: #f2d5dc;
-  --car-interior: rgba(255, 252, 251, 0.94);
-  --car-panel: rgba(255, 241, 245, 0.9);
-  --car-panel-solid: #fff6f8;
-  --hud-glass: rgba(255, 249, 251, 0.88);
+  --car-shell-top: #fffcf9;
+  --car-shell-bot: #fff2ec;
+  --car-roof: #f5d6df;
+  --car-interior: rgba(255, 253, 251, 0.94);
+  --car-panel: rgba(255, 243, 246, 0.9);
+  --car-panel-solid: #fff7f9;
+  --hud-glass: rgba(255, 250, 252, 0.88);
 
   --paper-bg: #fffdf9;
   --paper-alt: #fff6f2;
   --paper-border: rgba(232, 95, 136, 0.25);
 
-  --border-subtle: rgba(226, 96, 134, 0.18);
-  --border-strong: rgba(236, 114, 98, 0.4);
-  --ink: #2c1d24;
-  --sub: #664c57;
-  --muted: #9a7d89;
+  --border-subtle: rgba(218, 98, 138, 0.18);
+  --border-strong: rgba(236, 126, 96, 0.42);
+  --ink: #2a1b23;
+  --sub: #634855;
+  --muted: #987a88;
 
-  --grad-1: #e85884;
-  --grad-2: #f07b62;
-  --grad-3: #e39642;
-  --shadow-car: 0 20px 46px rgba(156, 76, 98, 0.16);
-  --vinyl-body: #261b21;
-  --vinyl-groove: #412f38;
-  --wheel-metal: #8c6472;
-  --wheel-rim: #d96b86;
+  --grad-1: #e85282;
+  --grad-2: #f27d59;
+  --grad-3: #e8a238;
+  --accent-jade: #18a985;
+  --accent-orchid: #9b51e0;
+  --accent-amber: #d98218;
+  --accent-coral: #e54d58;
+
+  --shadow-car: 0 20px 46px rgba(152, 74, 96, 0.16);
+  --vinyl-body: #241920;
+  --vinyl-groove: #412d39;
+  --wheel-metal: #8a6270;
+  --wheel-rim: #e07b67;
 }
 
 *,
@@ -101,7 +119,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--sky-top);
+  background: var(--sky-1);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
   line-height: 1.55;
@@ -161,10 +179,11 @@ body {
   padding: 2px;
   background: conic-gradient(
     from var(--sheen-angle),
-    transparent 0deg 50deg,
-    var(--grad-1) 95deg,
-    var(--grad-3) 145deg,
-    transparent 195deg 360deg
+    transparent 0deg 40deg,
+    var(--car-c1, var(--grad-1)) 85deg,
+    var(--car-c2, var(--accent-jade)) 135deg,
+    var(--car-c3, var(--grad-3)) 180deg,
+    transparent 225deg 360deg
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -336,15 +355,21 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(
-    180deg,
-    var(--sky-top) 0%,
-    var(--sky-mid) 36%,
-    var(--sky-low) 66%,
-    var(--sky-horizon) 82.5%,
-    var(--sea-top) 83%,
-    var(--sea-deep) 100%
-  );
+  background:
+    radial-gradient(ellipse 55% 42% at 62% 22%, rgba(255, 190, 112, 0.28), transparent 70%),
+    radial-gradient(ellipse 48% 36% at 18% 28%, rgba(203, 128, 255, 0.18), transparent 70%),
+    radial-gradient(ellipse 60% 24% at 45% 84%, var(--jade-shimmer), transparent 72%),
+    linear-gradient(
+      180deg,
+      var(--sky-1) 0%,
+      var(--sky-2) 26%,
+      var(--sky-3) 52%,
+      var(--sky-4) 72%,
+      var(--sky-5) 82.8%,
+      var(--sea-top) 83.2%,
+      var(--sea-mid) 91%,
+      var(--sea-deep) 100%
+    );
   cursor: grab;
   user-select: none;
 }
@@ -472,14 +497,33 @@ body {
 .cloud-band {
   position: absolute;
   border-radius: 999px;
-  filter: blur(14px);
-  opacity: 0.42;
-  background: linear-gradient(90deg, transparent, rgba(255, 162, 172, 0.5), rgba(255, 206, 156, 0.45), transparent);
+  filter: blur(16px);
+  opacity: 0.58;
 }
 
-.cloud-1 { width: 520px; height: 34px; left: 8vw; top: 14vh; }
-.cloud-2 { width: 680px; height: 42px; left: 44vw; top: 20vh; }
-.cloud-3 { width: 560px; height: 30px; left: 94vw; top: 14vh; }
+.cloud-1 {
+  width: 560px;
+  height: 40px;
+  left: 6vw;
+  top: 13vh;
+  background: linear-gradient(90deg, transparent, rgba(206, 134, 255, 0.52), rgba(255, 138, 178, 0.5), transparent);
+}
+
+.cloud-2 {
+  width: 720px;
+  height: 46px;
+  left: 42vw;
+  top: 21vh;
+  background: linear-gradient(90deg, transparent, rgba(255, 148, 122, 0.55), rgba(255, 218, 128, 0.55), transparent);
+}
+
+.cloud-3 {
+  width: 600px;
+  height: 36px;
+  left: 90vw;
+  top: 15vh;
+  background: linear-gradient(90deg, transparent, rgba(92, 232, 194, 0.36), rgba(255, 188, 136, 0.5), transparent);
+}
 
 /* Layer 1: Visible Skyline Windmills & Viaduct */
 .viaduct-layer {
@@ -648,13 +692,18 @@ body.ring-mode .carriage {
   transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Base Carriage Shell */
+/* Base Carriage Shell + Per-Carriage Boutique Color Liveries! */
 .carriage {
+  --car-c1: var(--grad-1);
+  --car-c2: var(--grad-2);
+  --car-c3: var(--grad-3);
   position: relative;
   height: clamp(496px, 65vh, 556px);
   flex-shrink: 0;
-  background: linear-gradient(180deg, var(--car-shell-top) 0%, var(--car-shell-bot) 100%);
-  border: 1.5px solid var(--border-strong);
+  background:
+    radial-gradient(ellipse 80% 45% at 50% 0%, color-mix(in srgb, var(--car-c1) 13%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--car-shell-top) 0%, var(--car-shell-bot) 100%);
+  border: 1.5px solid color-mix(in srgb, var(--car-c2) 45%, rgba(255, 255, 255, 0.12));
   border-radius: 20px 20px 10px 10px;
   box-shadow: var(--shadow-car);
   display: flex;
@@ -663,6 +712,16 @@ body.ring-mode .carriage {
   padding: 12px 18px 16px;
 }
 
+/* Distinct Per-Carriage Color Signatures inspired by each Ghibli Painting */
+.carriage[data-car="0"] { --car-c1: #ff6b9d; --car-c2: #ff9a6c; --car-c3: #ffd875; }
+.carriage[data-car="1"] { --car-c1: #ffb347; --car-c2: #46e0b6; --car-c3: #ffe484; } /* Turb: Lantern Gold × Sea-Jade */
+.carriage[data-car="2"] { --car-c1: #c77dff; --car-c2: #ff7aa8; --car-c3: #ffd166; } /* Sentinel: Starry Orchid × Key Gold */
+.carriage[data-car="3"] { --car-c1: #38dfa8; --car-c2: #a8e86c; --car-c3: #ffd166; } /* UPI: Emerald Lagoon × Ring Gold */
+.carriage[data-car="4"] { --car-c1: #ff5d6c; --car-c2: #ff9c59; --car-c3: #ffe07d; } /* Apple: Camellia Coral × Harbor Amber */
+.carriage[data-car="5"] { --car-c1: #ff85a1; --car-c2: #c77dff; --car-c3: #46e0b6; } /* Cargo: Prismatic Workshop */
+.carriage[data-car="6"] { --car-c1: #f7a072; --car-c2: #cb80ff; --car-c3: #56e3b8; } /* Lounge: Salon Warmth */
+.carriage[data-car="7"] { --car-c1: #ff6b9d; --car-c2: #46e0b6; --car-c3: #ffd166; } /* Tail: Aurora Sea */
+
 .car-roof-trim {
   position: absolute;
   top: -8px;
@@ -670,7 +729,7 @@ body.ring-mode .carriage {
   right: 22px;
   height: 7px;
   border-radius: 8px 8px 0 0;
-  background: var(--car-roof);
+  background: linear-gradient(90deg, var(--car-roof), color-mix(in srgb, var(--car-c1) 28%, var(--car-roof)), var(--car-roof));
   border: 1px solid var(--border-subtle);
   border-bottom: none;
 }
@@ -681,8 +740,8 @@ body.ring-mode .carriage {
   right: 0;
   bottom: 5px;
   height: 5px;
-  background: linear-gradient(90deg, var(--grad-1), var(--grad-2), var(--grad-3));
-  opacity: 0.92;
+  background: linear-gradient(90deg, var(--car-c1), var(--car-c2), var(--car-c3));
+  opacity: 0.96;
 }
 
 .car-header-bar {
@@ -705,9 +764,15 @@ body.ring-mode .carriage {
 .car-num {
   padding: 2px 9px;
   border-radius: 6px;
-  background: linear-gradient(115deg, var(--grad-1), var(--grad-2));
+  background: linear-gradient(115deg, var(--car-c1), var(--car-c2));
+  color: #1c1018;
+  font-weight: 800;
+}
+
+.carriage[data-car="0"] .car-num,
+.carriage[data-car="2"] .car-num,
+.carriage[data-car="4"] .car-num {
   color: #fff;
-  font-weight: 700;
 }
 
 .roll-dest {
@@ -1039,6 +1104,12 @@ body.ring-mode .carriage {
   color: var(--ink);
 }
 
+/* Colorful Tech Pills & Multi-Color Cab Gauges */
+.circuit-switches span:nth-child(4n+1) { border-color: rgba(70, 224, 182, 0.38); color: var(--accent-jade); }
+.circuit-switches span:nth-child(4n+2) { border-color: rgba(255, 150, 104, 0.4); color: var(--grad-2); }
+.circuit-switches span:nth-child(4n+3) { border-color: rgba(203, 128, 255, 0.38); color: var(--accent-orchid); }
+.circuit-switches span:nth-child(4n+4) { border-color: rgba(255, 209, 102, 0.4); color: var(--grad-3); }
+
 .cab-gauges {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1052,6 +1123,11 @@ body.ring-mode .carriage {
   border: 1px solid var(--border-subtle);
   text-align: center;
 }
+
+.gauge-box:nth-child(1) strong { color: var(--grad-1); }
+.gauge-box:nth-child(2) strong { color: var(--accent-jade); }
+.gauge-box:nth-child(3) strong { color: var(--accent-orchid); }
+.gauge-box:nth-child(4) strong { color: var(--grad-3); }
 
 .gauge-box small {
   display: block;
@@ -1097,8 +1173,8 @@ body.ring-mode .carriage {
 }
 
 .on-air-dot.live {
-  background: var(--grad-1);
-  box-shadow: 0 0 12px var(--grad-1);
+  background: var(--accent-jade);
+  box-shadow: 0 0 12px var(--accent-jade);
 }
 
 .vol-slider {
@@ -1183,14 +1259,24 @@ body.ring-mode .carriage {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 44%, rgba(255, 255, 255, 0.12) 56%, transparent);
+  background: conic-gradient(
+    from 20deg,
+    transparent 0deg,
+    rgba(255, 118, 168, 0.24) 40deg,
+    rgba(70, 224, 182, 0.22) 80deg,
+    transparent 125deg,
+    transparent 180deg,
+    rgba(203, 128, 255, 0.24) 225deg,
+    rgba(255, 212, 112, 0.24) 265deg,
+    transparent 315deg
+  );
 }
 
 .vinyl-label {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--grad-1), var(--grad-2), var(--grad-3));
+  background: conic-gradient(from 0deg, #ff6b9d, #ffd166, #46e0b6, #c77dff, #ff6b9d);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1369,11 +1455,12 @@ body.ring-mode .carriage {
 
 .lang-chip {
   font-size: 10px;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 999px;
-  background: var(--car-panel);
-  border: 1px solid var(--border-subtle);
-  color: var(--grad-2);
+  background: color-mix(in srgb, var(--car-c1) 16%, var(--car-panel));
+  border: 1px solid color-mix(in srgb, var(--car-c1) 45%, transparent);
+  color: var(--car-c1);
+  font-weight: 600;
 }
 
 .obs-console-info p {
@@ -1457,11 +1544,17 @@ body.ring-mode .carriage {
   justify-content: space-between;
   padding: 7px 12px;
   border-radius: 9px;
-  background: linear-gradient(110deg, var(--grad-1), var(--grad-2));
-  color: #fff;
+  background: linear-gradient(110deg, var(--car-c1), var(--car-c2));
+  color: #1b1017;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
+  box-shadow: 0 5px 16px color-mix(in srgb, var(--car-c1) 32%, transparent);
+}
+
+.carriage[data-car="2"] .ticket-primary,
+.carriage[data-car="4"] .ticket-primary {
+  color: #fff;
 }
 
 .ticket-sub {
@@ -1529,18 +1622,26 @@ body.ring-mode .carriage {
 }
 
 .luggage-tag {
+  --tag-accent: #46e0b6;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 12px 14px 12px 24px;
   border-radius: 12px;
-  background: var(--car-interior);
-  border: 1px solid var(--border-subtle);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--tag-accent) 16%, transparent) 0%, transparent 38%),
+    var(--car-interior);
+  border: 1px solid color-mix(in srgb, var(--tag-accent) 32%, var(--border-subtle));
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
+
+.luggage-tag[data-lang="Python"] { --tag-accent: #46e0b6; }
+.luggage-tag[data-lang="Rust"] { --tag-accent: #ff8456; }
+.luggage-tag[data-lang="Protocol"],
+.luggage-tag[data-lang="Go"] { --tag-accent: #cb80ff; }
 
 .luggage-tag::before {
   content: "";
@@ -1551,13 +1652,13 @@ body.ring-mode .carriage {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--sky-top);
-  border: 2px solid var(--grad-2);
+  background: var(--sky-1);
+  border: 2px solid var(--tag-accent);
 }
 
 .luggage-tag:hover {
   transform: translateY(-3px) rotate(-0.8deg);
-  border-color: var(--border-strong);
+  border-color: var(--tag-accent);
 }
 
 .luggage-top {
@@ -1566,7 +1667,7 @@ body.ring-mode .carriage {
   justify-content: space-between;
 }
 
-.luggage-serial { font-size: 9.5px; color: var(--grad-2); }
+.luggage-serial { font-size: 9.5px; color: var(--tag-accent); font-weight: 700; }
 
 .luggage-tag h4 {
   margin: 3px 0 4px;
@@ -1650,9 +1751,22 @@ body.ring-mode .carriage {
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s;
 }
 
-.note-card:nth-child(1) { transform: rotate(-1.5deg); }
-.note-card:nth-child(2) { transform: rotate(1.2deg) translateY(4px); background: var(--paper-alt); }
-.note-card:nth-child(3) { transform: rotate(-0.9deg); }
+/* 3 Distinct Vintage Bunkobon Book Cover Colors (Matcha-Jade / Sunset-Amber / Wisteria-Orchid) */
+.note-card:nth-child(1) {
+  transform: rotate(-1.5deg);
+  background: linear-gradient(165deg, rgba(70, 224, 182, 0.14), var(--paper-bg) 55%);
+  border-color: rgba(70, 224, 182, 0.36);
+}
+.note-card:nth-child(2) {
+  transform: rotate(1.2deg) translateY(4px);
+  background: linear-gradient(165deg, rgba(255, 184, 92, 0.16), var(--paper-alt) 55%);
+  border-color: rgba(255, 184, 92, 0.38);
+}
+.note-card:nth-child(3) {
+  transform: rotate(-0.9deg);
+  background: linear-gradient(165deg, rgba(203, 128, 255, 0.16), var(--paper-bg) 55%);
+  border-color: rgba(203, 128, 255, 0.38);
+}
 
 .note-card:hover {
   transform: rotate(0deg) translateY(-6px);
@@ -1825,7 +1939,10 @@ body.ring-mode .carriage {
   position: relative;
   width: 100%;
   height: calc(100% - 12px);
-  background: linear-gradient(180deg, rgba(255, 142, 162, 0.24) 0%, var(--sea-mid) 45%, var(--sea-deep) 100%);
+  background:
+    radial-gradient(ellipse 46% 70% at 22% 18%, var(--jade-shimmer), transparent 72%),
+    radial-gradient(ellipse 42% 65% at 82% 24%, rgba(203, 128, 255, 0.18), transparent 72%),
+    linear-gradient(180deg, rgba(255, 166, 128, 0.32) 0%, var(--sea-mid) 48%, var(--sea-deep) 100%);
   overflow: hidden;
 }
 .sun-pillar {
