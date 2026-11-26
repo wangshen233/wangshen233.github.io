@@ -7,7 +7,7 @@
   <title>日天 · Station 233 — 茜色の銀河列車</title>
   <meta name="description" content="日天 (@wangshen233) 的银河海列站 · 环绕引力透镜黑洞公转的 360° 银河星环车厢、FM 233.0 黑胶电台与车窗手帖。" />
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
-  <link rel="stylesheet" href="./style.css?v=20261126-v7" />
+  <link rel="stylesheet" href="./style.css?v=20261126-v8" />
 </head>
 <body class="galaxy-mode">
   <!-- Layer 0: Real-Time WebGL Relativistic Gargantua Black Hole & 4-Arm Spiral Galaxy -->
@@ -15,6 +15,9 @@
 
   <!-- Layer 1: Interactive Orbital Ring Track, Cursor Astrolabe & Infalling Stardust -->
   <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Layer 2: Relativistic Gravitational Slingshot Paper-Boat Lab & Horizon Lock-On HUD -->
+  <canvas id="slingshot-canvas" aria-hidden="true"></canvas>
 
   <!-- Top Railway Control HUD -->
   <header class="top-hud">
@@ -47,10 +50,11 @@
       </nav>
 
       <div class="hud-actions">
-        <button id="overview-toggle" class="ring-mode-btn" type="button" title="拉远镜头俯瞰完整黑洞吸积盘与 8 站银河星环 (快捷键 V)">
+        <button id="overview-toggle" class="ring-mode-btn" type="button" title="拉远镜头俯瞰黑洞并进入引力弹弓实验室 (快捷键 V)">
           <span class="spin-icon">🕳️</span>
           <span id="overview-label">全景黑洞星系</span>
         </button>
+        <button id="terminal-toggle" class="hud-btn" type="button" title="潜入黑洞事件视界五维终端 (快捷键 ` 或直接点击黑洞中心)">⌨️ 视界终端</button>
         <button id="ring-mode-toggle" class="hud-btn" type="button" title="在 360° 银河黑洞星环与横向海列长卷之间切换 (快捷键 R)">
           <span id="ring-mode-label">🚃 平面海列</span>
         </button>
@@ -60,6 +64,17 @@
       </div>
     </div>
   </header>
+
+  <!-- Floating Gravitational Slingshot Lab HUD (Appears in Full Galaxy Overview Mode) -->
+  <aside id="slingshot-hud" class="slingshot-hud" aria-label="黑洞引力弹弓实验室">
+    <span class="slingshot-tip">🛰️ <strong>引力弹弓实验室</strong>：按住空白宇宙拖拽发射折纸船（绿=玫瑰轨道 / 金=弹弓加速 / 红=视界吞噬）</span>
+    <span id="slingshot-stats" class="slingshot-stats mono">在轨纸船 0 · 视界吞噬 0 · 最高弹弓加速 +0%</span>
+    <div class="slingshot-btns">
+      <button id="btn-demo-fleet" class="sling-btn primary" type="button">🎲 齐射实验舰队</button>
+      <button id="btn-dive-horizon" class="sling-btn" type="button">🕳️ 潜入视界</button>
+      <button id="btn-clear-orbit" class="sling-btn" type="button">🧹 清空</button>
+    </div>
+  </aside>
 
   <!-- Full-Viewport Horizontal Parallax & 3D Ring Sea-Train World -->
   <div id="world-viewport" class="world-viewport">
@@ -755,8 +770,39 @@
     </div>
   </div>
 
-  <script src="./audio.js?v=20261126-v7"></script>
-  <script src="./galaxy-bh.js?v=20261126-v7"></script>
-  <script src="./app.js?v=20261126-v7"></script>
+  <!-- Event Horizon Hidden 5D Geek Protocol Terminal -->
+  <div id="horizon-terminal" class="horizon-backdrop" role="dialog" aria-modal="true" aria-label="事件视界五维协议终端">
+    <div class="horizon-window sheen-frame">
+      <div class="horizon-titlebar mono">
+        <div class="horizon-dots">
+          <span class="dot-rose"></span><span class="dot-gold"></span><span class="dot-jade"></span>
+          <span class="horizon-title">wangshen233@event-horizon:~ (r &lt; 2GM/c² · 5D Tesseract CLI)</span>
+        </div>
+        <button id="term-exit-btn" class="term-exit-btn" type="button">🚀 点火脱离视界 (Esc)</button>
+      </div>
+
+      <div id="term-output" class="term-output mono"></div>
+
+      <div class="term-chips mono">
+        <button type="button" class="term-chip" data-cmd="whoami">whoami</button>
+        <button type="button" class="term-chip" data-cmd="sentinel">sentinel 虚拟机演示</button>
+        <button type="button" class="term-chip" data-cmd="repos">repos</button>
+        <button type="button" class="term-chip" data-cmd="ping">ping</button>
+        <button type="button" class="term-chip" data-cmd="slingshot">slingshot 引力弹弓</button>
+        <button type="button" class="term-chip" data-cmd="help">help</button>
+        <button type="button" class="term-chip" data-cmd="clear">clear</button>
+      </div>
+
+      <form id="term-form" class="term-input-row mono" autocomplete="off">
+        <span class="term-ps1">wangshen233@horizon:~$</span>
+        <input id="term-input" type="text" placeholder="输入命令 (如 sentinel / whoami / repos / exit) 回车执行..." spellcheck="false" />
+      </form>
+    </div>
+  </div>
+
+  <script src="./audio.js?v=20261126-v8"></script>
+  <script src="./galaxy-bh.js?v=20261126-v8"></script>
+  <script src="./app.js?v=20261126-v8"></script>
+  <script src="./horizon-lab.js?v=20261126-v8"></script>
 </body>
 </html>

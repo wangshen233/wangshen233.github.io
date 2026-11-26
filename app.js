@@ -68,6 +68,7 @@ const FALLBACK_BOATS = [
 ];
 
 let bhEngine = null;
+window.allRepos = FALLBACK_REPOS;
 
 /* ==========================================================================
    1. Theme Toggle & Cab Live Clock
@@ -121,6 +122,8 @@ window.__orbitTrack = { cx: 0, cy: 0, rx: 0, ry: 0, tilt: -0.105, active: true }
 function initTrainJourney() {
   const cosmosCanvas = document.getElementById("cosmos-canvas");
   bhEngine = new window.BlackHoleGalaxyEngine(cosmosCanvas);
+  window.bhEngine = bhEngine;
+  window.trainController = trainController;
 
   const viewport = document.getElementById("world-viewport");
   const trackWorld = document.getElementById("train-track-world");
@@ -265,7 +268,10 @@ function initTrainJourney() {
 
   window.addEventListener("pointerdown", (e) => {
     if (trainController.isMobile) return;
-    if (e.target.closest("a, button, input, .note-card, .turntable, .modal-sheet")) return;
+    if (window.HorizonLab?.isTerminalOpen?.()) return;
+    // In Full Galaxy Overview Mode, open-space drag aims the Gravitational Slingshot Lab!
+    if (trainController.galaxyMode && trainController.overviewMode) return;
+    if (e.target.closest("a, button, input, .note-card, .turntable, .modal-sheet, .horizon-window, .slingshot-hud")) return;
     dragging = true;
     dragStartX = e.clientX;
     dragOrigin = trainController.galaxyMode ? trainController.targetOrbitAngle : trainController.targetX;
@@ -752,6 +758,7 @@ async function syncGitHub() {
       .sort((a, b) => (b.stargazers_count - a.stargazers_count) || (b.forks_count - a.forks_count));
     if (owned.length) {
       allRepos = owned;
+      window.allRepos = owned;
       renderRepos();
     }
   } catch (_) {}

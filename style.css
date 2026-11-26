@@ -2024,9 +2024,230 @@ body.ring-mode .carriage {
   background-image: repeating-linear-gradient(180deg, rgba(255, 196, 168, 0.16) 0 2px, transparent 2px 11px);
 }
 
+#slingshot-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 38;
+}
+
 /* ==========================================================================
-   Bottom Route Scrubber & Essay Modal
+   Gravitational Slingshot Lab HUD & Event Horizon 5D Geek Terminal (0% Dark Blue!)
    ========================================================================== */
+.slingshot-hud {
+  position: fixed;
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-14px);
+  z-index: 58;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(24, 12, 21, 0.86);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 209, 102, 0.42);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.slingshot-hud.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.slingshot-tip {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.slingshot-tip strong {
+  color: #ffd166;
+}
+
+.slingshot-stats {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(70, 224, 182, 0.12);
+  border: 1px solid rgba(70, 224, 182, 0.35);
+  color: #46e0b6;
+}
+
+.slingshot-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.sling-btn {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--car-panel);
+  color: var(--ink);
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.sling-btn.primary {
+  border: none;
+  background: linear-gradient(110deg, #46e0b6, #ffd166);
+  color: #190e15;
+  font-weight: 700;
+}
+
+/* Event Horizon 5D Geek Terminal Modal */
+.horizon-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  background: rgba(12, 5, 11, 0.58);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.horizon-backdrop.open {
+  display: flex;
+}
+
+.horizon-window {
+  width: min(760px, 100%);
+  height: min(520px, 82vh);
+  border-radius: 18px;
+  background: rgba(18, 9, 16, 0.92);
+  border: 1.5px solid rgba(255, 209, 102, 0.48);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.78), 0 0 50px rgba(255, 118, 158, 0.22);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.horizon-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(38, 20, 32, 0.92);
+  border-bottom: 1px solid rgba(255, 186, 148, 0.24);
+}
+
+.horizon-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot-rose, .dot-gold, .dot-jade {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot-rose { background: #ff6b9d; }
+.dot-gold { background: #ffd166; }
+.dot-jade { background: #46e0b6; }
+
+.horizon-title {
+  margin-left: 6px;
+  font-size: 12px;
+  color: #e6ccd7;
+}
+
+.term-exit-btn {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(110deg, #ff6b9d, #ff9a68);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.term-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px;
+  font-size: 12.8px;
+  line-height: 1.65;
+  color: #f7eaf0;
+}
+
+.term-block { margin-bottom: 10px; }
+.term-prompt-echo { margin-top: 6px; color: #fff; }
+.term-card {
+  margin-top: 4px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(44, 24, 37, 0.72);
+  border-left: 3px solid #ffd166;
+}
+.term-card a { color: #ffd166; text-decoration: none; }
+.term-card a:hover { text-decoration: underline; }
+.term-grid { display: grid; gap: 4px; }
+
+.c-gold { color: #ffd166; }
+.c-jade { color: #46e0b6; }
+.c-rose { color: #ff6b9d; }
+.c-orchid { color: #cb80ff; }
+.c-muted { color: #a68997; }
+
+.term-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 18px;
+  border-top: 1px solid rgba(255, 176, 196, 0.14);
+  background: rgba(28, 14, 23, 0.85);
+}
+
+.term-chip {
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 209, 102, 0.34);
+  background: rgba(54, 30, 44, 0.75);
+  color: #ffd166;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.term-chip:hover {
+  background: rgba(255, 209, 102, 0.2);
+}
+
+.term-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(14, 7, 12, 0.96);
+  border-top: 1px solid rgba(255, 176, 196, 0.16);
+}
+
+.term-ps1 {
+  color: #46e0b6;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+#term-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff5f8;
+  font-family: inherit;
+  font-size: 13px;
+}
 .route-hud {
   position: fixed;
   left: 16px;

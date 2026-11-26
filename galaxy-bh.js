@@ -13,6 +13,8 @@ class BlackHoleGalaxyEngine {
     this.warp = 0;
     this.overview = 0;
     this.targetOverview = 0;
+    this.dive = 0;
+    this.targetDive = 0;
     this.isLight = false;
     this.mouseX = 0.5;
     this.mouseY = 0.5;
@@ -41,6 +43,22 @@ class BlackHoleGalaxyEngine {
 
   triggerWarp(strength = 1.0) {
     this.warp = Math.min(1.6, Math.max(this.warp, strength));
+  }
+
+  setDive(active) {
+    this.targetDive = active ? 1.0 : 0.0;
+    this.triggerWarp(1.3);
+  }
+
+  getScreenBlackHole() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const ov = this.overview;
+    const cx = vw * (0.5 + (this.mouseX - 0.5) * 0.02);
+    const cy = vh * (1.0 - ((0.725 * (1 - ov) + 0.52 * ov) + (this.mouseY - 0.5) * 0.015));
+    const zoom = 1.55 * (1 - ov) + 1.22 * ov;
+    const shadowR = (Math.min(vw, vh) / zoom) * 0.255;
+    return { x: cx, y: cy, r: shadowR };
   }
 
   resize() {
@@ -76,6 +94,7 @@ class BlackHoleGalaxyEngine {
       uniform float u_rot;
       uniform float u_warp;
       uniform float u_overview;
+      uniform float u_dive;
       uniform float u_light;
       uniform vec2 u_mouse;
 
@@ -127,9 +146,9 @@ class BlackHoleGalaxyEngine {
         // High-center in Dock View (y=0.73 -> 27vh from top), Dead-center in Overview (y=0.52)
         vec2 bhCenter = vec2(
           0.5 + (u_mouse.x - 0.5) * 0.02,
-          mix(0.725, 0.52, u_overview) + (u_mouse.y - 0.5) * 0.015
+          mix(mix(0.725, 0.52, u_overview), 0.5, u_dive) + (u_mouse.y - 0.5) * 0.015
         );
-        float zoom = mix(1.55, 1.22, u_overview);
+        float zoom = mix(mix(1.55, 1.22, u_overview), 0.38, u_dive);
         vec2 uv = (gl_FragCoord.xy - u_res * bhCenter) / min(u_res.x, u_res.y) * zoom;
 
         // Cinematic Gargantua -7 deg roll
@@ -279,6 +298,16 @@ class BlackHoleGalaxyEngine {
           col += vec3(1.0, 0.82, 0.60) * streak * u_warp * smoothstep(0.22, 0.9, length(uv)) * 0.4;
         }
 
+        // 5D Tesseract Light-Chords when plunged inside the Event Horizon (u_dive > 0)!
+        if (u_dive > 0.02) {
+          vec2 tUV = (gl_FragCoord.xy - 0.5 * u_res) / min(u_res.x, u_res.y);
+          float gx = pow(abs(sin(tUV.x * 26.0 + u_time * 0.6)), 24.0);
+          float gy = pow(abs(sin(tUV.y * 26.0 - u_time * 0.4)), 24.0);
+          float diag = pow(abs(sin((tUV.x + tUV.y) * 18.0 + u_time * 0.8)), 30.0);
+          vec3 tessCol = vec3(1.0, 0.78, 0.38) * gx + vec3(0.98, 0.40, 0.60) * gy + vec3(0.28, 0.88, 0.70) * diag;
+          col = mix(col, col * 0.35 + tessCol * 0.55, u_dive * 0.85);
+        }
+
         // Smooth Filmic Tone Mapping
         col = col / (1.0 + col * 0.28);
         col = pow(max(col, 0.0), vec3(0.95));
@@ -326,6 +355,7 @@ class BlackHoleGalaxyEngine {
       rot: gl.getUniformLocation(prog, "u_rot"),
       warp: gl.getUniformLocation(prog, "u_warp"),
       overview: gl.getUniformLocation(prog, "u_overview"),
+      dive: gl.getUniformLocation(prog, "u_dive"),
       light: gl.getUniformLocation(prog, "u_light"),
       mouse: gl.getUniformLocation(prog, "u_mouse"),
     };
@@ -338,6 +368,7 @@ class BlackHoleGalaxyEngine {
   renderFrame() {
     const t = (performance.now() - this.startTime) * 0.001;
     this.overview += (this.targetOverview - this.overview) * 0.085;
+    this.dive += (this.targetDive - this.dive) * 0.085;
     this.warp *= 0.93;
 
     if (this.gl) {
@@ -347,6 +378,7 @@ class BlackHoleGalaxyEngine {
       gl.uniform1f(this.u.rot, this.rot);
       gl.uniform1f(this.u.warp, this.warp);
       gl.uniform1f(this.u.overview, this.overview);
+      gl.uniform1f(this.u.dive, this.dive);
       gl.uniform1f(this.u.light, this.isLight ? 1.0 : 0.0);
       gl.uniform2f(this.u.mouse, this.mouseX, this.mouseY);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
