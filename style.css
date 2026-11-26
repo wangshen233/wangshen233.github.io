@@ -1,84 +1,79 @@
 /* ==========================================================================
-   Station 233 · 茜色の海列車 (wangshen233.github.io — V2 Coupled Sea-Train)
-   STRICTLY 0% DARK BLUE! Warm Velvet Espresso-Plum × Sakura-Rose × Apricot-Gold
+   Station 233 · 茜色の海列車 (V5 — 100% Uncropped Panoramic Windows + 3D Ring)
+   STRICTLY 0% DARK BLUE! Velvet Espresso-Plum × Sakura-Rose × Apricot-Gold
    ========================================================================== */
+
+@property --sheen-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
 
 :root,
 [data-theme="dark"] {
-  /* Sky: Deep warm plum-cocoa -> dusty cherry -> glowing coral-peach horizon */
   --sky-top: #150e13;
-  --sky-mid: #2a1721;
-  --sky-low: #532333;
-  --sky-horizon: #9c4052;
-  --sky-glow: rgba(255, 146, 126, 0.36);
+  --sky-mid: #2b1722;
+  --sky-low: #552334;
+  --sky-horizon: #9e4153;
+  --sky-glow: rgba(255, 148, 126, 0.42);
 
-  /* Sea: Shimmering sunset-wine & molten rose-gold reflections */
-  --sea-top: #4b2130;
+  --sea-top: #4c2131;
   --sea-mid: #27131b;
   --sea-deep: #140b10;
-  --viaduct-fill: rgba(42, 20, 29, 0.78);
 
-  /* Train Exterior & Warm Lit Interior */
   --car-shell-top: #281921;
   --car-shell-bot: #1b1116;
-  --car-roof: #38232d;
-  --car-interior: rgba(39, 25, 32, 0.9);
-  --car-panel: rgba(54, 34, 43, 0.72);
+  --car-roof: #39232e;
+  --car-interior: rgba(39, 25, 32, 0.92);
+  --car-panel: rgba(56, 35, 45, 0.76);
   --car-panel-solid: #2b1b23;
-  --hud-glass: rgba(29, 18, 24, 0.82);
+  --hud-glass: rgba(29, 18, 24, 0.85);
 
-  /* Postcard / Manuscript Paper inside Lounge */
   --paper-bg: #2f1e27;
   --paper-alt: #36222c;
-  --paper-border: rgba(255, 174, 162, 0.28);
+  --paper-border: rgba(255, 174, 162, 0.3);
 
-  /* Borders & Ink */
-  --border-subtle: rgba(255, 166, 186, 0.16);
-  --border-strong: rgba(255, 176, 150, 0.36);
+  --border-subtle: rgba(255, 166, 186, 0.17);
+  --border-strong: rgba(255, 178, 152, 0.38);
   --ink: #fdf3f6;
   --sub: #d7bec8;
   --muted: #9e828e;
 
-  /* Sunset Gradient Accents */
   --grad-1: #ff7aa2;
   --grad-2: #ff9c76;
   --grad-3: #ffc978;
   --shadow-car: 0 24px 55px rgba(10, 4, 7, 0.65);
   --vinyl-body: #120d10;
   --vinyl-groove: #2d2027;
-  --wheel-metal: #4a313c;
-  --wheel-rim: #df9ea9;
+  --wheel-metal: #4b313d;
+  --wheel-rim: #e5a1ad;
 }
 
 [data-theme="light"] {
-  /* Sky: Sakura-snow -> rose-blush cloud -> warm apricot horizon */
   --sky-top: #fff8fa;
   --sky-mid: #ffecf1;
   --sky-low: #ffd9e2;
   --sky-horizon: #ffc6b3;
-  --sky-glow: rgba(255, 164, 136, 0.48);
+  --sky-glow: rgba(255, 164, 136, 0.5);
 
-  /* Sea: Rose-quartz & warm peach blossom water */
   --sea-top: #ffb9c9;
   --sea-mid: #ffd6de;
   --sea-deep: #ffeef2;
-  --viaduct-fill: rgba(214, 134, 152, 0.34);
 
-  /* Train Exterior: Classic Warm Cream & Sakura-Crimson Livery */
   --car-shell-top: #fffaf8;
   --car-shell-bot: #fff0eb;
   --car-roof: #f2d5dc;
-  --car-interior: rgba(255, 252, 251, 0.92);
-  --car-panel: rgba(255, 242, 245, 0.88);
+  --car-interior: rgba(255, 252, 251, 0.94);
+  --car-panel: rgba(255, 241, 245, 0.9);
   --car-panel-solid: #fff6f8;
-  --hud-glass: rgba(255, 249, 251, 0.86);
+  --hud-glass: rgba(255, 249, 251, 0.88);
 
   --paper-bg: #fffdf9;
   --paper-alt: #fff6f2;
   --paper-border: rgba(232, 95, 136, 0.25);
 
   --border-subtle: rgba(226, 96, 134, 0.18);
-  --border-strong: rgba(236, 114, 98, 0.38);
+  --border-strong: rgba(236, 114, 98, 0.4);
   --ink: #2c1d24;
   --sub: #664c57;
   --muted: #9a7d89;
@@ -109,7 +104,7 @@ body {
   background: var(--sky-top);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
-  line-height: 1.6;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -134,7 +129,62 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 25;
+  z-index: 40;
+}
+
+@keyframes spinCW {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCCW {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes sheenRotate {
+  to { --sheen-angle: 360deg; }
+}
+
+/* ==========================================================================
+   Always-Alive 360° Flowing Sunset Comet-Light Border (ZERO overlap on art!)
+   ========================================================================== */
+.sheen-frame {
+  position: relative;
+}
+
+.sheen-frame::after,
+.luggage-tag::after,
+.note-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--sheen-angle),
+    transparent 0deg 50deg,
+    var(--grad-1) 95deg,
+    var(--grad-3) 145deg,
+    transparent 195deg 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.65;
+  animation: sheenRotate 3.6s linear infinite;
+  transition: opacity 0.25s ease;
+  z-index: 4;
+}
+
+.luggage-tag::after,
+.note-card::after {
+  opacity: 0;
+}
+
+.sheen-frame:hover::after,
+.luggage-tag:hover::after,
+.note-card:hover::after {
+  opacity: 1;
 }
 
 /* ==========================================================================
@@ -142,23 +192,23 @@ body {
    ========================================================================== */
 .top-hud {
   position: fixed;
-  top: 12px;
+  top: 10px;
   left: 16px;
   right: 16px;
-  z-index: 50;
+  z-index: 60;
   pointer-events: none;
 }
 
 .hud-inner {
-  max-width: 1360px;
+  max-width: 1380px;
   margin: 0 auto;
-  padding: 8px 14px;
+  padding: 7px 14px;
   border-radius: 999px;
   background: var(--hud-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -176,38 +226,19 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  padding: 4px 8px;
-}
-
-@property --sheen-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+  padding: 3px 6px;
 }
 
 .hud-compass-svg {
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
   flex-shrink: 0;
-  animation: slowSpinCW 26s linear infinite;
+  animation: spinCW 12s linear infinite;
 }
 
 .compass-needle {
   transform-origin: 14px 14px;
   transform: rotate(var(--compass-deg, 25deg));
-  transition: transform 0.15s ease-out;
-}
-
-@keyframes slowSpinCW {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes slowSpinCCW {
-  to { transform: rotate(-360deg); }
-}
-
-@keyframes sheenRotate {
-  to { --sheen-angle: 360deg; }
 }
 
 .brand-tag {
@@ -229,7 +260,7 @@ body {
   background: transparent;
   color: var(--sub);
   font-size: 12.5px;
-  padding: 5px 11px;
+  padding: 5px 10px;
   border-radius: 999px;
   cursor: pointer;
   transition: color 0.2s, background 0.2s;
@@ -244,7 +275,34 @@ body {
 .hud-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+}
+
+/* Prominent 3D Ring Mode Toggle Button */
+.ring-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(110deg, var(--grad-1), var(--grad-2), var(--grad-3));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255, 122, 162, 0.42);
+  transition: transform 0.18s ease, box-shadow 0.2s ease;
+}
+
+.ring-mode-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 22px rgba(255, 156, 118, 0.58);
+}
+
+.spin-icon {
+  display: inline-block;
+  animation: spinCW 5s linear infinite;
 }
 
 .speed-pill {
@@ -268,16 +326,10 @@ body {
   font-size: 12px;
   text-decoration: none;
   cursor: pointer;
-  transition: border-color 0.2s, transform 0.16s;
-}
-
-.hud-btn:hover {
-  border-color: var(--border-strong);
-  transform: translateY(-1px);
 }
 
 /* ==========================================================================
-   World Viewport & Parallax Background Layers
+   World Viewport & Giant Rotating Celestial Astrolabe
    ========================================================================== */
 .world-viewport {
   position: relative;
@@ -288,9 +340,9 @@ body {
     180deg,
     var(--sky-top) 0%,
     var(--sky-mid) 36%,
-    var(--sky-low) 64%,
-    var(--sky-horizon) 81%,
-    var(--sea-top) 81.5%,
+    var(--sky-low) 66%,
+    var(--sky-horizon) 82.5%,
+    var(--sea-top) 83%,
     var(--sea-deep) 100%
   );
   cursor: grab;
@@ -301,7 +353,6 @@ body {
   cursor: grabbing;
 }
 
-/* Layer 0: Setting Sun & Sunset Clouds */
 .sky-layer {
   position: absolute;
   inset: 0;
@@ -313,31 +364,50 @@ body {
 
 .celestial-sun-assembly {
   position: absolute;
-  left: 60vw;
-  bottom: 43vh;
-  width: 400px;
-  height: 400px;
+  left: 52vw;
+  top: -6vh;
+  width: 580px;
+  height: 580px;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 900px;
+  perspective: 1000px;
+  transform: rotate(var(--scroll-boost-deg, 0deg));
+}
+
+/* Rotating Conic Sunset God-Rays */
+.sun-godrays {
+  position: absolute;
+  width: 780px;
+  height: 780px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255, 198, 138, 0.14) 0deg 10deg,
+    transparent 10deg 24deg,
+    rgba(255, 128, 166, 0.11) 24deg 32deg,
+    transparent 32deg 45deg
+  );
+  mask-image: radial-gradient(circle, #000 18%, transparent 68%);
+  -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 68%);
+  animation: spinCW 22s linear infinite;
 }
 
 .sunset-orb {
   position: relative;
-  width: clamp(190px, 19vw, 250px);
-  height: clamp(190px, 19vw, 250px);
+  width: 210px;
+  height: 210px;
   border-radius: 50%;
   background: radial-gradient(
     circle at 50% 50%,
-    #fff6e5 0%,
-    #ffcf91 46%,
-    #ff8da8 82%,
+    #fff7e8 0%,
+    #ffd194 45%,
+    #ff8ca7 82%,
     #d65c7a 100%
   );
-  filter: blur(5px);
-  opacity: 0.68;
-  box-shadow: 0 0 120px 55px var(--sky-glow);
+  filter: blur(4px);
+  opacity: 0.72;
+  box-shadow: 0 0 130px 55px var(--sky-glow);
 }
 
 .astrolabe-svg {
@@ -349,47 +419,84 @@ body {
 }
 
 .astrolabe-svg.ring-outer {
-  animation: slowSpinCW 52s linear infinite;
+  animation: spinCW 16s linear infinite;
 }
 
 .astrolabe-svg.ring-middle {
-  animation: slowSpinCCW 34s linear infinite;
+  animation: spinCCW 10.5s linear infinite;
+}
+
+.astrolabe-svg.ring-inner {
+  animation: spinCW 13s linear infinite;
 }
 
 .gyro-orbit-ring {
   position: absolute;
-  width: 340px;
-  height: 340px;
+  width: 470px;
+  height: 470px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 196, 148, 0.36);
-  box-shadow: 0 0 22px rgba(255, 138, 168, 0.22);
-  transform-style: preserve-3d;
-  animation: gyroOrbit 16s linear infinite;
+  border: 1.8px solid rgba(255, 202, 146, 0.48);
+  box-shadow: 0 0 24px rgba(255, 138, 168, 0.28);
+  animation: gyroOrbitA 7.5s linear infinite;
 }
 
 .gyro-orbit-ring::after {
   content: "";
   position: absolute;
-  top: -5px;
+  top: -6px;
   left: 50%;
-  width: 9px;
-  height: 9px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: #fff2d6;
-  box-shadow: 0 0 14px 4px #ff9c76;
+  background: #fff5dc;
+  box-shadow: 0 0 16px 5px #ff9c76;
 }
 
-@keyframes gyroOrbit {
-  0%   { transform: rotateX(68deg) rotateY(-18deg) rotateZ(0deg); }
-  100% { transform: rotateX(68deg) rotateY(-18deg) rotateZ(360deg); }
+.gyro-orbit-ring.gyro-alt {
+  width: 390px;
+  height: 390px;
+  border-color: rgba(255, 134, 168, 0.44);
+  animation: gyroOrbitB 9.5s linear infinite;
 }
 
-/* Rotating Seaside Windmills & Sweeping Lighthouse on Distant Viaduct */
+@keyframes gyroOrbitA {
+  0%   { transform: rotateX(66deg) rotateY(-20deg) rotateZ(0deg); }
+  100% { transform: rotateX(66deg) rotateY(-20deg) rotateZ(360deg); }
+}
+
+@keyframes gyroOrbitB {
+  0%   { transform: rotateX(62deg) rotateY(26deg) rotateZ(360deg); }
+  100% { transform: rotateX(62deg) rotateY(26deg) rotateZ(0deg); }
+}
+
+.cloud-band {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(14px);
+  opacity: 0.42;
+  background: linear-gradient(90deg, transparent, rgba(255, 162, 172, 0.5), rgba(255, 206, 156, 0.45), transparent);
+}
+
+.cloud-1 { width: 520px; height: 34px; left: 8vw; top: 14vh; }
+.cloud-2 { width: 680px; height: 42px; left: 44vw; top: 20vh; }
+.cloud-3 { width: 560px; height: 30px; left: 94vw; top: 14vh; }
+
+/* Layer 1: Visible Skyline Windmills & Viaduct */
+.viaduct-layer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 4800px;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform;
+}
+
 .windmill-cluster {
   position: absolute;
-  bottom: 26px;
-  width: 80px;
-  height: 128px;
+  width: 84px;
+  height: 120px;
 }
 
 .windmill-cluster.small {
@@ -399,33 +506,31 @@ body {
 
 .windmill-mast {
   position: absolute;
-  left: 38px;
+  left: 40px;
   bottom: 0;
   width: 4px;
-  height: 78px;
-  background: linear-gradient(180deg, rgba(255, 178, 168, 0.48), rgba(92, 36, 52, 0.55));
-  border-radius: 2px;
+  height: 76px;
+  background: linear-gradient(180deg, rgba(255, 186, 168, 0.55), transparent);
 }
 
 .windmill-blades {
   position: absolute;
-  left: 0;
-  top: 10px;
+  left: 2px;
+  top: 4px;
   width: 80px;
   height: 80px;
-  animation: slowSpinCW 9.5s linear infinite;
+  animation: spinCW 5.2s linear infinite;
 }
 
 .windmill-blades.reverse-spin {
-  animation: slowSpinCCW 7.8s linear infinite;
+  animation: spinCCW 4.4s linear infinite;
 }
 
 .lighthouse-tower {
   position: absolute;
-  bottom: 24px;
   width: 14px;
-  height: 88px;
-  background: linear-gradient(180deg, #ff9c76, rgba(112, 42, 60, 0.7));
+  height: 86px;
+  background: linear-gradient(180deg, #ff9c76, transparent);
   clip-path: polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%);
 }
 
@@ -443,58 +548,29 @@ body {
 .lighthouse-beam {
   position: absolute;
   top: -16px;
-  left: -190px;
-  width: 394px;
-  height: 40px;
-  background: linear-gradient(90deg, transparent, rgba(255, 212, 148, 0.24) 45%, rgba(255, 238, 190, 0.45) 50%, rgba(255, 212, 148, 0.24) 55%, transparent);
-  transform-origin: 197px 20px;
-  animation: beaconSweep 7s ease-in-out infinite alternate;
+  left: -210px;
+  width: 434px;
+  height: 44px;
+  background: linear-gradient(90deg, transparent, rgba(255, 212, 148, 0.28) 44%, rgba(255, 240, 196, 0.55) 50%, rgba(255, 212, 148, 0.28) 56%, transparent);
+  transform-origin: 217px 22px;
+  animation: beaconSweep 4.5s ease-in-out infinite alternate;
 }
 
 @keyframes beaconSweep {
-  0%   { transform: rotate(-14deg) scaleX(0.92); opacity: 0.55; }
-  50%  { transform: rotate(4deg) scaleX(1.08); opacity: 0.95; }
-  100% { transform: rotate(16deg) scaleX(0.92); opacity: 0.55; }
-}
-
-.cloud-band {
-  position: absolute;
-  border-radius: 999px;
-  filter: blur(14px);
-  opacity: 0.45;
-  background: linear-gradient(90deg, transparent, rgba(255, 162, 172, 0.5), rgba(255, 206, 156, 0.45), transparent);
-}
-
-.cloud-1 { width: 520px; height: 34px; left: 12vw; top: 18vh; }
-.cloud-2 { width: 680px; height: 42px; left: 48vw; top: 24vh; }
-.cloud-3 { width: 560px; height: 30px; left: 96vw; top: 16vh; }
-
-/* Layer 1: Distant Coastal Viaduct & Signal Masts */
-.viaduct-layer {
-  position: absolute;
-  left: 0;
-  bottom: 18.5vh;
-  width: 4800px;
-  height: 170px;
-  pointer-events: none;
-  z-index: 2;
-  will-change: transform;
-  opacity: 0.85;
-  background-repeat: repeat-x;
-  background-position: left bottom;
-  background-size: 640px 170px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 170'%3E%3Cpath d='M0 142 Q95 96 200 132 T420 124 T640 142 V170 H0 Z' fill='rgba(120,46,66,0.22)'/%3E%3Cpath d='M0 146 H640 V170 H0 V156 A22 16 0 0 1 44 156 V170 H64 V156 A22 16 0 0 1 108 156 V170 H128 V156 A22 16 0 0 1 172 156 V170 H192 V156 A22 16 0 0 1 236 156 V170 H256 V156 A22 16 0 0 1 300 156 V170 H320 V156 A22 16 0 0 1 364 156 V170 H384 V156 A22 16 0 0 1 428 156 V170 H448 V156 A22 16 0 0 1 492 156 V170 H512 V156 A22 16 0 0 1 556 156 V170 H576 V156 A22 16 0 0 1 620 156 V170 H640 Z' fill='rgba(92,36,52,0.34)'/%3E%3Cline x1='160' y1='42' x2='160' y2='146' stroke='rgba(255,168,176,0.26)' stroke-width='2'/%3E%3Cline x1='148' y1='56' x2='178' y2='56' stroke='rgba(255,168,176,0.26)' stroke-width='1.5'/%3E%3Cline x1='480' y1='42' x2='480' y2='146' stroke='rgba(255,168,176,0.26)' stroke-width='2'/%3E%3Cline x1='468' y1='56' x2='498' y2='56' stroke='rgba(255,168,176,0.26)' stroke-width='1.5'/%3E%3Cpath d='M0 56 Q160 66 320 56 Q480 66 640 56' fill='none' stroke='rgba(255,176,168,0.16)' stroke-width='1'/%3E%3C/svg%3E");
+  0%   { transform: rotate(-18deg); opacity: 0.55; }
+  50%  { transform: rotate(2deg); opacity: 1; }
+  100% { transform: rotate(18deg); opacity: 0.55; }
 }
 
 /* ==========================================================================
-   Layer 2: Coupled Sea-Train Consist
+   Layer 2: Coupled Sea-Train Consist (Linear + 360° 3D Ring Carousel Mode!)
    ========================================================================== */
 .train-track-world {
   position: absolute;
   left: 0;
-  bottom: 17.8vh;
+  bottom: 16.5vh;
   z-index: 10;
-  padding: 0 9vw 0 5.5vw;
+  padding: 0 9vw 0 5vw;
   will-change: transform;
 }
 
@@ -513,10 +589,69 @@ body {
   align-items: stretch;
 }
 
+/* 360° 3D Rotating Star-Ring Mode Styles */
+.ring-floor-halo {
+  position: absolute;
+  left: 50%;
+  bottom: 6vh;
+  width: 1100px;
+  height: 1100px;
+  margin-left: -550px;
+  border-radius: 50%;
+  border: 3px dashed rgba(255, 188, 142, 0.48);
+  box-shadow: 0 0 80px rgba(255, 122, 162, 0.35), inset 0 0 80px rgba(255, 196, 136, 0.25);
+  transform: perspective(1000px) rotateX(76deg) rotateZ(0deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 0.6s ease;
+  animation: ringFloorSpin 18s linear infinite;
+}
+
+@keyframes ringFloorSpin {
+  from { transform: perspective(1000px) rotateX(76deg) rotateZ(0deg); }
+  to   { transform: perspective(1000px) rotateX(76deg) rotateZ(360deg); }
+}
+
+body.ring-mode .ring-floor-halo {
+  opacity: 1;
+}
+
+body.ring-mode .catenary-wire,
+body.ring-mode .coupler {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.ring-mode .train-track-world {
+  left: 50%;
+  top: 50%;
+  bottom: auto;
+  padding: 0;
+  perspective: 2400px;
+  transform: translate(-50%, -48%) !important;
+}
+
+body.ring-mode .train-consist {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+body.ring-mode .carriage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* Base Carriage Shell */
 .carriage {
   position: relative;
-  height: clamp(428px, 60vh, 526px);
+  height: clamp(496px, 65vh, 556px);
   flex-shrink: 0;
   background: linear-gradient(180deg, var(--car-shell-top) 0%, var(--car-shell-bot) 100%);
   border: 1.5px solid var(--border-strong);
@@ -525,10 +660,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 14px 20px 18px;
+  padding: 12px 18px 16px;
 }
 
-/* Roof Metallic Ribbing */
 .car-roof-trim {
   position: absolute;
   top: -8px;
@@ -541,25 +675,24 @@ body {
   border-bottom: none;
 }
 
-/* Sunset Waist Livery Stripe along entire train */
 .waist-stripe {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 6px;
+  bottom: 5px;
   height: 5px;
   background: linear-gradient(90deg, var(--grad-1), var(--grad-2), var(--grad-3));
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
-/* Carriage Destination Rollsign Header */
 .car-header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
 }
 
 .rollsign {
@@ -575,29 +708,28 @@ body {
   background: linear-gradient(115deg, var(--grad-1), var(--grad-2));
   color: #fff;
   font-weight: 700;
-  letter-spacing: 0.04em;
 }
 
 .roll-dest {
   font-weight: 600;
   color: var(--ink);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
-/* Accordion Coupler Gangways between Carriages */
+/* Couplers */
 .coupler {
-  width: 34px;
+  width: 32px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 16px;
-  position: relative;
+  transition: opacity 0.4s;
 }
 
 .bellows {
-  width: 34px;
+  width: 32px;
   height: 74%;
   margin-bottom: 18px;
   display: flex;
@@ -621,20 +753,20 @@ body {
 }
 
 .coupler-bar {
-  width: 38px;
+  width: 36px;
   height: 7px;
   border-radius: 3px;
   background: var(--wheel-metal);
   border: 1px solid var(--border-strong);
 }
 
-/* Undercarriage, Spoked Drive Wheels, Coupling Rod & Meshed Gears */
+/* Undercarriage, Spoked Wheels, Coupling Rod & Meshed Gears */
 .undercarriage {
   position: absolute;
   left: 34px;
   right: 34px;
-  bottom: -32px;
-  height: 32px;
+  bottom: -34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -644,38 +776,28 @@ body {
 .bogie {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
   position: relative;
 }
 
-.axle-bar {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  height: 5px;
-  background: var(--wheel-metal);
-  border-radius: 3px;
-}
-
-/* Eccentric Piston Coupling Rod orbiting with wheels */
 .coupling-rod {
   position: absolute;
-  left: 12px;
-  right: 12px;
-  height: 4px;
+  left: 14px;
+  right: 14px;
+  height: 4.5px;
   border-radius: 3px;
-  background: linear-gradient(90deg, var(--grad-2), var(--grad-3));
-  box-shadow: 0 0 8px rgba(255, 172, 130, 0.5);
+  background: linear-gradient(90deg, var(--grad-1), var(--grad-3));
+  box-shadow: 0 0 10px rgba(255, 172, 130, 0.6);
   z-index: 4;
-  transform: translate(calc(cos(var(--wheel-deg, 0deg)) * 5px), calc(sin(var(--wheel-deg, 0deg)) * 5px));
+  transform: translate(calc(cos(var(--wheel-deg, 0deg)) * 6px), calc(sin(var(--wheel-deg, 0deg)) * 6px));
 }
 
 .wheel {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background:
-    radial-gradient(circle, var(--grad-3) 0 3.5px, var(--wheel-metal) 4px 8px, transparent 8.5px),
+    radial-gradient(circle, var(--grad-3) 0 4px, var(--wheel-metal) 4.5px 9px, transparent 9.5px),
     conic-gradient(
       from 0deg,
       var(--wheel-rim) 0deg 18deg, transparent 18deg 60deg,
@@ -698,80 +820,23 @@ body {
 }
 
 .gear-svg {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   color: var(--grad-2);
-  opacity: 0.85;
 }
 
 .gear-svg.small {
-  width: 19px;
-  height: 19px;
+  width: 21px;
+  height: 21px;
   color: var(--grad-3);
 }
 
 .gear-cw {
-  animation: slowSpinCW 7s linear infinite;
+  animation: spinCW 4.2s linear infinite;
 }
 
 .gear-ccw {
-  animation: slowSpinCCW 5.2s linear infinite;
-}
-
-/* Automaton Workshop Corner Meshed Escapement Gears & Kinetic Emblems */
-.automaton-gears {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  display: flex;
-  align-items: center;
-  gap: 1px;
-  pointer-events: none;
-}
-
-.rune-seal-svg {
-  width: 38px;
-  height: 38px;
-  opacity: 0.88;
-}
-
-.pinwheel-svg {
-  width: 34px;
-  height: 34px;
-  opacity: 0.88;
-}
-
-.covenant-rings {
-  position: relative;
-  width: 38px;
-  height: 38px;
-  perspective: 220px;
-}
-
-.covenant-rings span {
-  position: absolute;
-  inset: 4px;
-  border-radius: 50%;
-  border: 2px solid var(--grad-3);
-}
-
-.covenant-rings .ring-a {
-  animation: covSpinA 4.8s linear infinite;
-}
-
-.covenant-rings .ring-b {
-  border-color: var(--grad-1);
-  animation: covSpinB 4.8s linear infinite;
-}
-
-@keyframes covSpinA {
-  0%   { transform: rotateX(56deg) rotateY(20deg) rotateZ(0deg); }
-  100% { transform: rotateX(56deg) rotateY(20deg) rotateZ(360deg); }
-}
-
-@keyframes covSpinB {
-  0%   { transform: rotateX(-56deg) rotateY(20deg) rotateZ(360deg); }
-  100% { transform: rotateX(-56deg) rotateY(20deg) rotateZ(0deg); }
+  animation: spinCCW 3.2s linear infinite;
 }
 
 .under-tank {
@@ -786,11 +851,11 @@ body {
 }
 
 /* ==========================================================================
-   CAR 00 · Lead Locomotive & Driver's Cab
+   CAR 00 · Locomotive — 100% Uncropped 2.5:1 cover.jpg + Console + Radio
    ========================================================================== */
 .locomotive {
-  width: clamp(980px, 84vw, 1140px);
-  border-top-left-radius: 46px;
+  width: clamp(980px, 82vw, 1080px);
+  border-top-left-radius: 42px;
 }
 
 .pantograph {
@@ -800,7 +865,6 @@ body {
   width: 84px;
   height: 32px;
   color: var(--wheel-rim);
-  opacity: 0.82;
 }
 
 .headlight-lamp {
@@ -816,11 +880,11 @@ body {
 
 .headlight-cone {
   position: absolute;
-  left: -250px;
-  top: 8px;
-  width: 250px;
-  height: 120px;
-  background: linear-gradient(90deg, transparent, rgba(255, 214, 152, 0.22));
+  left: -260px;
+  top: 6px;
+  width: 260px;
+  height: 124px;
+  background: linear-gradient(90deg, transparent, rgba(255, 214, 152, 0.25));
   clip-path: polygon(100% 36%, 0% 0%, 0% 100%, 100% 56%);
   pointer-events: none;
 }
@@ -829,7 +893,7 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--muted);
 }
 
@@ -838,193 +902,138 @@ body {
   font-weight: 600;
 }
 
-.loco-interior {
+.loco-split {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 1.18fr 1.05fr 0.96fr;
-  gap: 16px;
-  padding-top: 12px;
+  grid-template-columns: 1fr 306px;
+  gap: 14px;
+  padding-top: 10px;
 }
 
-/* Cab Windshield */
-.cab-windshield {
-  min-height: 0;
-}
-
-.windshield-frame {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 26px 16px 16px 16px;
-  overflow: hidden;
-  border: 1.5px solid var(--border-strong);
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.45);
-}
-
-.windshield-frame img {
-  width: 112%;
-  height: 100%;
-  margin-left: -6%;
-  object-fit: cover;
-  display: block;
-  will-change: transform;
-}
-
-.windshield-glare {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(125deg, rgba(255, 255, 255, 0.14) 0%, transparent 32%),
-    linear-gradient(to top, rgba(20, 11, 16, 0.84) 0%, rgba(20, 11, 16, 0.22) 52%, transparent 100%);
-  pointer-events: none;
-}
-
-.windshield-caption {
-  position: absolute;
-  left: 18px;
-  right: 44px;
-  bottom: 16px;
-}
-
-.badge-mini {
-  display: inline-block;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: rgba(255, 130, 164, 0.28);
-  border: 1px solid rgba(255, 186, 170, 0.45);
-  color: #fff5f8;
-  margin-bottom: 6px;
-}
-
-.windshield-caption h1 {
-  margin: 0;
-  font-size: clamp(20px, 2.1vw, 26px);
-  color: #fff6f9;
-  letter-spacing: 0.05em;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
-}
-
-.windshield-caption p {
-  margin: 5px 0 0;
-  font-size: 12.5px;
-  color: rgba(255, 238, 243, 0.88);
-}
-
-.windshield-tategaki {
-  position: absolute;
-  top: 16px;
-  right: 14px;
-  writing-mode: vertical-rl;
-  font-size: 11.5px;
-  letter-spacing: 0.24em;
-  color: rgba(255, 244, 247, 0.85);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
-}
-
-/* Driver Dispatch Desk */
-.driver-desk {
+.loco-left-wing {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
-  padding: 12px 14px;
-  border-radius: 16px;
+  min-height: 0;
+}
+
+/* Exact 2.5:1 Panoramic Frame matching cover.jpg (1600x640) — ZERO CROPPING! */
+.pano-cover-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1600 / 640;
+  max-height: 282px;
+  border-radius: 22px 14px 14px 14px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-strong);
+  background: #1a1015;
+}
+
+.pano-cover-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.pano-cover-caption {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  max-width: 60%;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(24, 13, 18, 0.62);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 184, 168, 0.28);
+}
+
+.pano-cover-caption h1 {
+  margin: 0;
+  font-size: 19px;
+  color: #fff6f9;
+  letter-spacing: 0.05em;
+}
+
+.pano-cover-caption p {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  color: rgba(255, 238, 243, 0.88);
+}
+
+/* Lower Driver Console below Cover Window */
+.driver-console {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 14px;
   background: var(--car-interior);
   border: 1px solid var(--border-subtle);
 }
 
-.driver-id-card {
+.driver-id-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  margin-bottom: 5px;
 }
 
 .driver-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
   object-fit: cover;
   border: 1.5px solid var(--border-strong);
 }
 
-.driver-title {
-  flex: 1;
-  min-width: 0;
-}
-
 .driver-role {
-  font-size: 10px;
+  display: block;
+  font-size: 9.5px;
   letter-spacing: 0.1em;
   color: var(--grad-2);
 }
 
 .driver-title h2 {
-  margin: 1px 0 0;
-  font-size: 17.5px;
+  margin: 0;
+  font-size: 16px;
   display: flex;
   align-items: baseline;
-  gap: 7px;
-  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .driver-title h2 span {
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 400;
   color: var(--muted);
 }
 
-.boarding-stamp {
-  font-size: 9.5px;
-  line-height: 1.25;
-  text-align: center;
-  padding: 4px 8px;
-  border-radius: 8px;
-  border: 1px dashed var(--border-strong);
-  color: var(--grad-1);
-}
-
-.dispatch-cards {
-  display: grid;
-  gap: 8px;
-}
-
-.dispatch-item {
-  padding: 8px 11px;
-  border-radius: 11px;
-  background: var(--car-panel);
-  border-left: 3px solid var(--grad-1);
-}
-
-.dispatch-key {
-  display: block;
-  font-size: 10px;
-  color: var(--grad-2);
-  letter-spacing: 0.08em;
-}
-
-.dispatch-item p {
-  margin: 2px 0 0;
-  font-size: 12.5px;
+.driver-summary {
+  margin: 0 0 7px;
+  font-size: 12px;
   color: var(--sub);
+  line-height: 1.48;
 }
 
-.dispatch-item strong {
+.driver-summary strong {
   color: var(--ink);
 }
 
 .circuit-switches {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 4px;
 }
 
 .circuit-switches span {
-  font-size: 11px;
-  padding: 2px 9px;
-  border-radius: 6px;
+  font-size: 10.5px;
+  padding: 1.5px 7px;
+  border-radius: 5px;
   background: var(--car-panel);
   border: 1px solid var(--border-subtle);
   color: var(--ink);
@@ -1032,12 +1041,12 @@ body {
 
 .cab-gauges {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
 }
 
 .gauge-box {
-  padding: 6px 4px;
+  padding: 7px 6px;
   border-radius: 10px;
   background: var(--car-panel);
   border: 1px solid var(--border-subtle);
@@ -1051,7 +1060,7 @@ body {
 }
 
 .gauge-box strong {
-  font-size: 15px;
+  font-size: 15.5px;
 }
 
 /* Cab FM 233.0 Vinyl Radio Deck */
@@ -1103,14 +1112,13 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 10px;
-  margin: 6px 0;
+  gap: 8px;
 }
 
 .turntable {
   position: relative;
-  width: 138px;
-  height: 138px;
+  width: 150px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1121,33 +1129,35 @@ body {
 .turntable-bezel {
   position: absolute;
   inset: 0;
-  width: 138px;
-  height: 138px;
+  width: 150px;
+  height: 150px;
   pointer-events: none;
-  opacity: 0.72;
-  animation: slowSpinCCW 18s linear infinite;
+  animation: spinCCW 9s linear infinite;
 }
 
 .turntable-gyro-halo {
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  border: 1.5px dashed rgba(255, 156, 118, 0.45);
+  border: 1.8px dashed rgba(255, 156, 118, 0.65);
   pointer-events: none;
-  opacity: 0.45;
-  animation: turntableGyro 6.5s linear infinite;
+  animation: turntableGyroA 4.6s linear infinite;
 }
 
-.turntable:hover .turntable-gyro-halo,
-.cab-radio-deck.live-glow .turntable-gyro-halo {
-  opacity: 0.95;
-  border-color: var(--grad-1);
-  box-shadow: 0 0 20px rgba(255, 122, 162, 0.35);
+.turntable-gyro-halo.alt {
+  inset: 4px;
+  border-color: rgba(255, 122, 162, 0.55);
+  animation: turntableGyroB 5.8s linear infinite;
 }
 
-@keyframes turntableGyro {
-  0%   { transform: rotateX(58deg) rotateY(18deg) rotateZ(0deg); }
-  100% { transform: rotateX(58deg) rotateY(18deg) rotateZ(360deg); }
+@keyframes turntableGyroA {
+  0%   { transform: rotateX(60deg) rotateY(18deg) rotateZ(0deg); }
+  100% { transform: rotateX(60deg) rotateY(18deg) rotateZ(360deg); }
+}
+
+@keyframes turntableGyroB {
+  0%   { transform: rotateX(-56deg) rotateY(22deg) rotateZ(360deg); }
+  100% { transform: rotateX(-56deg) rotateY(22deg) rotateZ(0deg); }
 }
 
 .vinyl-disc {
@@ -1160,7 +1170,7 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  animation: spin 8.5s linear infinite;
+  animation: spinCW 5.5s linear infinite;
   animation-play-state: paused;
 }
 
@@ -1173,7 +1183,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 44%, rgba(255, 255, 255, 0.1) 56%, transparent);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 44%, rgba(255, 255, 255, 0.12) 56%, transparent);
 }
 
 .vinyl-label {
@@ -1195,8 +1205,8 @@ body {
 
 .tonearm {
   position: absolute;
-  top: 2px;
-  right: 0;
+  top: 8px;
+  right: 4px;
   width: 34px;
   height: 76px;
   transform-origin: 26px 8px;
@@ -1207,10 +1217,6 @@ body {
 
 .tonearm.playing {
   transform: rotate(6deg);
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 .radio-readout {
@@ -1224,9 +1230,9 @@ body {
 }
 
 .track-title {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 600;
-  margin: 3px 0 8px;
+  margin: 2px 0 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1237,7 +1243,7 @@ body {
   align-items: flex-end;
   justify-content: center;
   gap: 3.5px;
-  height: 22px;
+  height: 20px;
 }
 
 .eq-bar {
@@ -1251,7 +1257,7 @@ body {
 .radio-buttons {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
 }
 
 .play-btn {
@@ -1264,7 +1270,6 @@ body {
   font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(255, 118, 158, 0.3);
 }
 
 .channel-group {
@@ -1290,10 +1295,10 @@ body {
 }
 
 /* ==========================================================================
-   CAR 01–04 · Panoramic Observation Carriages (Flagship Works)
+   CAR 01–04 · Full-Width 2:1 Panoramic Observation Cars (ZERO CROPPING!)
    ========================================================================== */
 .obs-car {
-  width: clamp(670px, 56vw, 760px);
+  width: clamp(620px, 48vw, 668px);
 }
 
 .repo-metric-pill {
@@ -1301,143 +1306,87 @@ body {
   font-weight: 700;
 }
 
-.obs-interior {
+.obs-pano-stack {
   flex: 1;
   min-height: 0;
-  display: grid;
-  grid-template-columns: 1.18fr 1fr;
-  gap: 18px;
-  padding-top: 12px;
-}
-
-/* Arched Train Observation Window */
-.obs-window {
-  position: relative;
-  display: block;
-  border-radius: 26px 26px 14px 14px;
-  overflow: hidden;
-  border: 2px solid var(--border-strong);
-  box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.5);
-  text-decoration: none;
-}
-
-.obs-window img {
-  width: 118%;
-  height: 100%;
-  margin-left: -9%;
-  object-fit: cover;
-  display: block;
-  transition: filter 0.35s ease;
-  will-change: transform;
-}
-
-.obs-window:hover img {
-  filter: brightness(1.06);
-}
-
-/* Warm Brass Sconce Glow at Top of Window */
-.sconce-glow {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 140px;
-  height: 54px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 212, 152, 0.65), transparent 72%);
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Classic Upper Transom Window Mullion Bar */
-.window-mullion {
-  position: absolute;
-  top: 22%;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: rgba(36, 20, 27, 0.55);
-  border-bottom: 1px solid rgba(255, 200, 185, 0.35);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.window-badge {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  z-index: 3;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 10.5px;
-  background: rgba(24, 14, 19, 0.76);
-  border: 1px solid rgba(255, 178, 166, 0.42);
-  color: #fff4f7;
-}
-
-.obs-plaque {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 14px 16px;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+/* Exact 2:1 Window matching 1040x520 artworks — ZERO mullion lines, ZERO crop! */
+.pano-art-window {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  max-height: 316px;
   border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-strong);
+  background: #1a1015;
+  text-decoration: none;
+}
+
+.pano-art-window img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pano-art-window:hover img {
+  transform: scale(1.025);
+}
+
+.obs-console-bar {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.48fr 0.92fr;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 14px;
   background: var(--car-interior);
   border: 1px solid var(--border-subtle);
 }
 
-/* Rotating Conic Sunset Sheen Border on Hovered Windows, Luggage Tags & Manuscripts */
-.obs-window::after,
-.luggage-tag::after,
-.note-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.8px;
-  background: conic-gradient(
-    from var(--sheen-angle),
-    transparent 0deg 55deg,
-    var(--grad-1) 95deg,
-    var(--grad-3) 150deg,
-    transparent 200deg 360deg
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.28s ease;
-  animation: sheenRotate 3.4s linear infinite;
+.obs-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
 }
 
-.obs-window:hover::after,
-.luggage-tag:hover::after,
-.note-card:hover::after {
-  opacity: 1;
+.obs-title-row h3 {
+  margin: 0;
+  font-size: 19px;
 }
 
-.plaque-kicker {
+.lang-chip {
   font-size: 10px;
-  letter-spacing: 0.14em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--car-panel);
+  border: 1px solid var(--border-subtle);
   color: var(--grad-2);
 }
 
-.obs-plaque h3 {
-  margin: 4px 0 8px;
-  font-size: 23px;
-}
-
-.obs-plaque p {
-  margin: 0 0 12px;
-  font-size: 13.2px;
+.obs-console-info p {
+  margin: 0 0 7px;
+  font-size: 12.2px;
   color: var(--sub);
+  line-height: 1.45;
 }
 
-.obs-plaque code {
+.obs-console-info code {
   font-family: ui-monospace, monospace;
-  font-size: 12px;
-  padding: 1px 5px;
+  font-size: 11px;
+  padding: 1px 4px;
   border-radius: 4px;
   background: var(--car-panel);
 }
@@ -1445,74 +1394,97 @@ body {
 .spec-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
 }
 
 .spec-tags span {
-  font-size: 10.5px;
-  padding: 3px 8px;
-  border-radius: 6px;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 5px;
   background: var(--car-panel);
   border: 1px solid var(--border-subtle);
   color: var(--ink);
 }
 
-.ticket-actions {
+.obs-console-cta {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  margin-top: 12px;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.kinetic-emblem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  height: 30px;
+}
+
+.rune-seal-svg { width: 32px; height: 32px; }
+.pinwheel-svg { width: 30px; height: 30px; }
+
+.covenant-rings {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  perspective: 200px;
+}
+
+.covenant-rings span {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  border: 2px solid var(--grad-3);
+}
+
+.covenant-rings .ring-a { animation: covSpinA 3.4s linear infinite; }
+.covenant-rings .ring-b { border-color: var(--grad-1); animation: covSpinB 3.4s linear infinite; }
+
+@keyframes covSpinA {
+  0%   { transform: rotateX(56deg) rotateY(20deg) rotateZ(0deg); }
+  100% { transform: rotateX(56deg) rotateY(20deg) rotateZ(360deg); }
+}
+
+@keyframes covSpinB {
+  0%   { transform: rotateX(-56deg) rotateY(20deg) rotateZ(360deg); }
+  100% { transform: rotateX(-56deg) rotateY(20deg) rotateZ(0deg); }
 }
 
 .ticket-primary {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 14px;
-  border-radius: 11px;
+  padding: 7px 12px;
+  border-radius: 9px;
   background: linear-gradient(110deg, var(--grad-1), var(--grad-2));
   color: #fff;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 6px 16px rgba(255, 118, 158, 0.25);
-  transition: transform 0.18s;
-}
-
-.ticket-primary:hover {
-  transform: translateY(-1px);
 }
 
 .ticket-sub {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 6px 11px;
-  border-radius: 9px;
+  padding: 4px 10px;
+  border-radius: 7px;
   background: var(--car-panel);
   border: 1px dashed var(--border-subtle);
   color: var(--sub);
-  font-size: 11.5px;
+  font-size: 10.5px;
   text-decoration: none;
 }
 
-.ticket-sub:not(.static):hover {
-  border-color: var(--border-strong);
-  color: var(--ink);
-}
-
 /* ==========================================================================
-   CAR 05 · Baggage & Lab Car — Hanging Railway Luggage Tags
+   CAR 05 · Baggage & Lab Car
    ========================================================================== */
 .cargo-car {
-  width: clamp(820px, 68vw, 940px);
+  width: clamp(800px, 66vw, 900px);
 }
 
-.filter-bar {
-  display: flex;
-  gap: 5px;
-}
+.filter-bar { display: flex; gap: 5px; }
 
 .filter-chip {
   padding: 3px 10px;
@@ -1533,7 +1505,7 @@ body {
 .cargo-interior {
   flex: 1;
   min-height: 0;
-  padding-top: 12px;
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -1554,7 +1526,6 @@ body {
   grid-auto-rows: 1fr;
   gap: 11px;
   overflow-y: auto;
-  padding-right: 4px;
 }
 
 .luggage-tag {
@@ -1571,7 +1542,6 @@ body {
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-/* Brass Punch-Hole Eyelet on Left of Luggage Tag */
 .luggage-tag::before {
   content: "";
   position: absolute;
@@ -1586,7 +1556,7 @@ body {
 }
 
 .luggage-tag:hover {
-  transform: translateY(-2px) rotate(-0.6deg);
+  transform: translateY(-3px) rotate(-0.8deg);
   border-color: var(--border-strong);
 }
 
@@ -1594,14 +1564,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
 }
 
-.luggage-serial {
-  font-size: 9.5px;
-  color: var(--grad-2);
-  letter-spacing: 0.08em;
-}
+.luggage-serial { font-size: 9.5px; color: var(--grad-2); }
 
 .luggage-tag h4 {
   margin: 3px 0 4px;
@@ -1627,35 +1592,25 @@ body {
   gap: 10px;
   font-size: 10.5px;
   color: var(--muted);
-  margin-top: 6px;
 }
 
 /* ==========================================================================
-   CAR 06 · Reading Salon Car — Tilted Bunkobon & Postcards
+   CAR 06 · Reading Salon Car
    ========================================================================== */
 .lounge-car {
-  width: clamp(840px, 70vw, 960px);
+  width: clamp(820px, 68vw, 920px);
 }
 
-.lounge-hint {
-  font-size: 11.5px;
-  color: var(--muted);
-}
-
-.lounge-hint code {
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: var(--car-panel);
-  color: var(--grad-1);
-}
+.lounge-hint { font-size: 11.5px; color: var(--muted); }
+.lounge-hint code { padding: 1px 5px; border-radius: 4px; background: var(--car-panel); color: var(--grad-1); }
 
 .lounge-interior {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 16px;
-  padding-top: 12px;
+  grid-template-columns: 230px 1fr;
+  gap: 14px;
+  padding-top: 10px;
 }
 
 .lounge-sidebar {
@@ -1668,48 +1623,16 @@ body {
   justify-content: space-between;
 }
 
-.lamp-badge {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.desk-lamp-svg {
-  width: 42px;
-  height: 46px;
-  flex-shrink: 0;
-}
-
-.lounge-sidebar h3 {
-  margin: 2px 0 0;
-  font-size: 17px;
-}
-
-.lounge-sidebar p {
-  margin: 10px 0;
-  font-size: 12.5px;
-  color: var(--sub);
-}
-
-.lounge-sidebar code {
-  font-family: ui-monospace, monospace;
-  font-size: 11.5px;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: var(--car-panel);
-}
-
-.salon-issue-link {
-  font-size: 11.5px;
-  color: var(--grad-2);
-  text-decoration: none;
-}
+.lamp-badge { display: flex; align-items: center; gap: 10px; }
+.desk-lamp-svg { width: 40px; height: 44px; flex-shrink: 0; }
+.lounge-sidebar h3 { margin: 2px 0 0; font-size: 16.5px; }
+.lounge-sidebar p { margin: 10px 0; font-size: 12.2px; color: var(--sub); }
+.salon-issue-link { font-size: 11.5px; color: var(--grad-2); text-decoration: none; }
 
 .manuscript-desk {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
-  align-items: stretch;
   padding: 6px 4px;
 }
 
@@ -1727,9 +1650,9 @@ body {
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s;
 }
 
-.note-card:nth-child(1) { transform: rotate(-1.4deg); }
-.note-card:nth-child(2) { transform: rotate(1.1deg) translateY(4px); background: var(--paper-alt); }
-.note-card:nth-child(3) { transform: rotate(-0.8deg); }
+.note-card:nth-child(1) { transform: rotate(-1.5deg); }
+.note-card:nth-child(2) { transform: rotate(1.2deg) translateY(4px); background: var(--paper-alt); }
+.note-card:nth-child(3) { transform: rotate(-0.9deg); }
 
 .note-card:hover {
   transform: rotate(0deg) translateY(-6px);
@@ -1739,7 +1662,6 @@ body {
 
 .postmark {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   font-size: 10.5px;
   color: var(--muted);
@@ -1748,33 +1670,15 @@ body {
   border-bottom: 1px dashed var(--border-subtle);
 }
 
-.note-card h4 {
-  margin: 0 0 8px;
-  font-size: 15.5px;
-  line-height: 1.45;
-}
-
-.note-card p {
-  margin: 0;
-  font-size: 12.2px;
-  color: var(--sub);
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.note-open-cta {
-  margin-top: 12px;
-  font-size: 11.5px;
-  font-weight: 600;
-}
+.note-card h4 { margin: 0 0 8px; font-size: 15.5px; line-height: 1.45; }
+.note-card p { margin: 0; font-size: 12.2px; color: var(--sub); }
+.note-open-cta { margin-top: 12px; font-size: 11.5px; font-weight: 600; }
 
 /* ==========================================================================
-   CAR 07 · Open-Air Tail Observation Deck & Trailing Paper-Boat Sea
+   CAR 07 · Tail Observation Deck & Rotating Voyagers' Astrolabe
    ========================================================================== */
 .tail-deck {
-  width: clamp(820px, 68vw, 940px);
+  width: clamp(800px, 66vw, 900px);
   background: transparent;
   border: none;
   box-shadow: none;
@@ -1785,13 +1689,13 @@ body {
 
 .tail-cabin {
   position: relative;
-  width: 340px;
+  width: 330px;
   flex-shrink: 0;
   background: linear-gradient(180deg, var(--car-shell-top), var(--car-shell-bot));
   border: 1.5px solid var(--border-strong);
   border-radius: 20px 14px 4px 10px;
   box-shadow: var(--shadow-car);
-  padding: 14px 20px 20px;
+  padding: 12px 18px 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1805,80 +1709,42 @@ body {
   box-shadow: 0 0 14px #ff5d7e;
 }
 
-.tail-porthole {
-  position: relative;
-  height: 138px;
-  margin: 10px 0 6px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1.5px solid var(--border-strong);
+.tail-astrolabe-dial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 146px;
 }
 
-.tail-porthole img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 42%;
-  display: block;
+.tail-astrolabe-dial svg {
+  width: 136px;
+  height: 136px;
 }
 
-.porthole-tag {
-  position: absolute;
-  right: 10px;
-  bottom: 8px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 9.5px;
-  background: rgba(24, 14, 19, 0.74);
-  border: 1px solid rgba(255, 180, 168, 0.4);
-  color: #fff4f7;
-}
-
-.tail-cabin-body h3 {
-  margin: 8px 0 10px;
-  font-size: 20px;
-  line-height: 1.42;
-}
-
-.tail-cabin-body p {
-  margin: 0 0 16px;
-  font-size: 12.8px;
-  color: var(--sub);
-}
+.tail-cabin-body h3 { margin: 6px 0 8px; font-size: 19px; line-height: 1.4; }
+.tail-cabin-body p { margin: 0 0 14px; font-size: 12.5px; color: var(--sub); }
 
 .fold-boat-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 10px 16px;
+  padding: 9px 16px;
   border-radius: 999px;
   background: linear-gradient(110deg, var(--grad-1), var(--grad-2), var(--grad-3));
   color: #fff;
-  font-size: 13px;
+  font-size: 12.8px;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 8px 22px rgba(255, 122, 162, 0.34);
-  transition: transform 0.18s;
 }
 
-.fold-boat-btn:hover {
-  transform: translateY(-2px);
-}
+.tail-signoff { margin-top: 10px; font-size: 11px; color: var(--muted); }
 
-.tail-signoff {
-  margin-top: 14px;
-  font-size: 11px;
-  color: var(--muted);
-}
-
-/* Open Balcony + Wake Boats */
 .open-wake-zone {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  position: relative;
   padding-left: 14px;
 }
 
@@ -1894,132 +1760,74 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: bob 4.4s ease-in-out infinite;
+  animation: bob 4s ease-in-out infinite;
 }
 
-.boat-item:nth-child(2) { animation-delay: -1.5s; }
-.boat-item:nth-child(3) { animation-delay: -2.9s; }
+.boat-item:nth-child(2) { animation-delay: -1.4s; }
+.boat-item:nth-child(3) { animation-delay: -2.7s; }
 
 @keyframes bob {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+  50% { transform: translateY(-8px); }
 }
 
 .boat-bubble {
   width: 100%;
-  padding: 11px 12px;
+  padding: 10px 12px;
   border-radius: 14px;
   background: var(--hud-glass);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border-strong);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
   margin-bottom: 8px;
 }
 
-.boat-user {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  margin-bottom: 4px;
-}
+.boat-user { display: flex; align-items: center; gap: 6px; font-size: 11px; margin-bottom: 4px; }
+.boat-user img { width: 18px; height: 18px; border-radius: 50%; }
+.boat-bubble p { margin: 0; font-size: 12px; color: var(--ink); line-height: 1.45; }
+.origami-boat-svg { width: 58px; height: 28px; }
 
-.boat-user img {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-}
-
-.boat-bubble p {
-  margin: 0;
-  font-size: 12px;
-  color: var(--ink);
-  line-height: 1.45;
-}
-
-.origami-boat-svg {
-  width: 58px;
-  height: 28px;
-}
-
-.balcony-railing {
-  height: 54px;
-  border-bottom: 6px solid var(--car-shell-bot);
-  position: relative;
-}
-
-.railing-top {
-  height: 4px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, var(--grad-2), var(--wheel-rim));
-}
-
+.balcony-railing { height: 50px; border-bottom: 6px solid var(--car-shell-bot); }
+.railing-top { height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--grad-2), var(--wheel-rim)); }
 .railing-balusters {
-  height: 44px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--wheel-rim) 0 3px,
-    transparent 3px 22px
-  );
+  height: 40px;
+  background: repeating-linear-gradient(90deg, var(--wheel-rim) 0 3px, transparent 3px 22px);
   opacity: 0.65;
 }
-
-.tail-under {
-  width: 300px;
-  right: auto;
-}
+.tail-under { width: 290px; right: auto; }
 
 /* ==========================================================================
-   Layer 3: Submerged Rails & Shimmering Sunset Sea
+   Layer 3: Submerged Rails & Sunset Sea
    ========================================================================== */
 .sea-foreground {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 18.2vh;
+  height: 16.8vh;
   z-index: 12;
   pointer-events: none;
 }
 
-.rail-track-bed {
-  position: relative;
-  width: 100%;
-  height: 12px;
-}
-
+.rail-track-bed { width: 100%; height: 12px; }
 .steel-rail {
   width: 100%;
   height: 4px;
   background: linear-gradient(90deg, var(--wheel-metal), var(--grad-2), var(--wheel-metal));
   box-shadow: 0 2px 10px rgba(255, 146, 162, 0.45);
 }
-
 .rail-sleepers {
   width: 120vw;
   height: 8px;
   margin-left: -10vw;
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(92, 42, 56, 0.72) 0 12px,
-    transparent 12px 34px
-  );
-  will-change: transform;
+  background: repeating-linear-gradient(90deg, rgba(92, 42, 56, 0.72) 0 12px, transparent 12px 34px);
 }
-
 .sea-water {
   position: relative;
   width: 100%;
   height: calc(100% - 12px);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 142, 162, 0.24) 0%,
-    var(--sea-mid) 45%,
-    var(--sea-deep) 100%
-  );
+  background: linear-gradient(180deg, rgba(255, 142, 162, 0.24) 0%, var(--sea-mid) 45%, var(--sea-deep) 100%);
   overflow: hidden;
 }
-
 .sun-pillar {
   position: absolute;
   left: 50%;
@@ -2027,260 +1835,62 @@ body {
   transform: translateX(-30%);
   width: 38vw;
   height: 100%;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255, 198, 138, 0.42), rgba(255, 122, 162, 0.14) 55%, transparent 78%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 198, 138, 0.44), rgba(255, 122, 162, 0.14) 55%, transparent 78%);
 }
-
 .water-shimmer {
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(
-    180deg,
-    rgba(255, 196, 168, 0.16) 0 2px,
-    transparent 2px 11px
-  );
-  mask-image: radial-gradient(ellipse 75% 90% at 55% 15%, #000, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 90% at 55% 15%, #000, transparent 85%);
+  background-image: repeating-linear-gradient(180deg, rgba(255, 196, 168, 0.16) 0 2px, transparent 2px 11px);
 }
 
 /* ==========================================================================
-   Bottom Interactive Railway Route Scrubber
+   Bottom Route Scrubber & Essay Modal
    ========================================================================== */
 .route-hud {
   position: fixed;
   left: 16px;
   right: 16px;
-  bottom: 12px;
-  z-index: 50;
+  bottom: 10px;
+  z-index: 60;
   pointer-events: none;
 }
 
 .route-inner {
   max-width: 1220px;
   margin: 0 auto;
-  padding: 12px 24px 10px;
+  padding: 11px 24px 9px;
   border-radius: 999px;
   background: var(--hud-glass);
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   pointer-events: auto;
 }
 
-.route-line-wrap {
-  position: relative;
-  padding-top: 8px;
-}
+.route-line-wrap { position: relative; padding-top: 8px; }
+.route-track-bg { position: absolute; top: 13px; left: 24px; right: 24px; height: 3px; border-radius: 3px; background: var(--border-subtle); }
+.route-progress-fill { position: absolute; top: 13px; left: 24px; width: 0%; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--grad-1), var(--grad-2), var(--grad-3)); }
+.mini-train-marker { position: absolute; top: -1px; left: 24px; width: 34px; height: 16px; transform: translateX(-50%); pointer-events: none; z-index: 3; }
 
-.route-track-bg {
-  position: absolute;
-  top: 13px;
-  left: 24px;
-  right: 24px;
-  height: 3px;
-  border-radius: 3px;
-  background: var(--border-subtle);
-}
+.station-stops { position: relative; z-index: 2; display: flex; justify-content: space-between; }
+.station-node { background: transparent; border: none; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 0 4px; }
+.station-node .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--car-panel-solid); border: 2px solid var(--muted); transition: 0.2s; }
+.station-node .label { font-size: 10.5px; white-space: nowrap; }
+.station-node.active, .station-node:hover { color: var(--ink); }
+.station-node.active .dot { border-color: var(--grad-3); background: var(--grad-1); transform: scale(1.25); }
 
-.route-progress-fill {
-  position: absolute;
-  top: 13px;
-  left: 24px;
-  width: 0%;
-  height: 3px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--grad-1), var(--grad-2), var(--grad-3));
-}
+.modal-backdrop { position: fixed; inset: 0; z-index: 90; background: rgba(16, 9, 13, 0.72); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 24px; }
+.modal-backdrop.open { display: flex; }
+.modal-sheet { width: min(680px, 100%); max-height: 82vh; overflow-y: auto; padding: 32px 34px; border-radius: 22px; background: var(--car-panel-solid); border: 1px solid var(--border-strong); }
+.modal-close { position: sticky; top: 0; float: right; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border-subtle); background: var(--car-panel); color: var(--ink); font-size: 12px; cursor: pointer; }
+.modal-body h2 { margin: 4px 0 18px; font-size: 24px; }
+.modal-body p, .modal-body li { color: var(--sub); font-size: 15px; line-height: 1.82; }
 
-.mini-train-marker {
-  position: absolute;
-  top: -1px;
-  left: 24px;
-  width: 34px;
-  height: 16px;
-  transform: translateX(-50%);
-  pointer-events: none;
-  z-index: 3;
-  filter: drop-shadow(0 2px 8px rgba(255, 122, 162, 0.55));
-}
-
-.station-stops {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.station-node {
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  padding: 0 4px;
-  transition: color 0.2s;
-}
-
-.station-node .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--car-panel-solid);
-  border: 2px solid var(--muted);
-  transition: transform 0.2s, border-color 0.2s, background 0.2s;
-}
-
-.station-node .label {
-  font-size: 10.5px;
-  white-space: nowrap;
-}
-
-.station-node:hover,
-.station-node.active {
-  color: var(--ink);
-}
-
-.station-node.active .dot {
-  border-color: var(--grad-3);
-  background: var(--grad-1);
-  transform: scale(1.25);
-}
-
-/* ==========================================================================
-   Bunkobon Essay Reader Modal
-   ========================================================================== */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background: rgba(16, 9, 13, 0.72);
-  backdrop-filter: blur(8px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-.modal-backdrop.open {
-  display: flex;
-}
-
-.modal-sheet {
-  position: relative;
-  width: min(680px, 100%);
-  max-height: 82vh;
-  overflow-y: auto;
-  padding: 32px 34px;
-  border-radius: 22px;
-  background: var(--car-panel-solid);
-  border: 1px solid var(--border-strong);
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.6);
-}
-
-.modal-close {
-  position: sticky;
-  top: 0;
-  float: right;
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border-subtle);
-  background: var(--car-panel);
-  color: var(--ink);
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.modal-body h2 {
-  margin: 4px 0 18px;
-  font-size: 24px;
-}
-
-.modal-body p,
-.modal-body li {
-  color: var(--sub);
-  font-size: 15px;
-  line-height: 1.82;
-}
-
-.modal-body strong {
-  color: var(--ink);
-}
-
-.modal-body code {
-  font-family: ui-monospace, monospace;
-  font-size: 13px;
-  padding: 2px 6px;
-  border-radius: 5px;
-  background: var(--car-panel);
-  color: var(--grad-1);
-}
-
-/* ==========================================================================
-   Responsive Mobile Horizontal Swipe Mode (<= 960px)
-   ========================================================================== */
 @media (max-width: 960px) {
-  .hud-quick-nav,
-  .speed-pill {
-    display: none;
-  }
-
-  .world-viewport {
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .train-track-world {
-    position: relative;
-    bottom: auto;
-    padding: 82px 5vw 0;
-  }
-
-  .carriage {
-    height: calc(100vh - 178px);
-    scroll-snap-align: center;
-  }
-
-  .locomotive {
-    width: 92vw;
-  }
-
-  .loco-interior {
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-  }
-
-  .windshield-frame {
-    min-height: 190px;
-  }
-
-  .obs-car,
-  .cargo-car,
-  .lounge-car,
-  .tail-deck {
-    width: 90vw;
-  }
-
-  .obs-interior,
-  .lounge-interior {
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-  }
-
-  .luggage-rack {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .manuscript-desk {
-    grid-template-columns: 1fr;
-  }
-
-  .station-node .label {
-    display: none;
-  }
+  .hud-quick-nav, .speed-pill, .ring-mode-btn { display: none; }
+  .world-viewport { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; }
+  .train-track-world { position: relative; bottom: auto; padding: 76px 5vw 0; }
+  .carriage { height: calc(100vh - 168px); scroll-snap-align: center; }
+  .locomotive, .obs-car, .cargo-car, .lounge-car, .tail-deck { width: 92vw; }
+  .loco-split, .driver-console, .obs-console-bar, .lounge-interior { grid-template-columns: 1fr; overflow-y: auto; }
+  .station-node .label { display: none; }
 }

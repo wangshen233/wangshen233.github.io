@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <title>日天 · Station 233 — 茜色の海列車</title>
-  <meta name="description" content="日天 (@wangshen233) 的海列漫游站 · 横向行驶的落日海上列车、FM 233.0 黑胶电台、开源作品展望车与车窗手帖。" />
+  <meta name="description" content="日天 (@wangshen233) 的海列漫游站 · 横向行驶的落日海上列车、3D 星环旋转场、FM 233.0 黑胶电台与车窗手帖。" />
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css?v=20261126-v5" />
 </head>
 <body>
-  <!-- Ambient Sunset Fireflies & Water Click Ripples -->
+  <!-- Interactive Cursor Counter-Rotating Astrolabe, Tumbling Petals & Click Starbursts -->
   <canvas id="ambient-canvas" aria-hidden="true"></canvas>
 
   <!-- Top Railway Control HUD -->
@@ -17,11 +18,11 @@
     <div class="hud-inner">
       <button class="brand-btn" type="button" data-stop="0">
         <svg class="hud-compass-svg" viewBox="0 0 28 28" aria-hidden="true">
-          <circle cx="14" cy="14" r="12" fill="none" stroke="url(#compassGrad)" stroke-width="1.4" stroke-dasharray="3 2.5"/>
+          <circle cx="14" cy="14" r="12" fill="none" stroke="url(#compassGrad)" stroke-width="1.6" stroke-dasharray="3.5 2.5"/>
           <g class="compass-needle">
-            <polygon points="14,3 16.4,14 14,12.2 11.6,14" fill="#ff7aa2"/>
-            <polygon points="14,25 16.4,14 14,15.8 11.6,14" fill="#ffc978"/>
-            <circle cx="14" cy="14" r="2.1" fill="#fff5f8"/>
+            <polygon points="14,2.5 16.6,14 14,12 11.4,14" fill="#ff7aa2"/>
+            <polygon points="14,25.5 16.6,14 14,16 11.4,14" fill="#ffc978"/>
+            <circle cx="14" cy="14" r="2.2" fill="#fff5f8"/>
           </g>
           <defs>
             <linearGradient id="compassGrad" x1="0" y1="0" x2="1" y2="1">
@@ -43,6 +44,10 @@
       </nav>
 
       <div class="hud-actions">
+        <button id="ring-mode-toggle" class="ring-mode-btn" type="button" title="切换 360° 立体环形旋转星轨视图 (快捷键 R)">
+          <span class="spin-icon">🎡</span>
+          <span id="ring-mode-label">3D 旋转星环</span>
+        </button>
         <span id="speed-readout" class="speed-pill mono">00 km/h · 0.0 km</span>
         <button id="theme-toggle" class="hud-btn" type="button">☀️ 樱雪浅色</button>
         <a class="hud-btn" href="https://github.com/wangshen233" target="_blank" rel="noopener">GitHub ↗</a>
@@ -50,37 +55,49 @@
     </div>
   </header>
 
-  <!-- Full-Viewport Horizontal Parallax Sea-Train World -->
+  <!-- Full-Viewport Horizontal Parallax & 3D Ring Sea-Train World -->
   <div id="world-viewport" class="world-viewport">
 
-    <!-- Layer 0: Far Horizon Sunset Orb, Rotating Celestial Astrolabe & Clouds (0.08x Parallax) -->
+    <!-- Layer 0: Giant Rotating Celestial Astrolabe, Conic Sunbeams & Sunset Sky -->
     <div id="sky-layer" class="sky-layer" aria-hidden="true">
       <div class="celestial-sun-assembly">
+        <!-- Rotating Conic Sunset God-Rays -->
+        <div class="sun-godrays"></div>
         <div class="sunset-orb"></div>
-        <!-- Triple Counter-Rotating Astronomical Astrolabe Rings -->
-        <svg class="astrolabe-svg ring-outer" viewBox="0 0 420 420">
-          <circle cx="210" cy="210" r="196" fill="none" stroke="rgba(255,196,152,0.28)" stroke-width="1.2" stroke-dasharray="2 8"/>
-          <circle cx="210" cy="210" r="184" fill="none" stroke="rgba(255,140,172,0.22)" stroke-width="1"/>
-          <g stroke="rgba(255,205,150,0.42)" stroke-width="1.5">
-            <line x1="210" y1="6" x2="210" y2="22"/><line x1="210" y1="398" x2="210" y2="414"/>
-            <line x1="6" y1="210" x2="22" y2="210"/><line x1="398" y1="210" x2="414" y2="210"/>
-            <line x1="66" y1="66" x2="78" y2="78"/><line x1="354" y1="354" x2="342" y2="342"/>
-            <line x1="354" y1="66" x2="342" y2="78"/><line x1="66" y1="354" x2="78" y2="342"/>
+
+        <!-- Giant High-Contrast Multi-Ring Counter-Rotating Astrolabe -->
+        <svg class="astrolabe-svg ring-outer" viewBox="0 0 560 560">
+          <circle cx="280" cy="280" r="264" fill="none" stroke="rgba(255,204,148,0.42)" stroke-width="1.6" stroke-dasharray="4 8"/>
+          <circle cx="280" cy="280" r="248" fill="none" stroke="rgba(255,132,168,0.36)" stroke-width="1.3"/>
+          <g stroke="rgba(255,214,156,0.68)" stroke-width="2">
+            <line x1="280" y1="6" x2="280" y2="30"/><line x1="280" y1="530" x2="280" y2="554"/>
+            <line x1="6" y1="280" x2="30" y2="280"/><line x1="530" y1="280" x2="554" y2="280"/>
+            <line x1="86" y1="86" x2="104" y2="104"/><line x1="474" y1="474" x2="456" y2="456"/>
+            <line x1="474" y1="86" x2="456" y2="104"/><line x1="86" y1="474" x2="104" y2="456"/>
           </g>
-          <circle cx="210" cy="26" r="5" fill="#ffc978"/>
-          <circle cx="394" cy="210" r="3.8" fill="#ff7aa2"/>
-          <circle cx="26" cy="210" r="3.8" fill="#ff9c76"/>
+          <circle cx="280" cy="32" r="7" fill="#ffc978"/>
+          <circle cx="528" cy="280" r="5.5" fill="#ff7aa2"/>
+          <circle cx="32" cy="280" r="5.5" fill="#ff9c76"/>
+          <circle cx="280" cy="528" r="6" fill="#ffc978"/>
         </svg>
 
-        <svg class="astrolabe-svg ring-middle" viewBox="0 0 420 420">
-          <circle cx="210" cy="210" r="148" fill="none" stroke="rgba(255,176,158,0.34)" stroke-width="1.4" stroke-dasharray="18 10 3 10"/>
-          <polygon points="210,54 216,68 204,68" fill="#ffc978" opacity="0.75"/>
-          <polygon points="210,366 216,352 204,352" fill="#ff7aa2" opacity="0.75"/>
-          <circle cx="105" cy="105" r="4.5" fill="none" stroke="#ffc978" stroke-width="1.6"/>
-          <circle cx="315" cy="315" r="4.5" fill="none" stroke="#ff7aa2" stroke-width="1.6"/>
+        <svg class="astrolabe-svg ring-middle" viewBox="0 0 560 560">
+          <circle cx="280" cy="280" r="204" fill="none" stroke="rgba(255,184,150,0.52)" stroke-width="2" stroke-dasharray="26 12 4 12"/>
+          <polygon points="280,64 289,84 271,84" fill="#ffc978"/>
+          <polygon points="280,496 289,476 271,476" fill="#ff7aa2"/>
+          <polygon points="64,280 84,271 84,289" fill="#ff9c76"/>
+          <polygon points="496,280 476,271 476,289" fill="#ffc978"/>
+          <circle cx="136" cy="136" r="6" fill="none" stroke="#ffc978" stroke-width="2"/>
+          <circle cx="424" cy="424" r="6" fill="none" stroke="#ff7aa2" stroke-width="2"/>
+        </svg>
+
+        <svg class="astrolabe-svg ring-inner" viewBox="0 0 560 560">
+          <circle cx="280" cy="280" r="150" fill="none" stroke="rgba(255,146,174,0.45)" stroke-width="1.5" stroke-dasharray="10 6"/>
+          <polygon points="280,122 296,264 438,280 296,296 280,438 264,296 122,280 264,264" fill="none" stroke="rgba(255,208,148,0.28)" stroke-width="1.4"/>
         </svg>
 
         <div class="gyro-orbit-ring"></div>
+        <div class="gyro-orbit-ring gyro-alt"></div>
       </div>
 
       <div class="cloud-band cloud-1"></div>
@@ -88,54 +105,56 @@
       <div class="cloud-band cloud-3"></div>
     </div>
 
-    <!-- Layer 1: Distant Coastal Silhouette, Viaduct & Rotating Seaside Windmills (0.28x Parallax) -->
+    <!-- Layer 1: High Skyline Windmills, Lighthouse & Distant Viaduct (Positioned Visible Above/Around Train!) -->
     <div id="viaduct-layer" class="viaduct-layer" aria-hidden="true">
-      <div class="windmill-cluster" style="left: 340px;">
+      <div class="windmill-cluster" style="left: 140px; bottom: 58vh;">
         <div class="windmill-mast"></div>
         <svg class="windmill-blades" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="4" fill="#ffc978"/>
-          <path d="M40 40 L36 6 H44 Z M40 40 L74 36 V44 Z M40 40 L44 74 H36 Z M40 40 L6 44 V36 Z" fill="rgba(255,182,168,0.52)"/>
+          <circle cx="40" cy="40" r="4.5" fill="#ffc978"/>
+          <path d="M40 40 L35 4 H45 Z M40 40 L76 35 V45 Z M40 40 L45 76 H35 Z M40 40 L4 45 V35 Z" fill="rgba(255,186,164,0.62)"/>
         </svg>
       </div>
-      <div class="windmill-cluster small" style="left: 420px;">
+      <div class="windmill-cluster small" style="left: 225px; bottom: 56vh;">
         <div class="windmill-mast"></div>
         <svg class="windmill-blades reverse-spin" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="4" fill="#ff8da9"/>
-          <path d="M40 40 L37 9 H43 Z M40 40 L71 37 V43 Z M40 40 L43 71 H37 Z M40 40 L9 43 V37 Z" fill="rgba(255,162,178,0.45)"/>
+          <circle cx="40" cy="40" r="4.5" fill="#ff8da9"/>
+          <path d="M40 40 L36 7 H44 Z M40 40 L73 36 V44 Z M40 40 L44 73 H36 Z M40 40 L7 44 V36 Z" fill="rgba(255,152,178,0.55)"/>
         </svg>
       </div>
-      <div class="windmill-cluster" style="left: 1480px;">
+      <div class="windmill-cluster" style="left: 1180px; bottom: 58vh;">
         <div class="windmill-mast"></div>
         <svg class="windmill-blades" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="4" fill="#ffc978"/>
-          <path d="M40 40 L36 6 H44 Z M40 40 L74 36 V44 Z M40 40 L44 74 H36 Z M40 40 L6 44 V36 Z" fill="rgba(255,182,168,0.52)"/>
+          <circle cx="40" cy="40" r="4.5" fill="#ffc978"/>
+          <path d="M40 40 L35 4 H45 Z M40 40 L76 35 V45 Z M40 40 L45 76 H35 Z M40 40 L4 45 V35 Z" fill="rgba(255,186,164,0.62)"/>
         </svg>
       </div>
-      <div class="lighthouse-tower" style="left: 2460px;">
+      <div class="lighthouse-tower" style="left: 2050px; bottom: 56vh;">
         <div class="lighthouse-beam"></div>
         <div class="lighthouse-lamp"></div>
       </div>
-      <div class="windmill-cluster" style="left: 3320px;">
+      <div class="windmill-cluster" style="left: 2880px; bottom: 58vh;">
         <div class="windmill-mast"></div>
-        <svg class="windmill-blades" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="4" fill="#ffc978"/>
-          <path d="M40 40 L36 6 H44 Z M40 40 L74 36 V44 Z M40 40 L44 74 H36 Z M40 40 L6 44 V36 Z" fill="rgba(255,182,168,0.52)"/>
+        <svg class="windmill-blades reverse-spin" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="4.5" fill="#ffc978"/>
+          <path d="M40 40 L35 4 H45 Z M40 40 L76 35 V45 Z M40 40 L45 76 H35 Z M40 40 L4 45 V35 Z" fill="rgba(255,186,164,0.62)"/>
         </svg>
       </div>
     </div>
 
-    <!-- Layer 2: Coupled Sea-Train Consist (1.0x Main Horizontal World) -->
+    <!-- 3D Ring Mode Glowing Magic Floor (visible when 3D 星环模式 is active) -->
+    <div class="ring-floor-halo" aria-hidden="true"></div>
+
+    <!-- Layer 2: Coupled Sea-Train Consist (or 360° 3D Rotating Carousel in Ring Mode!) -->
     <main id="train-track-world" class="train-track-world">
-      <!-- Overhead Catenary Wire -->
       <div class="catenary-wire" aria-hidden="true"></div>
 
       <div id="train-consist" class="train-consist">
 
         <!-- =================================================================
-             CAR 00 · 先頭機関車 & 運転室 (Locomotive Cab + Bio + FM 233.0 Radio)
+             CAR 00 · 先頭機関車 & 運転室
+             cover.jpg (1600x640 = 2.5:1) shown 100% UNCROPPED & UNSPLIT!
              ================================================================= -->
         <section class="carriage locomotive" data-car="0" aria-label="00号车 驾驶室与黑胶电台">
-          <!-- Roof Pantograph & Warm Headlight Beam -->
           <svg class="pantograph" viewBox="0 0 96 38" aria-hidden="true">
             <line x1="12" y1="4" x2="84" y2="4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
             <path d="M26 36 L48 19 L28 4 M70 36 L48 19 L68 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -152,80 +171,59 @@
             </div>
             <div class="cab-meta mono">
               <span id="cab-clock">22:33:00</span>
-              <span class="scroll-hint">⇄ 滚轮 / 拖拽向右行驶</span>
+              <span class="scroll-hint">⇄ 滚轮 / 拖拽行驶 · 点右上「🎡 3D 旋转星环」变阵</span>
             </div>
           </div>
 
-          <div class="loco-interior">
-            <!-- Left: Front Cab Panoramic Window -->
-            <div class="cab-windshield">
-              <div class="windshield-frame">
-                <img src="./assets/cover.jpg" alt="千寻落日海上列车" data-window-parallax="0.12" />
-                <div class="windshield-glare"></div>
-                <div class="windshield-caption">
-                  <span class="badge-mini mono">SEA-TRAIN EXPRESS</span>
+          <div class="loco-split">
+            <!-- Left Wing: 100% Uncropped 2.5:1 Panoramic Cover + Driver Console Below -->
+            <div class="loco-left-wing">
+              <div class="pano-cover-frame sheen-frame">
+                <img src="./assets/cover.jpg" alt="千寻落日海上列车完整全景" />
+                <div class="pano-cover-caption">
                   <h1 class="serif-jp">好奇心の、その先へ。</h1>
                   <p>把繁琐流程拆解成干净顺手的纯协议小工具 · 下一站，开个新坑。</p>
                 </div>
-                <div class="windshield-tategaki serif-jp">茜色の海を渡る列車にて</div>
-              </div>
-            </div>
-
-            <!-- Middle: Driver's Dispatch Desk (Replaces plain bullet list!) -->
-            <div class="driver-desk">
-              <div class="driver-id-card">
-                <img class="driver-avatar" src="./assets/avatar.jpg" alt="日天" />
-                <div class="driver-title">
-                  <div class="driver-role mono">CHIEF ENGINEER · 運転士</div>
-                  <h2>日天 <span class="mono">@wangshen233</span></h2>
-                </div>
-                <span class="boarding-stamp mono">SINCE<br/>2022.09</span>
               </div>
 
-              <div class="dispatch-cards">
-                <div class="dispatch-item">
-                  <span class="dispatch-key mono">01 / PROTOCOL</span>
-                  <p>沉迷 <strong>协议逆向</strong> 与状态机拆解——只要能走纯协议，绝不启动笨重的无头浏览器。</p>
+              <div class="driver-console">
+                <div class="driver-bio-col">
+                  <div class="driver-id-row">
+                    <img class="driver-avatar" src="./assets/avatar.jpg" alt="日天" />
+                    <div class="driver-title">
+                      <span class="driver-role mono">CHIEF ENGINEER · 運転士</span>
+                      <h2>日天 <span class="mono">@wangshen233 · since 2022.09</span></h2>
+                    </div>
+                  </div>
+                  <p class="driver-summary">沉迷 <strong>协议逆向</strong> 与状态机拆解（能走纯协议绝不开无头浏览器），日常主力 <strong>Python · Rust · Go</strong>，给高频自动化配上顺手的本地控制台与代理池。</p>
+                  <div class="circuit-switches mono">
+                    <span>Python</span><span>Rust</span><span>Go</span><span>TypeScript</span><span>Node.js</span><span>Docker</span><span>SQLite</span><span>Linux</span>
+                  </div>
                 </div>
-                <div class="dispatch-item">
-                  <span class="dispatch-key mono">02 / TOOLING</span>
-                  <p>日常主力 <strong>Python · Rust · Go</strong>，给高频自动化配上顺手的本地控制台与代理池。</p>
-                </div>
-              </div>
 
-              <div class="circuit-switches mono">
-                <span>Python</span>
-                <span>Rust</span>
-                <span>Go</span>
-                <span>TypeScript</span>
-                <span>Node.js</span>
-                <span>Docker</span>
-                <span>SQLite</span>
-                <span>Linux</span>
-              </div>
-
-              <div class="cab-gauges mono">
-                <div class="gauge-box">
-                  <small>STARS</small>
-                  <strong id="stat-stars" class="sunset-text">282</strong>
-                </div>
-                <div class="gauge-box">
-                  <small>FORKS</small>
-                  <strong id="stat-forks">304</strong>
-                </div>
-                <div class="gauge-box">
-                  <small>PEERS</small>
-                  <strong id="stat-followers">55</strong>
-                </div>
-                <div class="gauge-box">
-                  <small>REPOS</small>
-                  <strong id="stat-repos">11</strong>
+                <div class="cab-gauges mono">
+                  <div class="gauge-box">
+                    <small>STARS</small>
+                    <strong id="stat-stars" class="sunset-text">282</strong>
+                  </div>
+                  <div class="gauge-box">
+                    <small>FORKS</small>
+                    <strong id="stat-forks">304</strong>
+                  </div>
+                  <div class="gauge-box">
+                    <small>PEERS</small>
+                    <strong id="stat-followers">55</strong>
+                  </div>
+                  <div class="gauge-box">
+                    <small>REPOS</small>
+                    <strong id="stat-repos">11</strong>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Right: Playable FM 233.0 Cab Vinyl Radio -->
-            <div class="cab-radio-deck">
+            <!-- Right Wing: Playable FM 233.0 Vinyl Turntable with 3D Gyro Rings -->
+            <div class="cab-radio-deck sheen-frame">
               <div class="radio-header mono">
                 <span class="on-air-wrap">
                   <span id="on-air-dot" class="on-air-dot"></span>
@@ -236,11 +234,13 @@
 
               <div class="radio-stage">
                 <div id="turntable" class="turntable" title="点击落下或抬起唱针">
-                  <!-- Counter-rotating holographic strobe bezel + 3D gyro aura -->
-                  <svg class="turntable-bezel" viewBox="0 0 144 144" aria-hidden="true">
-                    <circle cx="72" cy="72" r="68" fill="none" stroke="url(#bezelGrad)" stroke-width="1.4" stroke-dasharray="4 5"/>
-                    <circle cx="72" cy="4" r="3" fill="#ffc978"/>
-                    <circle cx="72" cy="140" r="3" fill="#ff7aa2"/>
+                  <svg class="turntable-bezel" viewBox="0 0 156 156" aria-hidden="true">
+                    <circle cx="78" cy="78" r="73" fill="none" stroke="url(#bezelGrad)" stroke-width="1.8" stroke-dasharray="5 5"/>
+                    <circle cx="78" cy="65" r="65" fill="none" stroke="rgba(255,201,120,0.35)" stroke-width="1" stroke-dasharray="2 6" transform="translate(0,13)"/>
+                    <circle cx="78" cy="5" r="3.6" fill="#ffc978"/>
+                    <circle cx="78" cy="151" r="3.6" fill="#ff7aa2"/>
+                    <circle cx="5" cy="78" r="3" fill="#ff9c76"/>
+                    <circle cx="151" cy="78" r="3" fill="#ffc978"/>
                     <defs>
                       <linearGradient id="bezelGrad" x1="0" y1="0" x2="1" y2="1">
                         <stop offset="0%" stop-color="#ff7aa2"/>
@@ -250,6 +250,7 @@
                     </defs>
                   </svg>
                   <div class="turntable-gyro-halo" aria-hidden="true"></div>
+                  <div class="turntable-gyro-halo alt" aria-hidden="true"></div>
                   <div id="vinyl-disc" class="vinyl-disc">
                     <div class="vinyl-label"><div class="vinyl-hole"></div></div>
                   </div>
@@ -291,7 +292,6 @@
           </div>
         </section>
 
-        <!-- Coupled Gangway Bellows -->
         <div class="coupler" aria-hidden="true">
           <div class="bellows"><span></span><span></span><span></span></div>
           <div class="coupler-bar"></div>
@@ -299,50 +299,45 @@
 
         <!-- =================================================================
              CAR 01 · 一等展望車「海辺の自動工房」 (Turb Register)
+             turb.jpg (1040x520 = 2:1) shown 100% UNCROPPED FULL-WIDTH!
              ================================================================= -->
         <section class="carriage obs-car" data-car="1" aria-label="01号车 Turb Register">
           <div class="car-roof-trim"></div>
           <div class="car-header-bar">
             <div class="rollsign mono">
               <span class="car-num">01号車</span>
-              <span class="roll-dest">特急 展望車 · 海辺の自動工房</span>
+              <span class="roll-dest">特急 パノラマ展望車 · 海辺の自動工房</span>
             </div>
             <span class="repo-metric-pill mono sunset-text" data-repo-metric="turb-gpt-free-register-oss-20260928">★ 95 · 82 forks</span>
           </div>
 
-          <div class="obs-interior">
-            <a class="obs-window" href="https://github.com/wangshen233/turb-gpt-free-register-oss-20260928" target="_blank" rel="noopener">
-              <div class="sconce-glow"></div>
-              <img src="./assets/turb.jpg" alt="Turb Register 海边自动工坊" data-window-parallax="0.16" />
-              <div class="window-mullion"></div>
-              <span class="window-badge mono">STATION 01 · PYTHON</span>
+          <div class="obs-pano-stack">
+            <a class="pano-art-window sheen-frame" href="https://github.com/wangshen233/turb-gpt-free-register-oss-20260928" target="_blank" rel="noopener">
+              <img src="./assets/turb.jpg" alt="Turb Register 海边自动工坊完整插画" />
             </a>
 
-            <div class="obs-plaque">
-              <div class="automaton-gears" aria-hidden="true">
-                <svg class="gear-svg gear-cw" viewBox="0 0 36 36"><circle cx="18" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="18" cy="18" r="13.5" fill="none" stroke="currentColor" stroke-width="3.6" stroke-dasharray="3.4 4.2"/><circle cx="18" cy="18" r="3" fill="currentColor"/></svg>
-                <svg class="gear-svg gear-ccw small" viewBox="0 0 36 36"><circle cx="18" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="2.8"/><circle cx="18" cy="18" r="13.5" fill="none" stroke="currentColor" stroke-width="3.8" stroke-dasharray="3.4 4.2"/><circle cx="18" cy="18" r="3" fill="currentColor"/></svg>
-              </div>
-              <div>
-                <div class="plaque-kicker mono">AUTOMATION WORKSHOP</div>
-                <h3 class="serif-jp">Turb Register</h3>
-                <p>把繁琐重复的账号注册与生命周期管理收进一座海边自动工坊——集成通用 IMAP/API 邮箱取码、六路独立用途代理池、2FA 自动密钥与本地可视化控制台。</p>
+            <div class="obs-console-bar">
+              <div class="obs-console-info">
+                <div class="obs-title-row">
+                  <h3 class="serif-jp">Turb Register</h3>
+                  <span class="lang-chip mono">Python · Automation</span>
+                </div>
+                <p>集成通用 IMAP/API 邮箱取码、六路独立代理池、2FA 密钥与本地可视化控制台的账号自动化工坊。</p>
                 <div class="spec-tags mono">
-                  <span>IMAP / API OTP</span>
-                  <span>6-Route Proxy</span>
-                  <span>2FA Vault</span>
-                  <span>Web UI</span>
+                  <span>IMAP/API OTP</span><span>6-Route Proxy</span><span>2FA Vault</span><span>Web UI</span>
                 </div>
               </div>
 
-              <div class="ticket-actions">
+              <div class="obs-console-cta">
+                <div class="kinetic-emblem" aria-hidden="true">
+                  <svg class="gear-svg gear-cw" viewBox="0 0 36 36"><circle cx="18" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="2.8"/><circle cx="18" cy="18" r="13.5" fill="none" stroke="currentColor" stroke-width="3.8" stroke-dasharray="3.4 4.2"/><circle cx="18" cy="18" r="3.2" fill="currentColor"/></svg>
+                  <svg class="gear-svg gear-ccw small" viewBox="0 0 36 36"><circle cx="18" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="2.8"/><circle cx="18" cy="18" r="13.5" fill="none" stroke="currentColor" stroke-width="3.8" stroke-dasharray="3.4 4.2"/><circle cx="18" cy="18" r="3" fill="currentColor"/></svg>
+                </div>
                 <a class="ticket-primary" href="https://github.com/wangshen233/turb-gpt-free-register-oss-20260928" target="_blank" rel="noopener">
-                  <span>主站仓库 · OSS Release</span>
-                  <span class="mono">登车 ↗</span>
+                  <span>主站仓库 · OSS</span><span class="mono">登车 ↗</span>
                 </a>
                 <a class="ticket-sub" href="https://github.com/wangshen233/turb-register-public" target="_blank" rel="noopener">
-                  <span>↳ 新版公开分支：turb-register-public（含 AI 画布工作台）</span>
-                  <span class="mono">↗</span>
+                  <span>↳ 新版 turb-register-public</span><span class="mono">↗</span>
                 </a>
               </div>
             </div>
@@ -350,9 +345,9 @@
 
           <div class="waist-stripe"></div>
           <div class="undercarriage" aria-hidden="true">
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
-            <div class="under-tank">CAR 01 · OBSERVATION</div>
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 01 · PANORAMA</div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
           </div>
         </section>
 
@@ -363,53 +358,48 @@
 
         <!-- =================================================================
              CAR 02 · 二等展望車「星影の関所」 (Sentinel-rs)
+             sentinel.jpg (1040x520 = 2:1) shown 100% UNCROPPED FULL-WIDTH!
              ================================================================= -->
         <section class="carriage obs-car" data-car="2" aria-label="02号车 Sentinel-rs">
           <div class="car-roof-trim"></div>
           <div class="car-header-bar">
             <div class="rollsign mono">
               <span class="car-num">02号車</span>
-              <span class="roll-dest">特急 展望車 · 星影の関所</span>
+              <span class="roll-dest">特急 パノラマ展望車 · 星影の関所</span>
             </div>
             <span class="repo-metric-pill mono sunset-text" data-repo-metric="sentinel-rs">★ 13 · 16 forks</span>
           </div>
 
-          <div class="obs-interior">
-            <a class="obs-window" href="https://github.com/wangshen233/sentinel-rs" target="_blank" rel="noopener">
-              <div class="sconce-glow"></div>
-              <img src="./assets/sentinel.jpg" alt="Sentinel-rs 星夜门扉与黄铜钥匙" data-window-parallax="0.16" />
-              <div class="window-mullion"></div>
-              <span class="window-badge mono">STATION 02 · RUST</span>
+          <div class="obs-pano-stack">
+            <a class="pano-art-window sheen-frame" href="https://github.com/wangshen233/sentinel-rs" target="_blank" rel="noopener">
+              <img src="./assets/sentinel.jpg" alt="Sentinel-rs 星夜门扉与黄金锁孔完整插画" />
             </a>
 
-            <div class="obs-plaque">
-              <div class="automaton-gears" aria-hidden="true">
-                <svg class="rune-seal-svg" viewBox="0 0 42 42">
-                  <circle class="gear-cw" style="transform-origin:21px 21px" cx="21" cy="21" r="18" fill="none" stroke="#ffc978" stroke-width="1.2" stroke-dasharray="4 3"/>
-                  <polygon class="gear-ccw" style="transform-origin:21px 21px" points="21,6 25,17 36,21 25,25 21,36 17,25 6,21 17,17" fill="none" stroke="#ff7aa2" stroke-width="1.3"/>
-                  <circle cx="21" cy="21" r="2.5" fill="#ffc978"/>
-                </svg>
-              </div>
-              <div>
-                <div class="plaque-kicker mono">NATIVE BYTECODE VM</div>
-                <h3 class="serif-jp">Sentinel-rs</h3>
-                <p>彻底脱离 Node 与 <code>sdk.js</code> 的 Sentinel 令牌纯 Rust 原生重实现——内置 36 指令字节码虚拟机，配合 BoringSSL 复刻浏览器 TLS 指纹，支持 C ABI 跨语言调用。</p>
+            <div class="obs-console-bar">
+              <div class="obs-console-info">
+                <div class="obs-title-row">
+                  <h3 class="serif-jp">Sentinel-rs</h3>
+                  <span class="lang-chip mono">Rust · Native VM</span>
+                </div>
+                <p>脱离 Node 与 <code>sdk.js</code> 的纯 Rust 原生重实现——内置 36 指令字节码虚拟机与 BoringSSL 指纹模拟。</p>
                 <div class="spec-tags mono">
-                  <span>36-Op VM</span>
-                  <span>BoringSSL TLS</span>
-                  <span>Zero Node.js</span>
-                  <span>C ABI</span>
+                  <span>36-Op VM</span><span>BoringSSL TLS</span><span>Zero Node.js</span><span>C ABI</span>
                 </div>
               </div>
 
-              <div class="ticket-actions">
+              <div class="obs-console-cta">
+                <div class="kinetic-emblem" aria-hidden="true">
+                  <svg class="rune-seal-svg" viewBox="0 0 42 42">
+                    <circle class="gear-cw" style="transform-origin:21px 21px" cx="21" cy="21" r="18" fill="none" stroke="#ffc978" stroke-width="1.5" stroke-dasharray="4 3"/>
+                    <polygon class="gear-ccw" style="transform-origin:21px 21px" points="21,5 25,17 37,21 25,25 21,37 17,25 5,21 17,17" fill="none" stroke="#ff7aa2" stroke-width="1.5"/>
+                    <circle cx="21" cy="21" r="2.6" fill="#ffc978"/>
+                  </svg>
+                </div>
                 <a class="ticket-primary" href="https://github.com/wangshen233/sentinel-rs" target="_blank" rel="noopener">
-                  <span>检票进入 · sentinel-rs</span>
-                  <span class="mono">登车 ↗</span>
+                  <span>检票进入 · sentinel-rs</span><span class="mono">登车 ↗</span>
                 </a>
                 <a class="ticket-sub" href="https://github.com/wangshen233/codex-oauth-helper" target="_blank" rel="noopener">
-                  <span>↳ 配套凭证刷新器：codex-oauth-helper</span>
-                  <span class="mono">↗</span>
+                  <span>↳ 配套 codex-oauth-helper</span><span class="mono">↗</span>
                 </a>
               </div>
             </div>
@@ -417,9 +407,9 @@
 
           <div class="waist-stripe"></div>
           <div class="undercarriage" aria-hidden="true">
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
-            <div class="under-tank">CAR 02 · OBSERVATION</div>
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 02 · PANORAMA</div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
           </div>
         </section>
 
@@ -430,51 +420,47 @@
 
         <!-- =================================================================
              CAR 03 · 三等展望車「黄金の契り」 (UPI Zero Link)
+             upi.jpg (1040x520 = 2:1) shown 100% UNCROPPED FULL-WIDTH!
              ================================================================= -->
         <section class="carriage obs-car" data-car="3" aria-label="03号车 UPI Zero Link">
           <div class="car-roof-trim"></div>
           <div class="car-header-bar">
             <div class="rollsign mono">
               <span class="car-num">03号車</span>
-              <span class="roll-dest">特急 展望車 · 黄金の契り</span>
+              <span class="roll-dest">特急 パノラマ展望車 · 黄金の契り</span>
             </div>
             <span class="repo-metric-pill mono sunset-text" data-repo-metric="upi-zero-link">★ 68 · 61 forks</span>
           </div>
 
-          <div class="obs-interior">
-            <a class="obs-window" href="https://github.com/wangshen233/upi-zero-link" target="_blank" rel="noopener">
-              <div class="sconce-glow"></div>
-              <img src="./assets/upi.jpg" alt="UPI Zero Link 海列窗外金环" data-window-parallax="0.16" />
-              <div class="window-mullion"></div>
-              <span class="window-badge mono">STATION 03 · PYTHON</span>
+          <div class="obs-pano-stack">
+            <a class="pano-art-window sheen-frame" href="https://github.com/wangshen233/upi-zero-link" target="_blank" rel="noopener">
+              <img src="./assets/upi.jpg" alt="UPI Zero Link 海列窗外金环完整插画" />
             </a>
 
-            <div class="obs-plaque">
-              <div class="automaton-gears" aria-hidden="true">
-                <div class="covenant-rings">
-                  <span class="ring-a"></span>
-                  <span class="ring-b"></span>
+            <div class="obs-console-bar">
+              <div class="obs-console-info">
+                <div class="obs-title-row">
+                  <h3 class="serif-jp">UPI Zero Link</h3>
+                  <span class="lang-chip mono">Python · Pure Protocol</span>
                 </div>
-              </div>
-              <div>
-                <div class="plaque-kicker mono">PURE PROTOCOL EXTRACTOR</div>
-                <h3 class="serif-jp">UPI Zero Link</h3>
-                <p>像从海列窗边伸手接住一串发光的契约之环——印度 ₹0 UPI Autopay 委托链纯协议提取工具，零浏览器依赖，支持多账号并发流转与交付前自动核验。</p>
+                <p>印度 ₹0 UPI Autopay 委托链纯协议提取工具，零浏览器依赖，支持多账号并发流转与交付前自动核验。</p>
                 <div class="spec-tags mono">
-                  <span>Zero Browser</span>
-                  <span>Protocol State</span>
-                  <span>Multi-Account</span>
-                  <span>Auto Verify</span>
+                  <span>Zero Browser</span><span>Protocol State</span><span>Multi-Account</span><span>Auto Verify</span>
                 </div>
               </div>
 
-              <div class="ticket-actions">
+              <div class="obs-console-cta">
+                <div class="kinetic-emblem" aria-hidden="true">
+                  <div class="covenant-rings">
+                    <span class="ring-a"></span>
+                    <span class="ring-b"></span>
+                  </div>
+                </div>
                 <a class="ticket-primary" href="https://github.com/wangshen233/upi-zero-link" target="_blank" rel="noopener">
-                  <span>检票进入 · upi-zero-link</span>
-                  <span class="mono">登车 ↗</span>
+                  <span>检票进入 · upi-zero-link</span><span class="mono">登车 ↗</span>
                 </a>
                 <div class="ticket-sub static mono">
-                  <span>✦ 轻量 CLI · 单机高并发流转</span>
+                  <span>纯协议 CLI · 高并发流转</span>
                 </div>
               </div>
             </div>
@@ -482,9 +468,9 @@
 
           <div class="waist-stripe"></div>
           <div class="undercarriage" aria-hidden="true">
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
-            <div class="under-tank">CAR 03 · OBSERVATION</div>
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 03 · PANORAMA</div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
           </div>
         </section>
 
@@ -495,51 +481,47 @@
 
         <!-- =================================================================
              CAR 04 · 四等展望車「潮風の街角」 (AppleServices Family)
+             apple.jpg (1040x520 = 2:1) shown 100% UNCROPPED FULL-WIDTH!
              ================================================================= -->
         <section class="carriage obs-car" data-car="4" aria-label="04号车 AppleServices Family">
           <div class="car-roof-trim"></div>
           <div class="car-header-bar">
             <div class="rollsign mono">
               <span class="car-num">04号車</span>
-              <span class="roll-dest">特急 展望車 · 潮風の街角</span>
+              <span class="roll-dest">特急 パノラマ展望車 · 潮風の街角</span>
             </div>
             <span class="repo-metric-pill mono sunset-text" data-repo-metric="appleservices-family-private">★ 89 · 130 forks</span>
           </div>
 
-          <div class="obs-interior">
-            <a class="obs-window" href="https://github.com/wangshen233/appleservices-family-private" target="_blank" rel="noopener">
-              <div class="sconce-glow"></div>
-              <img src="./assets/apple.jpg" alt="AppleServices 海风站台小城" data-window-parallax="0.16" />
-              <div class="window-mullion"></div>
-              <span class="window-badge mono">STATION 04 · GO / PROTOCOL</span>
+          <div class="obs-pano-stack">
+            <a class="pano-art-window sheen-frame" href="https://github.com/wangshen233/appleservices-family-private" target="_blank" rel="noopener">
+              <img src="./assets/apple.jpg" alt="AppleServices 海风站台立体书完整插画" />
             </a>
 
-            <div class="obs-plaque">
-              <div class="automaton-gears" aria-hidden="true">
-                <svg class="pinwheel-svg gear-cw" viewBox="0 0 38 38">
-                  <path d="M19 19 L19 4 Q28 8 19 19 Z M19 19 L34 19 Q30 28 19 19 Z M19 19 L19 34 Q10 30 19 19 Z M19 19 L4 19 Q8 10 19 19 Z" fill="rgba(255,156,118,0.65)" stroke="#ffc978" stroke-width="1"/>
-                  <circle cx="19" cy="19" r="2.8" fill="#fff3df"/>
-                </svg>
-              </div>
-              <div>
-                <div class="plaque-kicker mono">FAMILY WORKFLOW ENGINE</div>
-                <h3 class="serif-jp">AppleServices Family</h3>
-                <p>在海风站台翻开一座立体互联的家庭共享小城——将 iCloud 激活、跨区购买、账单路由与家庭组共享流程封装为可编排的纯协议模块。</p>
+            <div class="obs-console-bar">
+              <div class="obs-console-info">
+                <div class="obs-title-row">
+                  <h3 class="serif-jp">AppleServices Family</h3>
+                  <span class="lang-chip mono">Go · Workflow</span>
+                </div>
+                <p>将 iCloud 激活、跨区购买、账单路由与家庭组共享流程封装为可编排的纯协议模块。</p>
                 <div class="spec-tags mono">
-                  <span>iCloud Activate</span>
-                  <span>Region Switch</span>
-                  <span>Family Share</span>
-                  <span>Pure Protocol</span>
+                  <span>iCloud Activate</span><span>Region Switch</span><span>Family Share</span><span>Pure Protocol</span>
                 </div>
               </div>
 
-              <div class="ticket-actions">
+              <div class="obs-console-cta">
+                <div class="kinetic-emblem" aria-hidden="true">
+                  <svg class="pinwheel-svg gear-cw" viewBox="0 0 38 38">
+                    <path d="M19 19 L19 4 Q28 8 19 19 Z M19 19 L34 19 Q30 28 19 19 Z M19 19 L19 34 Q10 30 19 19 Z M19 19 L4 19 Q8 10 19 19 Z" fill="rgba(255,156,118,0.72)" stroke="#ffc978" stroke-width="1"/>
+                    <circle cx="19" cy="19" r="2.8" fill="#fff3df"/>
+                  </svg>
+                </div>
                 <a class="ticket-primary" href="https://github.com/wangshen233/appleservices-family-private" target="_blank" rel="noopener">
-                  <span>检票进入 · appleservices-family</span>
-                  <span class="mono">登车 ↗</span>
+                  <span>检票进入 · appleservices</span><span class="mono">登车 ↗</span>
                 </a>
                 <div class="ticket-sub static mono">
-                  <span>✦ 130+ Forks · 社区高热度协议工作流归档</span>
+                  <span>130+ Forks · 社区协议归档</span>
                 </div>
               </div>
             </div>
@@ -547,9 +529,9 @@
 
           <div class="waist-stripe"></div>
           <div class="undercarriage" aria-hidden="true">
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
-            <div class="under-tank">CAR 04 · OBSERVATION</div>
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
+            <div class="under-tank">CAR 04 · PANORAMA</div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
           </div>
         </section>
 
@@ -559,7 +541,7 @@
         </div>
 
         <!-- =================================================================
-             CAR 05 · 荷物・実験車両「全公開車庫」 (Luggage Rack Repo Tags)
+             CAR 05 · 荷物・実験車両「全公開車庫」
              ================================================================= -->
         <section class="carriage cargo-car" data-car="5" aria-label="05号车 全部公开仓库行李架">
           <div class="car-roof-trim"></div>
@@ -583,9 +565,9 @@
 
           <div class="waist-stripe"></div>
           <div class="undercarriage" aria-hidden="true">
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
             <div class="under-tank">CAR 05 · BAGGAGE &amp; LABS</div>
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
           </div>
         </section>
 
@@ -595,7 +577,7 @@
         </div>
 
         <!-- =================================================================
-             CAR 06 · 読書・サロン車「車窓手帖」 (Reading Table Manuscripts)
+             CAR 06 · 読書・サロン車「車窓手帖」
              ================================================================= -->
         <section class="carriage lounge-car" data-car="6" aria-label="06号车 车窗随笔阅览室">
           <div class="car-roof-trim"></div>
@@ -636,9 +618,9 @@
 
           <div class="waist-stripe"></div>
           <div class="undercarriage" aria-hidden="true">
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
             <div class="under-tank">CAR 06 · READING LOUNGE</div>
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
           </div>
         </section>
 
@@ -648,7 +630,8 @@
         </div>
 
         <!-- =================================================================
-             CAR 07 · 最後尾オープンデッキ「茜色の海」 (Open-Air Balcony + Sea)
+             CAR 07 · 最後尾オープンデッキ「茜色の海」
+             Features Rotating Brass Voyagers' Astrolabe Dial (zero cropped JPGs!)
              ================================================================= -->
         <section class="carriage tail-deck" data-car="7" aria-label="07号车 车尾露天甲板与晚霞纸船海面">
           <div class="tail-cabin">
@@ -661,15 +644,25 @@
               <span class="tail-lamp-dot" title="尾灯"></span>
             </div>
 
-            <div class="tail-porthole">
-              <img src="./assets/cover.jpg" alt="车尾丸窗晚霞" />
-              <span class="porthole-tag mono">CAR 07 · REAR CABIN</span>
+            <!-- Rotating Brass Horizon Astrolabe Emblem (No cropped artwork!) -->
+            <div class="tail-astrolabe-dial" aria-hidden="true">
+              <svg viewBox="0 0 140 140">
+                <circle class="gear-cw" style="transform-origin:70px 70px" cx="70" cy="70" r="60" fill="none" stroke="rgba(255,201,120,0.45)" stroke-width="1.5" stroke-dasharray="6 4"/>
+                <circle class="gear-ccw" style="transform-origin:70px 70px" cx="70" cy="70" r="44" fill="none" stroke="rgba(255,122,162,0.55)" stroke-width="1.6" stroke-dasharray="16 8 3 8"/>
+                <g class="gear-cw" style="transform-origin:70px 70px">
+                  <polygon points="70,16 75,64 70,58 65,64" fill="#ffc978"/>
+                  <polygon points="70,124 75,76 70,82 65,76" fill="#ff7aa2"/>
+                  <polygon points="16,70 64,65 58,70 64,75" fill="#ff9c76"/>
+                  <polygon points="124,70 76,65 82,70 76,75" fill="#ffc978"/>
+                </g>
+                <circle cx="70" cy="70" r="5" fill="#fff4e0"/>
+              </svg>
             </div>
 
             <div class="tail-cabin-body">
               <div class="mono sunset-text" style="font-size:11px;letter-spacing:0.12em;">OPEN-AIR OBSERVATION DECK</div>
               <h3 class="serif-jp">站在车尾甲板，<br/>往晚霞海面放一艘纸船</h3>
-              <p>这里的海面与我的 GitHub 个人主页实时互通——路过的朋友折一艘纸船写句话，两边都会一起轻轻漂浮。</p>
+              <p>这里的海面与我的 GitHub 主页实时互通——路过的朋友折一艘纸船写句话，两边都会一起轻轻漂浮。</p>
               <a class="fold-boat-btn" href="https://github.com/wangshen233/wangshen233/issues/new?title=%F0%9F%95%8A%EF%B8%8F+%E6%94%BE%E9%A3%9E%E7%BA%B8%E9%B9%A4&amp;body=%E5%86%99%E4%B8%8B%E4%B8%80%E5%8F%A5%E6%83%B3%E7%95%99%E5%9C%A8%E6%B5%B7%E9%9D%A2%E4%B8%8A%E7%9A%84%E8%AF%9D%EF%BC%8826%E5%AD%97%E4%BB%A5%E5%86%85%EF%BC%89%EF%BC%9A%0A%0A%E4%B9%98%E7%9D%80%E6%99%9A%E9%9C%9E%E8%B7%AF%E8%BF%87%E6%AD%A4%E5%9C%B0%EF%BC%8C%E7%A5%9D%E4%BB%8A%E5%A4%A9%E4%B9%9F%E6%B2%A1%E6%9C%89+bug%EF%BC%81" target="_blank" rel="noopener">
                 🕊️ 折一艘纸船放进晚霞 ↗
               </a>
@@ -679,7 +672,6 @@
             <div class="waist-stripe"></div>
           </div>
 
-          <!-- Open Balcony Wrought-Iron Railing & Trailing Wake Paper Boats -->
           <div class="open-wake-zone">
             <div id="boats-row" class="wake-boats-stage"></div>
             <div class="balcony-railing" aria-hidden="true">
@@ -689,7 +681,7 @@
           </div>
 
           <div class="undercarriage tail-under" aria-hidden="true">
-            <div class="bogie"><div class="wheel"></div><div class="axle-bar"></div><div class="wheel"></div></div>
+            <div class="bogie"><div class="wheel"></div><div class="coupling-rod"></div><div class="wheel"></div></div>
             <div class="under-tank">233-007 · TAIL DECK</div>
           </div>
         </section>
@@ -757,7 +749,7 @@
     </div>
   </div>
 
-  <script src="./audio.js"></script>
-  <script src="./app.js"></script>
+  <script src="./audio.js?v=20261126-v5"></script>
+  <script src="./app.js?v=20261126-v5"></script>
 </body>
 </html>

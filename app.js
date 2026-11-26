@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Station 233 · Coupled Sea-Train Physics, Parallax, Radio & Live GitHub Sync
+   Station 233 · V5: Uncropped Panoramic Sea-Train + 360° 3D Star-Ring Carousel
    ========================================================================== */
 
 const LOGIN = "wangshen233";
@@ -9,14 +9,14 @@ const FALLBACK_NOTES = [
     tag: "小站手记",
     date: "2026.11.26",
     title: "Station 233 · 把个人小站做成一列真正的海上火车",
-    summary: "告别千篇一律的从上往下翻卡片——转动滚轮或拖住车厢，整列 233 系海列会沿着晚霞海面一节节驶过。",
+    summary: "告别千篇一律的从上往下翻卡片——转动滚轮、拖住车厢，或者切入 3D 旋转星环模式，在晚霞海面上环游各站。",
     body: `
       <p>如果你是从我的 GitHub 主页点过来的，欢迎登上 <strong>233 系 · 茜色の海列車</strong>。</p>
-      <p>不想再做那种一眼到底的常规网格模板，干脆把整座站点做成了一列首尾挂接的海上火车：</p>
+      <p>不想再做那种一眼到底的常规网格模板，干脆把整座站点做成了一列首尾挂接的海上火车（点击顶部 <strong>🎡 3D 旋转星环</strong> 还能把整列八节车厢展开成 360° 立体星轨转盘）：</p>
       <ul>
-        <li><strong>00号車 · 先頭運転室</strong>：内置三套实时 Web Audio 合成声景的黑胶电台（<code>FM 233.0</code>），落下唱针就能边听八音盒与海浪边逛车厢。</li>
-        <li><strong>01–04号車 · 特急展望車</strong>：每节车厢都是一扇带视差落日风景的大车窗，对应四座核心开源项目。</li>
-        <li><strong>05–07号車 · 荷物車・読書室・最後尾デッキ</strong>：行李架木牌实时同步全部公开仓库，车尾露天甲板与 GitHub 主页共用同一个纸船留言海面。</li>
+        <li><strong>00号車 · 先頭運転室</strong>：完整全景海列前窗 + 内置三套实时 Web Audio 合成声景的黑胶电台（<code>FM 233.0</code>）。</li>
+        <li><strong>01–04号車 · パノラマ展望車</strong>：全宽 2:1 无裁切观景大车窗，完整呈现四座代表开源项目插画。</li>
+        <li><strong>05–07号車 · 荷物車・読書室・最後尾デッキ</strong>：行李架木牌同步全部公开仓库，车尾甲板与 GitHub 主页共用纸船留言海面。</li>
       </ul>
       <p>车票长期有效，常来吹吹海风。</p>
     `,
@@ -71,8 +71,7 @@ const FALLBACK_BOATS = [
    ========================================================================== */
 function initThemeAndClock() {
   const saved = localStorage.getItem("station233-theme");
-  const initial = saved || "dark";
-  applyTheme(initial);
+  applyTheme(saved || "dark");
 
   document.getElementById("theme-toggle").addEventListener("click", () => {
     const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
@@ -82,8 +81,7 @@ function initThemeAndClock() {
 
   const clockEl = document.getElementById("cab-clock");
   const tickClock = () => {
-    const now = new Date();
-    clockEl.textContent = now.toTimeString().slice(0, 8);
+    clockEl.textContent = new Date().toTimeString().slice(0, 8);
   };
   tickClock();
   setInterval(tickClock, 1000);
@@ -92,33 +90,39 @@ function initThemeAndClock() {
 function applyTheme(mode) {
   document.documentElement.setAttribute("data-theme", mode);
   const btn = document.getElementById("theme-toggle");
-  if (btn) {
-    btn.textContent = mode === "dark" ? "☀️ 樱雪浅色" : "🌙 茜色暮夜";
-  }
+  if (btn) btn.textContent = mode === "dark" ? "☀️ 樱雪浅色" : "🌙 茜色暮夜";
 }
 
 /* ==========================================================================
-   2. Horizontal Coupled Sea-Train Physics, Wheel Rotation & Window Parallax
+   2. Sea-Train Linear Drive + 360° 3D Rotating Star-Ring Carousel Mode
    ========================================================================== */
 const trainController = {
   targetX: 0,
-  currentX: 0,
+  currentX: 260, // Gentle arrival glide on initial open!
   maxX: 0,
   isMobile: false,
+  ringMode: false,
+  ringAngle: 0,
+  ringTargetAngle: 0,
+  autoSpinRing: true,
+  scrollBoostDeg: 0,
   jumpToCar: null,
+  toggleRingMode: null,
 };
 
 function initTrainJourney() {
   const viewport = document.getElementById("world-viewport");
   const trackWorld = document.getElementById("train-track-world");
+  const consist = document.getElementById("train-consist");
   const skyLayer = document.getElementById("sky-layer");
   const viaductLayer = document.getElementById("viaduct-layer");
   const sleepers = document.getElementById("rail-sleepers");
   const progressFill = document.getElementById("route-progress-fill");
   const miniMarker = document.getElementById("mini-train-marker");
   const speedEl = document.getElementById("speed-readout");
+  const ringBtn = document.getElementById("ring-mode-toggle");
+  const ringLabel = document.getElementById("ring-mode-label");
   const carriages = Array.from(document.querySelectorAll(".carriage"));
-  const parallaxImgs = Array.from(document.querySelectorAll("[data-window-parallax]"));
   const stopNodes = Array.from(document.querySelectorAll(".station-node"));
   const topNavBtns = Array.from(document.querySelectorAll(".hud-quick-nav button"));
 
@@ -127,21 +131,51 @@ function initTrainJourney() {
     if (trainController.isMobile) {
       trackWorld.style.transform = "none";
       trainController.maxX = Math.max(1, viewport.scrollWidth - viewport.clientWidth);
-    } else {
+    } else if (!trainController.ringMode) {
       const totalWidth = trackWorld.scrollWidth;
       trainController.maxX = Math.max(0, totalWidth - window.innerWidth);
       trainController.targetX = Math.min(trainController.targetX, trainController.maxX);
-      trainController.currentX = Math.min(trainController.currentX, trainController.maxX);
     }
   }
 
   recalcBounds();
   window.addEventListener("resize", recalcBounds);
 
-  // Jump cleanly to any carriage index (0..7)
+  // Toggle between Coupled Sea-Train & 360° 3D Star-Ring Carousel!
+  function toggleRingMode(forceState) {
+    if (trainController.isMobile) return;
+    trainController.ringMode = typeof forceState === "boolean" ? forceState : !trainController.ringMode;
+    document.body.classList.toggle("ring-mode", trainController.ringMode);
+    ringLabel.textContent = trainController.ringMode ? "返回连挂列车" : "3D 旋转星环";
+
+    if (trainController.ringMode) {
+      trainController.autoSpinRing = true;
+      const radius = 1360;
+      carriages.forEach((car, idx) => {
+        const theta = idx * 45;
+        const w = car.offsetWidth;
+        const h = car.offsetHeight;
+        car.style.transform = `translate(${-w / 2}px, ${-h / 2}px) rotateY(${theta}deg) translateZ(${radius}px) scale(0.68)`;
+      });
+    } else {
+      consist.style.transform = "none";
+      carriages.forEach((car) => {
+        car.style.transform = "none";
+      });
+      recalcBounds();
+    }
+  }
+  trainController.toggleRingMode = toggleRingMode;
+  ringBtn.addEventListener("click", () => toggleRingMode());
+
   function jumpToCar(index) {
     const car = carriages[index];
     if (!car) return;
+    if (trainController.ringMode) {
+      trainController.autoSpinRing = false;
+      trainController.ringTargetAngle = -index * 45;
+      return;
+    }
     if (trainController.isMobile) {
       car.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
       return;
@@ -152,15 +186,11 @@ function initTrainJourney() {
   }
   trainController.jumpToCar = jumpToCar;
 
-  // Bind all [data-stop] buttons (top HUD + bottom route scrubber)
   document.querySelectorAll("[data-stop]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const idx = Number(btn.getAttribute("data-stop"));
-      jumpToCar(idx);
-    });
+    btn.addEventListener("click", () => jumpToCar(Number(btn.getAttribute("data-stop"))));
   });
 
-  // Wheel -> Horizontal Train Drive (unless modal open or inside overflowing inner box)
+  // Wheel -> Drive Train OR Spin 360° 3D Ring + Boost Sky Astrolabe!
   window.addEventListener("wheel", (e) => {
     if (trainController.isMobile) return;
     if (document.getElementById("note-modal").classList.contains("open")) return;
@@ -174,103 +204,127 @@ function initTrainJourney() {
 
     e.preventDefault();
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    trainController.targetX = Math.max(0, Math.min(trainController.maxX, trainController.targetX + delta * 1.15));
+    trainController.scrollBoostDeg += delta * 0.06;
+
+    if (trainController.ringMode) {
+      trainController.autoSpinRing = false;
+      trainController.ringTargetAngle -= delta * 0.085;
+    } else {
+      trainController.targetX = Math.max(0, Math.min(trainController.maxX, trainController.targetX + delta * 1.18));
+    }
   }, { passive: false });
 
-  // Pointer Drag-to-Pan along the train
+  // Pointer Drag
   let dragging = false;
   let dragStartX = 0;
-  let dragOriginTarget = 0;
-  let movedPixels = 0;
+  let dragOrigin = 0;
 
   viewport.addEventListener("pointerdown", (e) => {
     if (trainController.isMobile) return;
     if (e.target.closest("a, button, input, .note-card, .turntable")) return;
     dragging = true;
-    movedPixels = 0;
     dragStartX = e.clientX;
-    dragOriginTarget = trainController.targetX;
+    dragOrigin = trainController.ringMode ? trainController.ringTargetAngle : trainController.targetX;
+    if (trainController.ringMode) trainController.autoSpinRing = false;
     viewport.classList.add("dragging");
   });
 
   window.addEventListener("pointermove", (e) => {
     if (!dragging) return;
     const dx = e.clientX - dragStartX;
-    movedPixels = Math.abs(dx);
-    trainController.targetX = Math.max(0, Math.min(trainController.maxX, dragOriginTarget - dx * 1.35));
+    if (trainController.ringMode) {
+      trainController.ringTargetAngle = dragOrigin + dx * 0.16;
+    } else {
+      trainController.targetX = Math.max(0, Math.min(trainController.maxX, dragOrigin - dx * 1.35));
+    }
   });
 
   window.addEventListener("pointerup", () => {
-    if (!dragging) return;
     dragging = false;
     viewport.classList.remove("dragging");
   });
 
-  // Keyboard Arrow Navigation
   window.addEventListener("keydown", (e) => {
     if (document.getElementById("note-modal").classList.contains("open")) {
       if (e.key === "Escape") document.getElementById("note-modal").classList.remove("open");
       return;
     }
+    if (e.key === "r" || e.key === "R") {
+      toggleRingMode();
+      return;
+    }
     if (trainController.isMobile) return;
     if (e.key === "ArrowRight") {
-      trainController.targetX = Math.min(trainController.maxX, trainController.targetX + 420);
+      if (trainController.ringMode) { trainController.autoSpinRing = false; trainController.ringTargetAngle -= 45; }
+      else trainController.targetX = Math.min(trainController.maxX, trainController.targetX + 460);
     } else if (e.key === "ArrowLeft") {
-      trainController.targetX = Math.max(0, trainController.targetX - 420);
-    } else if (e.key === "Home") {
-      trainController.targetX = 0;
-    } else if (e.key === "End") {
-      trainController.targetX = trainController.maxX;
+      if (trainController.ringMode) { trainController.autoSpinRing = false; trainController.ringTargetAngle += 45; }
+      else trainController.targetX = Math.max(0, trainController.targetX - 460);
     }
   });
 
-  // Main 60fps Animation Loop
+  // Main 60fps Loop
   let prevX = 0;
   function animate() {
+    if (trainController.ringMode) {
+      if (trainController.autoSpinRing) {
+        trainController.ringTargetAngle -= 0.18;
+      }
+      trainController.ringAngle += (trainController.ringTargetAngle - trainController.ringAngle) * 0.085;
+      consist.style.transform = `translateZ(-1360px) rotateX(-7deg) rotateY(${trainController.ringAngle.toFixed(2)}deg)`;
+
+      const normDeg = (((-trainController.ringAngle) % 360) + 360) % 360;
+      const ratio = normDeg / 360;
+      const activeIdx = Math.round(normDeg / 45) % 8;
+
+      trackWorld.style.setProperty("--wheel-deg", `${(normDeg * 4) % 360}deg`);
+      document.documentElement.style.setProperty("--compass-deg", `${normDeg}deg`);
+      document.documentElement.style.setProperty("--scroll-boost-deg", `${(normDeg * 0.5).toFixed(1)}deg`);
+
+      progressFill.style.width = `calc((100% - 48px) * ${ratio.toFixed(4)})`;
+      miniMarker.style.left = `calc(24px + (100% - 48px) * ${ratio.toFixed(4)})`;
+      speedEl.textContent = `3D RING · ${Math.round(normDeg)}°`;
+
+      stopNodes.forEach((n, idx) => n.classList.toggle("active", idx === activeIdx));
+      topNavBtns.forEach((b) => {
+        const stop = Number(b.getAttribute("data-stop"));
+        b.classList.toggle("active", stop === 1 ? (activeIdx >= 1 && activeIdx <= 4) : stop === activeIdx);
+      });
+
+      requestAnimationFrame(animate);
+      return;
+    }
+
     if (trainController.isMobile) {
       trainController.currentX = viewport.scrollLeft;
     } else {
       trainController.currentX += (trainController.targetX - trainController.currentX) * 0.095;
-      if (Math.abs(trainController.targetX - trainController.currentX) < 0.15) {
+      if (Math.abs(trainController.targetX - trainController.currentX) < 0.12) {
         trainController.currentX = trainController.targetX;
       }
       trackWorld.style.transform = `translate3d(${-trainController.currentX}px, 0, 0)`;
-      skyLayer.style.transform = `translate3d(${-trainController.currentX * 0.08}px, 0, 0)`;
-      viaductLayer.style.transform = `translate3d(${-trainController.currentX * 0.28}px, 0, 0)`;
+      skyLayer.style.transform = `translate3d(${-trainController.currentX * 0.07}px, 0, 0)`;
+      viaductLayer.style.transform = `translate3d(${-trainController.currentX * 0.26}px, 0, 0)`;
       sleepers.style.transform = `translate3d(${-(trainController.currentX % 34)}px, 0, 0)`;
     }
 
-    // Rotate bogie wheels & HUD compass needle proportionally to travel distance
-    const wheelDeg = (trainController.currentX * 0.56) % 360;
+    const wheelDeg = (trainController.currentX * 0.65) % 360;
     trackWorld.style.setProperty("--wheel-deg", `${wheelDeg}deg`);
-    document.documentElement.style.setProperty("--compass-deg", `${(25 + trainController.currentX * 0.18) % 360}deg`);
+    document.documentElement.style.setProperty("--compass-deg", `${(25 + trainController.currentX * 0.22) % 360}deg`);
+    document.documentElement.style.setProperty("--scroll-boost-deg", `${trainController.scrollBoostDeg.toFixed(1)}deg`);
     window.__trainVelocity = trainController.currentX - prevX;
 
-    // Inner Window Scenic Parallax on Flagship Observation Windows
     const vpCenter = window.innerWidth / 2;
-    if (!trainController.isMobile) {
-      parallaxImgs.forEach((img) => {
-        const car = img.closest(".carriage");
-        if (!car) return;
-        const carScreenCenter = car.offsetLeft - trainController.currentX + car.offsetWidth / 2;
-        const norm = Math.max(-1, Math.min(1, (carScreenCenter - vpCenter) / window.innerWidth));
-        const factor = parseFloat(img.dataset.windowParallax || "0.14");
-        img.style.transform = `translate3d(${norm * factor * 160}px, 0, 0) scale(1.04)`;
-      });
-    }
-
-    // Update Route Progress Scrubber, Speedometer & Active Station Highlight
     const ratio = trainController.maxX > 0 ? Math.min(1, Math.max(0, trainController.currentX / trainController.maxX)) : 0;
     progressFill.style.width = `calc((100% - 48px) * ${ratio.toFixed(4)})`;
     miniMarker.style.left = `calc(24px + (100% - 48px) * ${ratio.toFixed(4)})`;
 
     const velocity = Math.abs(trainController.currentX - prevX);
     prevX = trainController.currentX;
-    const kmh = Math.min(78, Math.round(velocity * 2.6));
+    const kmh = Math.min(82, Math.round(velocity * 2.6));
     const km = (ratio * 23.3).toFixed(1);
     speedEl.textContent = `${String(kmh).padStart(2, "0")} km/h · ${km} km`;
 
-    // Find closest carriage to viewport center
     let activeIdx = 0;
     let bestDist = Infinity;
     carriages.forEach((car, idx) => {
@@ -285,8 +339,7 @@ function initTrainJourney() {
     stopNodes.forEach((n, idx) => n.classList.toggle("active", idx === activeIdx));
     topNavBtns.forEach((b) => {
       const stop = Number(b.getAttribute("data-stop"));
-      const isMatch = stop === 1 ? (activeIdx >= 1 && activeIdx <= 4) : stop === activeIdx;
-      b.classList.toggle("active", isMatch);
+      b.classList.toggle("active", stop === 1 ? (activeIdx >= 1 && activeIdx <= 4) : stop === activeIdx);
     });
 
     requestAnimationFrame(animate);
@@ -295,7 +348,7 @@ function initTrainJourney() {
 }
 
 /* ==========================================================================
-   3. Kinetic Sakura Petals, Speed Wind-Streaks & Rotating Compass Vortex Canvas
+   3. Cursor Counter-Rotating Astrolabe Reticle, 3D Petals & Click Vortex
    ========================================================================== */
 function initCanvas() {
   const canvas = document.getElementById("ambient-canvas");
@@ -304,6 +357,8 @@ function initCanvas() {
   const petals = [];
   const bursts = [];
 
+  const pointer = { x: -200, y: -200, tx: -200, ty: -200, angle: 0, active: false };
+
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
@@ -311,25 +366,31 @@ function initCanvas() {
   resize();
   window.addEventListener("resize", resize);
 
-  // Drifting & tumbling 3D sakura petals + glowing sunset fireflies
-  for (let i = 0; i < 36; i++) {
+  for (let i = 0; i < 38; i++) {
     petals.push({
       x: Math.random() * w,
       y: Math.random() * h,
-      size: 2.8 + Math.random() * 4.2,
-      vx: -0.45 - Math.random() * 0.65,
-      vy: 0.18 + Math.random() * 0.42,
+      size: 3 + Math.random() * 4,
+      vx: -0.5 - Math.random() * 0.7,
+      vy: 0.2 + Math.random() * 0.45,
       rot: Math.random() * Math.PI * 2,
-      vRot: (Math.random() - 0.5) * 0.07,
+      vRot: (Math.random() - 0.5) * 0.08,
       flip: Math.random() * Math.PI * 2,
-      vFlip: 0.03 + Math.random() * 0.04,
+      vFlip: 0.035 + Math.random() * 0.045,
       isPetal: i % 2 === 0,
-      hue: Math.random() > 0.42 ? "255, 138, 168" : "255, 196, 136",
+      hue: Math.random() > 0.42 ? "255, 136, 168" : "255, 198, 134",
     });
   }
 
   window.addEventListener("pointermove", (e) => {
-    if (Math.random() < 0.25 && petals.length < 68) {
+    pointer.tx = e.clientX;
+    pointer.ty = e.clientY;
+    if (!pointer.active) {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.active = true;
+    }
+    if (Math.random() < 0.3 && petals.length < 72) {
       petals.push({
         x: e.clientX + (-8 + Math.random() * 16),
         y: e.clientY + (-8 + Math.random() * 16),
@@ -337,37 +398,29 @@ function initCanvas() {
         vx: -0.6 - Math.random() * 0.6,
         vy: -0.35 + Math.random() * 0.7,
         rot: Math.random() * Math.PI * 2,
-        vRot: (Math.random() - 0.5) * 0.12,
+        vRot: (Math.random() - 0.5) * 0.14,
         flip: 0,
-        vFlip: 0.06,
+        vFlip: 0.07,
         isPetal: true,
-        ttl: 85,
+        ttl: 80,
         hue: "255, 152, 178",
       });
     }
   });
 
-  // Click -> Rotating Astronomical Compass Star + Spiraling Sparks!
   window.addEventListener("click", (e) => {
     const sparks = [];
-    for (let k = 0; k < 10; k++) {
-      const baseAngle = (Math.PI * 2 * k) / 10;
-      sparks.push({ angle: baseAngle, dist: 6, speed: 1.6 + Math.random() * 1.4 });
+    for (let k = 0; k < 12; k++) {
+      sparks.push({ angle: (Math.PI * 2 * k) / 12, dist: 6, speed: 1.8 + Math.random() * 1.5 });
     }
-    bursts.push({
-      x: e.clientX,
-      y: e.clientY,
-      r: 8,
-      rot: 0,
-      alpha: 0.82,
-      sparks,
-    });
+    bursts.push({ x: e.clientX, y: e.clientY, r: 8, rot: 0, alpha: 0.9, sparks });
   });
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
     const vel = window.__trainVelocity || 0;
 
+    // 1) Draw 3D Tumbling Sakura Petals & Sunset Fireflies
     for (let i = petals.length - 1; i >= 0; i--) {
       const p = petals[i];
       p.x += p.vx - vel * 0.14;
@@ -377,10 +430,7 @@ function initCanvas() {
 
       if (p.ttl !== undefined) {
         p.ttl--;
-        if (p.ttl <= 0) {
-          petals.splice(i, 1);
-          continue;
-        }
+        if (p.ttl <= 0) { petals.splice(i, 1); continue; }
       } else {
         if (p.x < -20) p.x = w + 20;
         if (p.x > w + 20) p.x = -20;
@@ -388,79 +438,111 @@ function initCanvas() {
         if (p.y < -20) p.y = h + 15;
       }
 
-      const lifeAlpha = p.ttl ? p.ttl / 85 : 1;
+      const lifeAlpha = p.ttl ? p.ttl / 80 : 1;
       ctx.save();
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rot);
-
       if (p.isPetal) {
-        // 3D tumbling sakura petal
-        const scaleY = 0.35 + 0.65 * Math.abs(Math.cos(p.flip));
-        ctx.scale(1, scaleY);
+        ctx.scale(1, 0.32 + 0.68 * Math.abs(Math.cos(p.flip)));
         ctx.beginPath();
         ctx.moveTo(0, -p.size);
         ctx.bezierCurveTo(p.size * 0.9, -p.size * 0.5, p.size * 0.8, p.size * 0.8, 0, p.size);
         ctx.bezierCurveTo(-p.size * 0.8, p.size * 0.8, -p.size * 0.9, -p.size * 0.5, 0, -p.size);
-        ctx.fillStyle = `rgba(${p.hue}, ${0.52 * lifeAlpha})`;
+        ctx.fillStyle = `rgba(${p.hue}, ${0.55 * lifeAlpha})`;
         ctx.fill();
       } else {
-        const pulse = 0.25 + 0.45 * Math.sin(p.flip);
+        const pulse = 0.28 + 0.45 * Math.sin(p.flip);
         ctx.beginPath();
-        ctx.arc(0, 0, p.size * 0.52, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.hue}, ${Math.max(0.08, pulse * lifeAlpha)})`;
+        ctx.arc(0, 0, p.size * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.hue}, ${Math.max(0.1, pulse * lifeAlpha)})`;
         ctx.fill();
       }
       ctx.restore();
     }
 
-    // Draw Rotating Compass Vortex Bursts on Click
+    // 2) Draw Real-Time Mouse-Following Dual Counter-Rotating Compass Reticle
+    if (pointer.active && w > 960) {
+      const dx = pointer.tx - pointer.x;
+      const dy = pointer.ty - pointer.y;
+      pointer.x += dx * 0.22;
+      pointer.y += dy * 0.22;
+      const moveSpeed = Math.hypot(dx, dy);
+      pointer.angle += 0.032 + Math.min(0.14, moveSpeed * 0.004);
+
+      ctx.save();
+      ctx.translate(pointer.x, pointer.y);
+
+      // Outer CW dashed ring
+      ctx.save();
+      ctx.rotate(pointer.angle);
+      ctx.beginPath();
+      ctx.setLineDash([6, 6]);
+      ctx.arc(0, 0, 20, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255, 196, 134, 0.62)";
+      ctx.lineWidth = 1.3;
+      ctx.stroke();
+      ctx.restore();
+
+      // Inner CCW 4-tick star ring
+      ctx.save();
+      ctx.rotate(-pointer.angle * 1.5);
+      ctx.beginPath();
+      ctx.arc(0, 0, 11, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255, 128, 166, 0.55)";
+      ctx.lineWidth = 1.1;
+      ctx.stroke();
+      for (let k = 0; k < 4; k++) {
+        ctx.rotate(Math.PI / 2);
+        ctx.beginPath();
+        ctx.moveTo(9, 0);
+        ctx.lineTo(15, 0);
+        ctx.strokeStyle = "rgba(255, 206, 142, 0.78)";
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 3) Draw Click Starburst Vortex
     for (let i = bursts.length - 1; i >= 0; i--) {
       const b = bursts[i];
-      b.r += 1.65;
-      b.rot += 0.055;
-      b.alpha *= 0.945;
-      if (b.alpha < 0.025) {
-        bursts.splice(i, 1);
-        continue;
-      }
+      b.r += 1.8;
+      b.rot += 0.065;
+      b.alpha *= 0.94;
+      if (b.alpha < 0.025) { bursts.splice(i, 1); continue; }
 
       ctx.save();
       ctx.translate(b.x, b.y);
       ctx.rotate(b.rot);
-
-      // Outer dashed astrolabe ring
       ctx.beginPath();
-      ctx.setLineDash([5, 5]);
+      ctx.setLineDash([6, 5]);
       ctx.arc(0, 0, b.r, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 152, 174, ${b.alpha})`;
-      ctx.lineWidth = 1.3;
+      ctx.strokeStyle = `rgba(255, 146, 174, ${b.alpha})`;
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
-      // Counter-rotating 4-point compass cross
-      ctx.rotate(-b.rot * 2.1);
+      ctx.rotate(-b.rot * 2.2);
       ctx.setLineDash([]);
       for (let c = 0; c < 4; c++) {
         ctx.rotate(Math.PI / 2);
         ctx.beginPath();
-        ctx.moveTo(b.r * 0.55, 0);
-        ctx.lineTo(b.r * 1.18, 0);
-        ctx.strokeStyle = `rgba(255, 204, 132, ${b.alpha * 0.9})`;
-        ctx.lineWidth = 1.4;
+        ctx.moveTo(b.r * 0.5, 0);
+        ctx.lineTo(b.r * 1.22, 0);
+        ctx.strokeStyle = `rgba(255, 206, 134, ${b.alpha * 0.95})`;
+        ctx.lineWidth = 1.6;
         ctx.stroke();
       }
 
-      // Spiraling golden-sakura sparks
       b.sparks.forEach((sp) => {
         sp.dist += sp.speed;
-        sp.angle += 0.04;
-        const sx = Math.cos(sp.angle) * sp.dist;
-        const sy = Math.sin(sp.angle) * sp.dist;
+        sp.angle += 0.05;
         ctx.beginPath();
-        ctx.arc(sx, sy, 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 186, 148, ${b.alpha})`;
+        ctx.arc(Math.cos(sp.angle) * sp.dist, Math.sin(sp.angle) * sp.dist, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 192, 148, ${b.alpha})`;
         ctx.fill();
       });
-
       ctx.restore();
     }
 
@@ -484,7 +566,7 @@ function initRadio() {
   const radio = new window.FM233Radio((bins) => {
     bars.forEach((bar, i) => {
       const v = bins[i] || 0;
-      const h = radio.playing ? Math.max(4, Math.min(22, (v / 255) * 24 + 3)) : 4;
+      const h = radio.playing ? Math.max(4, Math.min(20, (v / 255) * 22 + 3)) : 4;
       bar.style.height = `${h}px`;
     });
   });
@@ -502,22 +584,14 @@ function initRadio() {
     disc.classList.toggle("playing", radio.playing);
     arm.classList.toggle("playing", radio.playing);
     dot.classList.toggle("live", radio.playing);
-    const deck = document.querySelector(".cab-radio-deck");
-    if (deck) deck.classList.toggle("live-glow", radio.playing);
     playBtn.textContent = radio.playing ? "⏸ 暂停车厢电台" : "▶ 落下唱针";
     freqEl.textContent = `${radio.playing ? "ON AIR" : "STANDBY"} · ${st.freq}`;
     titleEl.textContent = st.name;
     stationBtns.forEach((b, idx) => b.classList.toggle("active", idx === radio.channel));
   }
 
-  document.getElementById("turntable").addEventListener("click", () => {
-    radio.toggle();
-    syncUI();
-  });
-  playBtn.addEventListener("click", () => {
-    radio.toggle();
-    syncUI();
-  });
+  document.getElementById("turntable").addEventListener("click", () => { radio.toggle(); syncUI(); });
+  playBtn.addEventListener("click", () => { radio.toggle(); syncUI(); });
   stationBtns.forEach((btn, idx) => {
     btn.addEventListener("click", () => {
       radio.selectStation(idx);
@@ -525,46 +599,36 @@ function initRadio() {
       syncUI();
     });
   });
-  document.getElementById("radio-vol").addEventListener("input", (e) => {
-    radio.setVolume(parseFloat(e.target.value));
-  });
+  document.getElementById("radio-vol").addEventListener("input", (e) => radio.setVolume(parseFloat(e.target.value)));
   syncUI();
 }
 
 /* ==========================================================================
-   5. Live GitHub Repositories (Car 05 Luggage Rack) & Cab Telemetry
+   5. Live GitHub Repositories & Telemetry
    ========================================================================== */
 let allRepos = [...FALLBACK_REPOS];
 let currentFilter = "All";
 
 function renderRepos() {
   const grid = document.getElementById("repo-grid");
-  const list = allRepos.filter((r) => {
-    const lang = r.language || "Protocol";
-    return currentFilter === "All" || lang === currentFilter;
-  });
+  const list = allRepos.filter((r) => currentFilter === "All" || (r.language || "Protocol") === currentFilter);
 
-  grid.innerHTML = list.slice(0, 9).map((r, i) => {
-    const lang = escapeHtml(r.language || "Protocol");
-    const desc = escapeHtml(r.description || "一个小巧安静的实验车厢仓库。");
-    const code = `CARGO #${String(i + 1).padStart(2, "0")}`;
-    return `
-      <a class="luggage-tag" href="${r.html_url}" target="_blank" rel="noopener">
-        <div>
-          <div class="luggage-top mono">
-            <span class="luggage-serial">${code}</span>
-            <span class="sunset-text">↗</span>
-          </div>
-          <h4>${escapeHtml(r.name)}</h4>
-          <p>${desc}</p>
+  grid.innerHTML = list.slice(0, 9).map((r, i) => `
+    <a class="luggage-tag" href="${r.html_url}" target="_blank" rel="noopener">
+      <div>
+        <div class="luggage-top mono">
+          <span class="luggage-serial">CARGO #${String(i + 1).padStart(2, "0")}</span>
+          <span class="sunset-text">↗</span>
         </div>
-        <div class="luggage-foot mono">
-          <span>● ${lang}</span>
-          <span>★ ${r.stargazers_count || 0}</span>
-          <span>⑂ ${r.forks_count || 0}</span>
-        </div>
-      </a>`;
-  }).join("");
+        <h4>${escapeHtml(r.name)}</h4>
+        <p>${escapeHtml(r.description || "一个小巧安静的实验车厢仓库。")}</p>
+      </div>
+      <div class="luggage-foot mono">
+        <span>● ${escapeHtml(r.language || "Protocol")}</span>
+        <span>★ ${r.stargazers_count || 0}</span>
+        <span>⑂ ${r.forks_count || 0}</span>
+      </div>
+    </a>`).join("");
 }
 
 async function syncGitHub() {
@@ -578,20 +642,15 @@ async function syncGitHub() {
     const user = await uRes.json();
     const repos = await rRes.json();
 
-    const totalStars = repos.reduce((s, r) => s + (r.stargazers_count || 0), 0);
-    const totalForks = repos.reduce((s, r) => s + (r.forks_count || 0), 0);
-
-    document.getElementById("stat-stars").textContent = totalStars;
-    document.getElementById("stat-forks").textContent = totalForks;
+    document.getElementById("stat-stars").textContent = repos.reduce((s, r) => s + (r.stargazers_count || 0), 0);
+    document.getElementById("stat-forks").textContent = repos.reduce((s, r) => s + (r.forks_count || 0), 0);
     document.getElementById("stat-followers").textContent = user.followers ?? 55;
     document.getElementById("stat-repos").textContent = user.public_repos ?? repos.length;
 
     const byName = Object.fromEntries(repos.map((r) => [r.name, r]));
     document.querySelectorAll("[data-repo-metric]").forEach((el) => {
       const repo = byName[el.getAttribute("data-repo-metric")];
-      if (repo) {
-        el.textContent = `★ ${repo.stargazers_count} · ${repo.forks_count} forks`;
-      }
+      if (repo) el.textContent = `★ ${repo.stargazers_count} · ${repo.forks_count} forks`;
     });
 
     const owned = repos
@@ -615,7 +674,7 @@ function initRepoFilters() {
 }
 
 /* ==========================================================================
-   6. Car 06 Reading Salon Manuscripts + Live GitHub Issue Blog
+   6. Car 06 Manuscripts & Car 07 Paper Boats
    ========================================================================== */
 let notesList = [...FALLBACK_NOTES];
 
@@ -642,8 +701,7 @@ function renderNotes() {
 
 function openNoteModal(note) {
   const modal = document.getElementById("note-modal");
-  const content = document.getElementById("modal-body");
-  content.innerHTML = `
+  document.getElementById("modal-body").innerHTML = `
     <p class="mono" style="font-size:12px;margin-bottom:6px;"><span class="sunset-text"># ${escapeHtml(note.tag)}</span> · ${escapeHtml(note.date)}</p>
     <h2 class="serif-jp">${escapeHtml(note.title)}</h2>
     <div>${note.body}</div>
@@ -664,12 +722,11 @@ async function syncIssueNotes() {
     );
     if (authored.length) {
       const liveNotes = authored.map((it) => {
-        const cleanTitle = it.title.replace(/^\[?(随笔|blog)\]?\s*/i, "");
         const plain = (it.body || "").replace(/[#>*`]/g, "").trim();
         return {
           tag: "车窗随笔",
           date: (it.created_at || "").slice(0, 10).replace(/-/g, "."),
-          title: cleanTitle,
+          title: it.title.replace(/^\[?(随笔|blog)\]?\s*/i, ""),
           summary: plain.slice(0, 68) + (plain.length > 68 ? "…" : ""),
           body: simpleMarkdown(it.body || ""),
         };
@@ -680,12 +737,8 @@ async function syncIssueNotes() {
   } catch (_) {}
 }
 
-/* ==========================================================================
-   7. Car 07 Tail Wake — Shared Live Paper Boats Guestbook
-   ========================================================================== */
 function renderBoats(boats) {
-  const row = document.getElementById("boats-row");
-  row.innerHTML = boats.slice(0, 3).map((b) => `
+  document.getElementById("boats-row").innerHTML = boats.slice(0, 3).map((b) => `
     <div class="boat-item">
       <div class="boat-bubble">
         <div class="boat-user mono">
@@ -717,32 +770,19 @@ async function syncPaperBoats() {
       if (!/纸鹤|漂流瓶|纸船|🕊/.test(t)) continue;
       const lines = (item.body || "").split(/\r?\n/).map((s) => s.trim()).filter((s) => s && !s.startsWith(">") && !s.startsWith("写下一句"));
       const msg = (lines[0] || t.replace(/^[\s🕊️✉️🌊·:：-]+/, "") || "乘着晚霞路过此地～").slice(0, 34);
-      found.push({
-        user: item.user?.login || "traveler",
-        avatar: item.user?.avatar_url || "./assets/avatar.jpg",
-        msg,
-      });
+      found.push({ user: item.user?.login || "traveler", avatar: item.user?.avatar_url || "./assets/avatar.jpg", msg });
       if (found.length >= 3) break;
     }
-    if (found.length) {
-      renderBoats([...found, ...FALLBACK_BOATS].slice(0, 3));
-    }
+    if (found.length) renderBoats([...found, ...FALLBACK_BOATS].slice(0, 3));
   } catch (_) {}
 }
 
 function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 function simpleMarkdown(md) {
-  return escapeHtml(md)
-    .split(/\n{2,}/)
-    .map((block) => `<p>${block.replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\n/g, "<br/>")}</p>`)
-    .join("");
+  return escapeHtml(md).split(/\n{2,}/).map((b) => `<p>${b.replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\n/g, "<br/>")}</p>`).join("");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -754,27 +794,8 @@ document.addEventListener("DOMContentLoaded", () => {
   syncIssueNotes();
   syncPaperBoats();
   initTrainJourney();
-  initWindowTilt3D();
 
   const modal = document.getElementById("note-modal");
   document.getElementById("modal-close").addEventListener("click", () => modal.classList.remove("open"));
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) modal.classList.remove("open");
-  });
+  modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("open"); });
 });
-
-/* 8. 3D Gyroscopic Tilt on Train Observation Windows */
-function initWindowTilt3D() {
-  document.querySelectorAll(".obs-window, .windshield-frame").forEach((win) => {
-    win.style.transition = "transform 0.22s ease-out";
-    win.addEventListener("pointermove", (e) => {
-      const r = win.getBoundingClientRect();
-      const nx = (e.clientX - r.left) / r.width - 0.5;
-      const ny = (e.clientY - r.top) / r.height - 0.5;
-      win.style.transform = `perspective(900px) rotateY(${nx * 6.5}deg) rotateX(${-ny * 6.5}deg)`;
-    });
-    win.addEventListener("pointerleave", () => {
-      win.style.transform = "none";
-    });
-  });
-}
